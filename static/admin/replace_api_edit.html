@@ -1,0 +1,41 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig">
+	<tbody>
+		<tr class="tdbg">
+			<td width="120">&nbsp;</td>
+			<td style="color:red">注：当前仅支持json返回方式（市面上几乎都是json方式）</td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right"><font color="red">*</font>API名称：</td>
+		  <td class="tdbg"><input name="con[api_title]" type="text" class="input" value="{$api_title}" style="width:150px"> <span>起个名字</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right"><font color="red">*</font>API地址：</td>
+		  <td class="tdbg"><input name="con[api_url]" type="text" class="input" value="{$api_url}" style="width:450px"> <span>API地址</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right"><font color="red">*</font>post格式：</td>
+		  <td class="tdbg"><input name="con[api_postkey]" type="text" class="input" value="{$api_postkey}" style="width:450px"> <br><span>post格式，<font color="red"><font>{</font>word}</font>表示要伪原创的内容，如：<font color="blue">appkey=123456&content=<font color="red"><font>{</font>word}</font></font></span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right">Authorization：</td>
+		  <td class="tdbg"><input name="con[api_authorization]" type="text" class="input" value="{$api_authorization}" style="width:150px"> <span>个别接口需要设置这个，如5118这里就放apikey</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right">成功标志：</td>
+		  <td class="tdbg"><input name="con[api_field_ok]" type="text" class="input" value="{$api_field_ok}" style="width:150px"> <span>格式：键名=键值，如：result=1，没有则留空</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right">返回错误的字段：</td>
+		  <td class="tdbg"><input name="con[api_field_error]" type="text" class="input" value="{$api_field_error}" style="width:80px"> <span>返回具体错误的字段，如：message</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right"><font color="red">*</font>伪原创后的内容字段：</td>
+		  <td class="tdbg"><input name="con[api_field_content]" type="text" class="input" value="{$api_field_content}" style="width:80px"> <span>返回伪原创后的内容字段，如：content</span></td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

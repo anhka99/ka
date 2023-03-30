@@ -1,0 +1,25 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">泛域名城市标签</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips">
+	<p><i class="typcn typcn-warning" style="font-size:20px;"></i>本功能用于自定义泛域名前缀的城市标签，可实现城市站群，即：域名前缀为beijing时（如：beijing.a.com），对应的标签<code>{<x>$city}</code>调用出来的就是北京</p>
+	<p style="color:green">· 提示：城市名调用的标签为： <code>{<x>$city}</code>，可用于后台的TKD模板、自定义tkd以及前台模板文件调用。</p>
+	<p style="color:blue">· 如果你的网站分组开启了“屏蔽非自定义泛前缀访问”，则需要启用城市泛域名（编辑网站分组，站点模式里开启）。</p>
+	<p>· 格式（每行一条）：泛域名前缀----城市名称</p>
+</div>
+<form method="post" action="?admin-city-update">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr class="tdbg">
+  <td><textarea name="list" type="text" style="height:350px;width:98%;">{$list}</textarea></td>
+</tr>
+<tr>
+	<td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+</tr>
+</table>
+</form>
+{include file="footer.html"}
+</body>
+</html>

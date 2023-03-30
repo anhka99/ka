@@ -1,0 +1,44 @@
+<div class="sidebar">
+		<div class="widget widget_ui_posts">
+			<h3>站长推荐</h3>
+			<ul class="nopic">
+		{loop type="arclist" row="5" tpl="show"}		
+				<li><a target="_blank" href="{$vo.url}">
+				<span class="text">{$vo.title}</span>
+				<span class="muted">{$vo.postdate}</span></a>
+				</li>
+		{/loop}
+	</ul>
+</div>
+<div class="widget widget_ui_posts">
+	<h3>最新发布</h3>
+	<ul>
+		{loop type="arclist" row='5' tpl='show'}
+		<li>
+			<a target="_blank" href="{$vo.url}"><span class="thumbnail"><img data-src="{$vo.pic}" alt="{$vo.title}" src="{$vo.pic}" class="thumb"></span>
+			<span class="text">{$vo.title}</span><span class="muted">{$vo.postdate}</span></a>
+		</li>
+		{/loop}
+	</ul>
+</div>
+<div class="widget widget_ui_tags">
+	<h3>分城市</h3>
+	<div class="items">
+		{loop type="city" row="15"}
+			<a href="{$vo.url}">{$vo.title}</a>
+		{/loop}
+		
+		</div>
+	</div>
+<div class="widget widget_ui_posts">
+			<h3>友情链接</h3>
+			<ul class="nopic">
+			 {loop type="domain"}<li><a href="{$vo.url}" target="_blank"><span class="text">{$vo.title}</span></a></li>{/loop}
+	
+   {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+   <li><a href="{$vo.url}" target="_blank"><span class="text">{$vo.title}</span></a></li>
+   {/loop}
+	</ul>
+</div>
+	</div>

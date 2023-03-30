@@ -1,0 +1,104 @@
+
+	<div class="sidebar">
+		<div class="sidebar-inner">
+			<dl class="function" id="YXZZ">
+				<dt class="function_t">优秀作者推荐</dt>
+				<dd class="function_c">
+				<div>
+					{loop type="arclist" row="6"}
+					<div class="author-tuijian">
+						<div class="author-img">
+							<a href="{$vo.url}"><img src="{$vo.pic}" border="0"/></a>
+						</div>
+						<div class="author-name-tuijian">
+							<a href="{$vo.url}">{$vo.title}</a>
+						</div>
+					</div>
+					{/loop}
+				</div>
+				</dd>
+			</dl>
+			<dl class="function" id="LuSongSong_hotmonth">
+				<dt class="function_t">7天热门</dt>
+				<dd class="function_c">
+				<ul>
+					{loop type="arclist" row="10"}
+					<li><a href="{$vo.url}">{$vo.title}</a></li>
+					{/loop}
+				</ul>
+				</dd>
+			</dl>
+			<dl class="function" id="kandydigguplog">
+				<dt class="function_t">点赞最多</dt>
+				<dd class="function_c">
+				<ul>
+					
+					{loop type="arclist" row="5"}
+					<li><a href="{$vo.url}">{$vo.title} <span class="kandyDiggUp">{$vo.hits}</span></a></li>
+					{/loop}
+				</ul>
+				</dd>
+			</dl>
+			<dl class="function" id="divLinkage">
+				<dt class="function_t">友情链接</dt>
+				<dd class="function_c">
+				<ul>
+					{loop type="domain"}<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>{/loop}
+					
+					   {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+					   <li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+					   {/loop}
+				</ul>
+				</dd>
+			</dl>
+			<div id="box" class="sjwu1">
+				<div id="float" class="div1">
+					<dl class="function" id="divPrevious">
+						<dt class="function_t">最新文章</dt>
+						<dd class="function_c">
+						<ul>
+							{loop type="arclist" row="5"}
+							<li><a href="{$vo.url}">{$vo.title}</a></li>
+							{/loop}
+						</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<script type="text/javascript">
+                //侧栏跟随   
+                (function () {
+                    var oDiv = document.getElementById("float");
+                    var H = 0,
+                        iE6;
+                    var Y = oDiv;
+                    while (Y) {
+                        H += Y.offsetTop;
+                        Y = Y.offsetParent
+                    };
+                    iE6 = window.ActiveXObject && !window.XMLHttpRequest;
+                    if (!iE6) {
+                        window.onscroll = function () {
+                            var s = document.body.scrollTop || document.documentElement.scrollTop;
+                            if (s > H) {
+                                oDiv.className = "div1 div2";
+                                if (iE6) {
+                                    oDiv.style.top = (s - H) + "px";
+                                }
+                            } else {
+                                oDiv.className = "div1";
+                            }
+                        };
+                    }
+                })();
+            </script>
+		</div>
+	</div>
+	<div class="footer">
+		 <p >Copyright &copy; {date('Y')} Powered by <a href="{$thisurl}">{$title}</a>,<a href="{$web_url}">{$web_name}</a>&nbsp;&nbsp;{$web_tongji} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if}</p>
+	 <p ><a href="http://{$host}/sitemap.xml">sitemap</a></p>
+	</div>
+	
+{$web_share} 
+{$web_bdpush}

@@ -1,0 +1,26 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{loop type="arclist" row=50}
+<url>
+<loc>{$vo.url}</loc>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>1.0</priority>
+</url>
+{/loop}
+{loop type="catelog" row=50}
+<url>
+<loc>{$vo.typeurl}</loc>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>1.0</priority>
+</url>
+{/loop}
+{loop type="arclist" row=50}
+<url>
+<loc>{$vo.url}</loc>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>1.0</priority>
+</url>
+{/loop}
+</urlset>

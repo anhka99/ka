@@ -1,0 +1,79 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">蜘蛛设置</a></li>
+</ul>
+<style type="text/css">
+.boxlist dl{ width:170px;}
+.boxlist dl.must {border-color: #ff6600;background-color: #fff9f0;}
+</style>
+<form action="?admin-robot-update-utype-redirect" method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 基本设置</td>
+	<td></td>
+</tr>
+<tr>
+	<td width="120" align="right" class="config_td_first">蜘蛛访问记录开关：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[web_robot_log]" value="1" {if $web_robot_log} checked{/if}>开启</label>
+	<label><input type="radio" name="con[web_robot_log]" value="0" {if !$web_robot_log} checked{/if}>关闭</label>
+	</td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">访问css、js、图片的蜘蛛：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[robot_pic]" value="0" {if !$robot_pic} checked{/if}>不处理</label>
+	<label><input type="radio" name="con[robot_pic]" value="1" {if $robot_pic==1} checked{/if}>不记录</label>
+	<label><input type="radio" name="con[robot_pic]" value="2" {if $robot_pic==2} checked{/if}>直接屏蔽</label>
+	</td>
+</tr>
+<tr class="tdbg">
+  <td>&nbsp;</td>
+  <td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+</tr>
+<tr class="item_title">
+	<td colspan="2"><i class="typcn typcn-cog"></i>蜘蛛IP配置（一个蜘蛛一个配置）</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<div class="divtips"><i class="typcn typcn-warning"></i><b>功能说明：</b>一般是通过UA进行识别蜘蛛，这里设置IP可识别真假蜘蛛！至于蜘蛛的真实IP，大家可以去收集！参考文章《<a href="https://www.xxfseo.com/spider/127.html" target="_blank">识别百度假蜘蛛IP</a>》</div>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	<div class="boxlist">
+	{foreach $list as $k=>$vo}
+	<dl {if $vo.must}class="must"{/if}>
+        <dt>
+			<p class="title">{$vo.name}</p>
+			<p>蜘蛛识别依据：{$vo.checktype}</p>
+			<p>屏蔽假蜘蛛：{if $vo.robotip_ban}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>蜘蛛IP规则：{$vo.robotip_num} 个</p>
+		</dt>
+        <dd>
+			{if $vo.isset}
+			<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.key}','{$vo.name}');">修改配置</a>
+			{else}
+			<a class="button button_small button_inverse" href="javascript:" onclick="edit('{$vo.key}','{$vo.name}');">未设置</a>
+			{/if}
+		</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(key,typename){
+	edit_dialog({
+		title:'蜘蛛IP配置【'+typename+'】',
+		url:'?admin-robot-ip_edit-key-'+key,
+		posturl:'?admin-robot-ip_update',
+		width:680,
+		height:500
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

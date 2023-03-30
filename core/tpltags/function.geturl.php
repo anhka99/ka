@@ -1,0 +1,3 @@
+<?php 
+/* ÉÌÒµÈí¼þ½ûÖ¹·´±àÒë£¬by Ð¡Ðý·çseo ÍøÖ·£ºxxfseo.com */
+defined('APP_ROOT') or exit("access denied"); $»·çG['è¸Ö²­Û']=éîË­Ã¼¹Ì¸(0x4,éîË­Ã¼¹Ì¸(0x5,'LGb1BagcBwN7nGbjB2x6ZGgvBwN7nGblB3Z6ZmN6VaV2BKOhoaV2BUN4A3V1oaV5oaV2owuhZKV2BKSiplV7nGbmB3Z6BQbvAaN2BGpmAmDvB2x6AQgmBwR0BvV2AmL1AmD1pmp1AmV2pPV7sD==')); function tag_function_geturl($¸è´Å˜á){global $»·çG;$¨èÀ×Óœ¼í=$¸è´Å˜á[éîË­Ã¼¹Ì¸(0x2,'è¸Ö²­Û',0x0)]; if(empty($¨èÀ×Óœ¼í)){return éîË­Ã¼¹Ì¸(0x2,'è¸Ö²­Û',0x1); } if(!isset($¨èÀ×Óœ¼í['tpl'])){echo éîË­Ã¼¹Ì¸(0x2,'è¸Ö²­Û',0x2); return; } !$¨èÀ×Óœ¼í['tpl'] && $¨èÀ×Óœ¼í['tpl']=éîË­Ã¼¹Ì¸(0x2,'è¸Ö²­Û',0x3); return $»·çG['è¸Ö²­Û'][0x4]($¨èÀ×Óœ¼í['tpl'],$¨èÀ×Óœ¼í['fan']); } ?>

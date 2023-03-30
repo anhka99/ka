@@ -1,0 +1,37 @@
+{include file="header.html"}
+<div class="divtips">
+	<p>提示：仅预览前100条，仅显示文章标题等基本信息，内容不提供预览，缩略图、描述、附加数据在导入时自动在内容中提取生成！</p>
+	<p>信息文件：<u>{$file}</u></p>
+	<p>内容文件：<u>{$bodyfile|default:'无'}</u></p>
+</div>
+<div style="max-height:400px;overflow:auto;background:#eee;">
+	<table border="0" align="center" cellpadding="3" cellspacing="0" class="table_b">
+		<tr>
+		  <td class="title_bg">序号</td>
+		  <td class="title_bg">标题</td>
+		  <td width="60" align='center' class="title_bg">描述</td>
+		  <td width="80" align='center' class="title_bg">缩略图</td>
+		  <td width="60" align='center' class="title_bg">附加数据</td>
+		</tr>
+	{foreach $list as $k=>$vo}
+		<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+		  <td align='center'>{$k+1}</td>
+		  <td>&nbsp;&nbsp;{$vo.title}</td>
+		  <td align='center'>{if $vo.description}有{else}<font color="red">无</font>{/if}</td>
+		  <td align='center'>{if $vo.litpic}<a href="{$vo.litpic}" target="_blank" title="点击在新窗口打开"><img class="preview_src" src="static/images/pic.png" _src="{$vo.litpic}" height="30" />{else}<font color="red">无</font>{/if}</td>
+		  <td align='center'>{if $vo.add_data}有{else}<font color="">无</font>{/if}</td>
+		</tr>
+	{foreachelse}
+		<tr bgcolor='#ffffff'>
+			<td colspan='5' height="25" align="center">暂无文档！</td>
+		</tr>
+	{/foreach}
+		</table>
+</div>
+<script type="text/javascript">
+setTimeout(function(){
+	$('.preview_src').each(function(n){
+		$(this).attr('src',$(this).attr('_src'));
+	});
+},200);
+</script>

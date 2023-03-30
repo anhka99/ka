@@ -1,0 +1,9 @@
+#如果用的是宝塔面板设置伪静态，则去掉 第一行 的 location / { 和最后一行的 }
+location / {
+  rewrite ^/template/(.*)\.html$ /index.php last;
+  rewrite ^/temp/(data|db|robotlog|tplrules|errpage|logs|session)/(.*)$ /index.php last;
+  rewrite ^/(temp|template|core|static)/(.*)\.php$ /index.php last;
+  if (!-e $request_filename){
+    rewrite ^/(.*)$ /index.php?$1 last;
+  }
+}

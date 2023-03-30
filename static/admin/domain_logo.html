@@ -1,0 +1,28 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">自定义网站logo</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips"><b>功能说明：</b>可自定义指定域名logo地址，<b>logo图片文件请先上传到网站目录下，路径随意！</b>logo模板调用标签 <code>&#123;logo width="长度(选填)"/}</code></div>
+<form method="post" action="?admin-domain-update_logo">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig" id="config0">
+<tr>
+	<td>
+		<font style="line-height:25px;">
+			<p>每行一个域名的设置，格式：<font color="#cc0000">域名----logo路径</font>，例子：<font color="#cc0000">seo.com----/uploads/logo/seo.jpg</font></p>
+			<p><b>支持泛域名</b>，格式： <font color="#cc0000">*.seo.com</font>，<b>泛域名的设置不包括根域名</b></p>
+		</font>
+	</td>
+</tr>
+<tr class="tdbg">
+  <td><textarea name="list" type="text" style="height:350px;width:98%;">{$list}</textarea></td>
+</tr>
+<tr>
+	<td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+</tr>
+</table>
+</form>
+{include file="footer.html"}
+</body>
+</html>

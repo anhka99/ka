@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="cache-control" content="no-siteapp">
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+<meta name='robots' content='max-image-preview:large' />
+{include file="styles.html"}
+</head>
+<body class="home blog home-content searchon m-nav-full catpage-catstep">
+{include file="header.html"}
+<div class="glide homeslide">
+		    <div class="glide__wrapper">
+		        <ul class="glide__track">
+					<li class="glide__slide"><img src="{$theme_path}/themes/img/bg.jpg"></li></ul>
+		    </div>
+		    <div class="glide__bullets"></div>
+		</div>
+<div class="container">
+	
+	<div class="cms-lists cms-lists-thumb-top cms-lists-title-lines-2 cms-lists-desc-lines-4 has-tags">
+		<header><h3>最新商品</h3></header>
+		<div class="cms-lists-content">
+			<ul>
+			{loop type="arclist" row="10" ename="goods" tpl="goods"}
+				<li>
+					<a href="{$vo.url}" class="thumbnail"><img src="{$vo.pic}" alt="{$vo.title}" class="thumb"/></a>
+					<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+					<footer><span class="price">￥{$vo.add_data.price}</span></footer>
+				</li>
+			{/loop}
+			</ul>
+		</div>
+	</div>	
+	<!--  -->
+	<div class="cms-lists cms-lists-thumb-left cms-lists-title-lines-2 cms-lists-desc-lines-4 has-tags">
+		<header><h3>热门资讯</h3></header>
+		<div class="cms-lists-content"><ul>
+		{loop type="arclist" row="12"}
+				<li>
+					<a href="{$vo.url}" class="thumbnail"><img src="{$vo.pic}" alt="{$vo.title}" class="thumb" style="display: inline;height:60px;"/></a>
+					<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+				</li>
+			{/loop}
+	</ul></div>
+	</div>	
+	<div class="cms-lists cms-lists-thumb-top cms-lists-title-lines-2 cms-lists-desc-lines-4 has-tags">
+		<header><h3>热门商品</h3></header>
+		<div class="cms-lists-content">
+			<ul>
+			{loop type="arclist" row="10" ename="goods" tpl="goods"}
+				<li>
+					<a href="{$vo.url}" class="thumbnail"><img src="{$vo.pic}" alt="{$vo.title}" class="thumb"/></a>
+					<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+					<footer><span class="price">￥{$vo.add_data.price}</span></footer>
+				</li>
+			{/loop}
+			</ul>
+		</div>
+	</div>	
+</div>
+{include file="footer.html"}
+</body>
+</html>

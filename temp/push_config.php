@@ -1,0 +1,27 @@
+<?php
+return array (
+  'push_configfile_bddaily' => '',
+  'push_configfile_mip' => '',
+  'push_configfile_smmip' => '',
+  'push_configfile_yd' => '',
+  'push_configfile_zz' => '/temp/data/push_config/zz.txt',
+  'push_configtype_bddaily' => '1',
+  'push_configtype_mip' => '1',
+  'push_configtype_smmip' => '1',
+  'push_configtype_yd' => '1',
+  'push_configtype_zz' => '1',
+  'push_interval' => '60',
+  'push_num' => '500',
+  'push_num_bddaily' => '',
+  'push_num_mip' => '',
+  'push_num_smmip' => '',
+  'push_num_yd' => '',
+  'push_num_zz' => '100',
+  'push_open' => '0',
+  'token_list_bddaily' => '',
+  'token_list_mip' => '',
+  'token_list_smmip' => '',
+  'token_list_yd' => '',
+  'token_list_zz' => '',
+);
+?>

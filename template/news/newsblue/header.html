@@ -1,0 +1,60 @@
+<!--topbar Start -->
+<div id="topbar">
+    <div id="wrap">
+		<div class="topbarleft">
+
+			<a href="/" target="_blank">{$web_name}</a>
+			 {loop type="catelog" row="1"}
+			<a href="{$vo.typeurl}" target="_blank" rel="nofollow">{$vo.typename}</a>
+			 {/loop}
+		</div>
+		<div class="fr">
+			<ul>
+				 {loop type="catelog" row="3"}
+				<li><i class="ico-mobile"></i><a target="_blank" href="{$vo.typeurl}" rel="nofollow">{$vo.typename}</a></li>
+
+				 {/loop}
+				
+			</ul>
+			<!--快捷导航 开始 -->
+			<div class="text_d right" id="navHide">
+				<a rel="nofollow" href="javascript:void(0);">快捷导航 <i class="arrowright"></i></a>
+				<div id="navBox" class="nwebnav">
+ {loop type="catelog" row="8"}
+					<div class="ndeallist clear_fix">
+						<h4><a rel="nofollow" href="{$vo.typeurl}" target="_blank">{$vo.typename}</a></h4>
+						<dl>
+							<dd>
+								 {loop type="catelog" row="5"}
+								<a rel="nofollow" href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+								 {/loop}
+								
+							</dd>
+						</dl>
+					</div>
+ {/loop}
+
+				</div>
+			</div>
+			<!--快捷导航 结束 -->
+		</div>
+    </div>
+</div>
+<!--topbar end -->
+<div id="header">
+	<!-- Logo start -->
+	  <div id="logo"><a href="/"><img src="{logo width='250'/}" title="{$web_name}" alt="{$web_name}" /></a></div>
+	  <div class="logom fl"><span id="logo_m" class="jbTestPos"></span></div>
+	  <div class="logor fr"><span id="logo_r" class="jbTestPos"></span></div>
+	<!--Logo end -->
+</div>	
+
+<div id="nav">
+	<ul>
+		<li><a href="/">网站首页</a></li>
+		 {menu row="8"}
+		<li><a href="{$vo.typeurl}">{$vo.typename}</a></li>
+			 {/menu}
+	
+	</ul>
+</div>

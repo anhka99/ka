@@ -1,0 +1,21 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">自定义备案号</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips"><i class="typcn typcn-warning"></i>注：如果模板没有写这个标签，需要在前台模板文件中加入，标签为: <code>&#123;$web_beian}</code>！！</div>
+<form method="post" action="?admin-domain-update_beian">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig" id="config0">
+
+<tr class="tdbg">
+  <td><p>每行为一个域名的设置，格式：<font color="#cc0000">域名----备案号</font>，例子：<font color="#cc0000">seo.com----辽ICP备12345678号</font></p><textarea name="list" type="text" style="height:350px;width:98%;">{$list}</textarea></td>
+</tr>
+<tr>
+	<td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+</tr>
+</table>
+</form>
+{include file="footer.html"}
+</body>
+</html>

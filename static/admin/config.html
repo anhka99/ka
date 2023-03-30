@@ -1,0 +1,345 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)" tab='config0'>基本设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config1',this)" tab='config1'>页面设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config2',this)" tab='config2'><font color="red">后台安全设置</font></a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config4',this)" tab='config4'>redis设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config3',this)" tab='config3'>其他设置</a></li>
+</ul>
+<div id="admin_right_b">
+<form method="post" action="{url('admin/config/update')}" enctype="multipart/form-data">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config4" class="tableConfig" style="display:none">
+	<tr class="tdbg item_title">
+		<td align="right" width="120"><i class="typcn typcn-cog"></i> Redis设置</td>
+		<td><font style="font-weight: 500;color:blue"></font></td>
+	</tr>
+	<tr class="tdbg">
+      <td colspan="2"><div class="divtips">1. 使用redis缓存可减少硬盘IO，提高系统负载性能！一般建议使用！点击查看《<a href="https://www.xxfseo.com/fuwuqi/redis.html" target="_blank">安装redis和开启redis扩展教程</a>》<br>2. 某些设置修改之后需要几分钟时间后前台才能生效。如需要即时生效，请清空redis缓存。<br><b>3. 如果你的内容库文件大小比内存还大，请不要开启！</b></div></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">扩展检测：</td>
+      <td>{if extension_loaded('redis')}<font color="green">已安装redis扩展，点击下方获取信息看是否安装redis</font>{else}<font color="red">php未开启redis扩展，请先安装</font>{/if}</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis缓存开关：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[redis_open]" value="1"{if $redis_open} checked{/if}>开启</label>
+			<label><input type="radio" name="con[redis_open]" value="0"{if !$redis_open} checked{/if}>关闭</label>
+			 <span class="tips">是否启用redis缓存？</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis主机地址：</td>
+      <td class="tdbg"><input name="con[redis_host]" type="text" class="input" value="{$redis_host}" size="30"> 
+	  <span>redis主机地址，默认是127.0.0.1</span>
+	  </td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis密码：</td>
+      <td class="tdbg"><input name="con[redis_password]" type="text" class="input" value="{$redis_password}" size="20"> 
+	  <span>redis密码，<font color="red">一般不用设置</font></span>
+	  </td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis端口：</td>
+      <td class="tdbg"><input name="con[redis_port]" type="text" class="input" value="{$redis_port}" size="10"> 
+	  <span>redis端口，默认是6379</span>
+	  </td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis键值前缀：</td>
+      <td class="tdbg"><input name="con[redis_prefix]" type="text" class="input" value="{$redis_prefix}" size="10"> 
+	  <span>填字母和数字，<font color="red">一般不用设置，与其他程序（如：泛目录）同时开启redis时需设置此项</font></span>
+	  </td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">Redis持久连接：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[redis_persistent]" value="1"{if $redis_persistent} checked{/if}>是</label>
+			<label><input type="radio" name="con[redis_persistent]" value="0"{if !$redis_persistent} checked{/if}>否</label>
+			 <span class="tips">是否启用redis持久连接？一般选是</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">当前Redis信息：</td>
+      <td><a href="javascript:" onclick="get_redis();" id="get_redis"><font color="blue">点击获取Redis信息</font></a></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">清空Redis缓存：</td>
+      <td><a href="javascript:" onclick="clear_redis();" id="clear_redis"><font color="blue">点击清空Redis缓存</font></a></td>
+    </tr>
+</table>
+<script type="text/javascript">
+function get_redis(){
+	$('#get_redis').html("<img src='static/images/load_blue.gif'>");
+	$.ajax({
+	   type: "GET",
+	   url: "?admin-config-get_redis",
+	   dataType: "json",
+	   success: function(a){
+		   if(a.status==1){
+				$('#get_redis').html(a.info);
+		   }else{
+				$('#get_redis').html("<font color='red'>"+a.info+"</font>");
+		   }
+	   },
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			$('#get_redis').html(XMLHttpRequest.responseText);
+		}
+	});
+}
+function clear_redis(){
+	$('#clear_redis').html("<img src='static/images/load_blue.gif'>");
+	$.ajax({
+	   type: "GET",
+	   url: "?admin-config-clear_redis",
+	   dataType: "json",
+	   success: function(a){
+		   if(a.status==1){
+				$('#clear_redis').html("<font color='green'>"+a.info+"</font>");
+		   }else{
+				$('#clear_redis').html("<font color='red'>"+a.info+"</font>");
+		   }
+	   }
+	});
+}
+</script>
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config0" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td align="right"><i class="typcn typcn-cog"></i> 基本设置</td>
+		<td></td>
+	</tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">蜘蛛池状态：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[web_open]" value="1"{if $web_open} checked{/if}>开启</label>
+			<label><input type="radio" name="con[web_open]" value="0"{if !$web_open} checked{/if}>停止</label>
+			 <span class="tips"></span>
+		</td>
+    </tr>
+	
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">禁止IP地址直接访问：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[web_ip_ban]" value="1"{if $web_ip_ban} checked{/if}>是</label>
+			<label><input type="radio" name="con[web_ip_ban]" value="0"{if !$web_ip_ban} checked{/if}>否</label>
+			 <span class="tips">禁止使用服务器IP地址直接访问网站前台</span>
+			</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">屏蔽外部域名：</td>
+		<td class="icheck_radios"><label><input type="radio" name="con[web_limit_domain_type]" value="301" {if $web_limit_domain_type==301} checked{/if}>随机重定向到现有域名</label>
+				<label><input type="radio" name="con[web_limit_domain_type]" value="maps" {if $web_limit_domain_type=='maps'} checked{/if}>显示站点轮链（模板在template/maps.html）</label>
+				<label><input type="radio" name="con[web_limit_domain_type]" value="401" {if $web_limit_domain_type==401} checked{/if}>401屏蔽</label>
+				<label><input type="radio" name="con[web_limit_domain_type]" value="" {if $web_limit_domain_type==''} checked{/if}>显示404</label>
+				<span class="tips">（如何处理非本站添加的域名！）</span>
+			</td>
+    </tr>
+
+	<tr class="tdbg item_title">
+		<td align="right"><i class="typcn typcn-cog"></i> 部分全局设置</td>
+		<td>（<font style="color:red;font-weight:500">网站分组可单独设置</font>）</td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">全局</font>屏蔽终端访问：</td>
+      <td class="icheck_radios">
+			<label><input type="radio" name="con[web_user_ban]" value="0" {if !$web_user_ban} checked{/if}>关闭屏蔽</label>
+			<label><input type="radio" name="con[web_user_ban]" value="1"{if $web_user_ban=='1'} checked{/if}>PC端屏蔽</label>
+			<label><input type="radio" name="con[web_user_ban]" value="2"{if $web_user_ban=='2'} checked{/if}>移动端屏蔽</label>
+			<label><input type="radio" name="con[web_user_ban]" value="4"{if $web_user_ban=='4'} checked{/if}>全部屏蔽</label>
+			 <span class="tips">蜘蛛不限制</span>
+			</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">全局</font>游客访问跳转：</td>
+      <td class="icheck_radios">
+			<label><input type="radio" name="con[web_user_jump]" value="0"{if !$web_user_jump} checked{/if}>关闭跳转</label>
+			<label><input type="radio" name="con[web_user_jump]" value="1"{if $web_user_jump=='1'} checked{/if}>PC端跳转</label>
+			<label><input type="radio" name="con[web_user_jump]" value="2"{if $web_user_jump=='2'} checked{/if}>移动端跳转</label>
+			<label><input type="radio" name="con[web_user_jump]" value="4"{if $web_user_jump=='4'} checked{/if}>全部跳转</label>
+			 <span class="tips">非蜘蛛用户访问后自动跳转到指定地址</span>
+			</td>
+    </tr>
+
+    <tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="red">全局</font>游客跳转地址（<font color="red">PC端</font>）：</td>
+      <td class="tdbg"><input name="con[web_jumpurl_pc]" type="text" class="input" value="{$web_jumpurl_pc|default:'http://'}" size="60"></td>
+    </tr>
+	<tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="red">全局</font>游客跳转地址（<font color="red">移动端</font>）：</td>
+      <td class="tdbg"><input name="con[web_jumpurl_m]" type="text" class="input" value="{$web_jumpurl_m|default:'http://'}" size="60"></td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">全局</font>流量统计代码：</td>
+      <td><textarea name="con[web_tongji]"  rows="3"  class="inputs" style="width:450px;">{$web_tongji}</textarea></td>
+    </tr>
+
+</table>
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config1" style="display:none" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 页面设置</td>
+		<td></td>
+	</tr>
+	<!-- <tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="blue">忽略URL问号参数</font>：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[web_noquery]" value="1"{if $web_noquery} checked{/if}>开启</label>
+			<label><input type="radio" name="con[web_noquery]" value="0"{if !$web_noquery} checked{/if}>关闭</label>　<span>建议开启，影响页面缓存和内容</span></td>
+    </tr> -->
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">调试模式：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[web_debug]" value="1"{if $web_debug} checked{/if}>开启</label>
+			<label><input type="radio" name="con[web_debug]" value="0"{if !$web_debug} checked{/if}>关闭</label>　<span>开启将关闭缓存以及输出php错误</span></td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 错误页设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">网站关闭页：<br><font color="blue">( 蜘蛛池状态停止时显示 )</font></td>
+     <td><textarea name="errpages[webclose]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages.webclose}</textarea></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">网站404页：<br><font color="blue">( 404错误时显示 )</font></td>
+     <td><textarea name="errpages[404]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages[404]}</textarea></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">游客屏蔽页（<font color="red">PC端</font>）：<br><font color="blue">( 屏蔽游客时显示 )</font></td>
+     <td><textarea name="errpages[userban_pc]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages.userban_pc}</textarea></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">游客屏蔽页（<font color="red">移动端</font>）：<br><font color="blue">( 屏蔽游客时显示 )</font></td>
+     <td><textarea name="errpages[userban_m]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages.userban_m}</textarea></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">外部域名屏蔽页：<br><font color="blue">( 外部域名屏蔽时显示 )</font></td>
+     <td><textarea name="errpages[domainban]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages.domainban}</textarea></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">域名前缀屏蔽页：<br><font color="blue">( 域名前缀屏蔽时显示 )</font></td>
+     <td><textarea name="errpages[prefixban]" class="inputs" style="width:550px;padding:1px;height:200px">{$errpages.prefixban}</textarea></td>
+    </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config2" style="display:none" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 后台安全设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">后台登录验证码：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[admin_login_vcode]" value="1"{if $admin_login_vcode=='1' || $admin_login_vcode==''} checked{/if}>开启</label>
+			<label><input type="radio" name="con[admin_login_vcode]" value="0"{if $admin_login_vcode=='0'} checked{/if}>关闭</label>　<span>后台登录是否启用验证码？</span></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">记录后台操作IP：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[aclogs_ip]" value="1"{if $aclogs_ip} checked{/if}>开启</label>
+			<label><input type="radio" name="con[aclogs_ip]" value="0"{if !$aclogs_ip} checked{/if}>关闭</label>　<span>后台操作日志是否记录IP</span></td>
+    </tr>
+	<tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="blue">登录安全码</font>：</td>
+      <td class="tdbg"><input name="con[admin_safecode]" type="password" class="input" value="{$admin_safecode}" size="8"> 
+	  <span style="color:red">设置后，后台登录必须输入安全码</span>
+	  </td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 后台限制指定域名登录</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="right">后台域名限制开关：</td>
+		<td class="icheck_radios">
+			<label><input type="radio" name="con[admin_dmlimit]" value="1"{if $admin_dmlimit} checked{/if}>开启</label>
+			<label><input type="radio" name="con[admin_dmlimit]" value="0"{if !$admin_dmlimit} checked{/if}>关闭</label>
+			<span style="color:red">非指定的域名将会被禁止登录后台</span>
+		</td>
+	</tr>
+	<tr class="list">
+	  <td align="right">
+		每行一个域名<br>不包含任何符号<br><br>
+		如：<font color='red'>bbs.com</font></td>
+	  <td><textarea name="con[admin_dmlimit_list]" type="text" style="height:150px;width:400px;">{$admin_dmlimit_list}</textarea></td>
+	</tr>
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 后台限制指定IP登录</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="right">后台IP限制开关：</td>
+		<td class="icheck_radios">
+			<label><input type="radio" name="con[admin_iplimit]" value="1"{if $admin_iplimit} checked{/if}>开启</label>
+			<label><input type="radio" name="con[admin_iplimit]" value="0"{if !$admin_iplimit} checked{/if}>关闭</label>
+			<span style="color:red">非指定的IP范围将会被禁止登录后台</span>
+		</td>
+	</tr>
+	<tr class="list">
+	  <td align="right">
+		每行一个IP地址/(C段)<br>可使用星号通配符<font color=red>*</font><br><br>
+		支持的格式如下：<br><br>
+		<font>192.168.1.100<br>
+		192.168.<font color='red'>*</font>.100<br>
+		192.168.1.1<font color='red'>~</font>192.168.1.100</font></td>
+	  <td><textarea name="con[admin_iplimit_list]" type="text" style="height:150px;width:400px;">{$admin_iplimit_list}</textarea></td>
+	</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config3" style="display:none" class="tableConfig">
+	
+	<tr class="tdbg item_title">
+		<td width="120" align="right"><i class="typcn typcn-cog"></i> 中文快捷标签性能设置</td>
+		<td><font class="red" style="font-weight:500;">（如果模板中没有调用那么多的，请根据情况调小数量，以提升性能，全局固定是同域名不变，固定是同页面不变</font></td>
+	</tr><!-- 
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><b>固定句子</b>标签：</td>
+      <td class="tdbg"><input name="con[zhtagnum_content]" type="text" class="input" value="{$zhtagnum_content|default:'100'}" size="7"> 个</td>
+    </tr> -->
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><b>固定关键词</b>标签：</td>
+      <td class="tdbg"><input name="con[zhtagnum_keywords]" type="text" class="input" value="{$zhtagnum_keywords|default:'100'}" size="7"> 个</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><b>固定顶级域名</b>标签：</td>
+      <td class="tdbg"><input name="con[zhtagnum_domain]" type="text" class="input" value="{$zhtagnum_domain|default:'100'}" size="7"> 个</td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td width="120" align="right"><i class="typcn typcn-cog"></i> 其他设置</td>
+		<td></td>
+	</tr><!-- 
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">文件缓存目录层级：</td>
+      <td class="tdbg"><input name="con[html_cache_hashdir_level]" type="text" class="input" value="{$html_cache_hashdir_level|default:'2'}" size="7"> 层，页面缓存的文件夹层级，一般2~4层</td>
+    </tr> -->
+	<tr class="list">
+	  <td align="right">
+		<b>附加域名后缀：</b><br><br>
+		格式如下：<br>
+		<font>com<br>
+		cn<br>
+		net</td>
+	  <td>
+	  <p class="divtips">一行填写一个，一般不用填写，系统自带了200多个域名后缀！<br>如果发生后缀导致的错误（如手机版无限跳转），请在这里添加后缀</p>
+	  <textarea name="con[domain_suffixs_add]" type="text" style="height:150px;width:350px;">{$domain_suffixs_add}</textarea></td>
+	</tr>
+</table>
+	<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr class="tdbg">
+	  <td width="150" align="center" class="tdbg">&nbsp;</td>
+      <td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+    </tr>
+	</table>
+	</form>
+<div class="runtime"></div>  
+</div>
+
+<script type="text/javascript">
+$('#dosave').click(function(){
+	$(this).addClass('disabled');
+	$(this).html('正在提交...');
+	return true;
+});
+if($(location.hash).length>0){
+	var id=location.hash.substr(1);
+	selectTab(id,$('a[tab='+id+']')[0]);
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

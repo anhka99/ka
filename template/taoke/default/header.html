@@ -1,0 +1,20 @@
+<header class="header">
+	<div class="container">
+		<h1 class="logo"><a href="/" title="{网站名称}"><img src="{logo width='220'/}"><span>{网站名称}</span></a></h1>					<span class="searchstart-on"><i class="faent">&#xe600;</i></span>
+			<span class="searchstart-off"><i class="faent">&#xe60c;</i></span>
+			<form method="get" class="searchform" action="/" >
+				<button tabindex="3" class="sbtn" type="submit"><i class="faent">&#xe600;</i></button><input tabindex="2" class="sinput" name="s" type="text" required="required" placeholder="搜索关键词" value="">
+			</form>
+				<div class="cms-nav">
+				<ul>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="/">首页</a></li>
+				 {menu row="8" tpl="goodslist"}
+				<li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href='{$vo.url}'>{$vo.title}</a></li>
+				{/menu}
+				<li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href='{catelog type="url" tpl="list"/}'>热门资讯</a></li>
+</li>
+</ul></div>
+		<span class="cms-nav-on"><i class="faent">&#xe60b;</i></span>
+		<span class="cms-nav-mask"></span>
+	</div>
+</header>

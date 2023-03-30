@@ -1,0 +1,19 @@
+
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">单选项：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[danxuan]" value="1"{if $danxuan} checked{/if}>开启</label>
+			<label><input type="radio" name="con[danxuan]" value="0"{if !$danxuan} checked{/if}>停止</label>
+			 <span class="tips">选项描述</span>
+		</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">单行文本：</td>
+      <td><input name="con[input]" type="text" class="input" value="{$input}" style="width:200px;">　<span class="tips">单行文本</span></td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">多行文本：</td>
+      <td><textarea name="con[textarea]"  rows="3"  class="inputs" style="width:450px;">{$textarea}</textarea></td>
+    </tr>

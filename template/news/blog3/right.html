@@ -1,0 +1,31 @@
+<div class="rbox">
+    
+    <div class="whitebg notice">
+      <h2 class="htitle">热门文章</h2>
+      <ul>
+		{loop type="arclist" row='4'}
+		<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</div>
+    <div class="whitebg tuijian">
+      <h2 class="htitle">站长推荐</h2>
+      <ul>
+		{loop type="arclist" row='8'}	
+        	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank"><i><img src="{$vo.pic}"></i><p>{$vo.title}</p></a></li>
+		{/loop}
+      </ul>
+    </div>
+    <div class="links whitebg">
+      <h2 class="htitle">友情链接</h2>
+      <ul>
+		{loop type="domain"}
+		<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+		{loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+		<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+      </ul>
+    </div>
+  </div>

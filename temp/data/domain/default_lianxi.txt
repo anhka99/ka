@@ -1,0 +1,1 @@
+a:5:{s:3:"cid";s:1:"0";s:11:"company_tel";s:13:"020-123456789";s:15:"company_address";s:36:"联系地址联系地址联系地址";s:13:"company_email";s:12:"admin@aa.com";s:10:"company_qq";s:6:"666666";}

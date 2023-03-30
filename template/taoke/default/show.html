@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="cache-control" content="no-siteapp">
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+<meta name='robots' content='max-image-preview:large' />
+{include file="styles.html"}
+</head>
+<body class="post-template-default single single-post single-format-status postformat-status searchon m-nav-full catpage-catstep">
+{include file="header.html"}
+<section class="container">
+    <div class="breadcrumbs">
+	<a href="/">首页</a> &raquo; <a href="{$typeurl}">{$typename}</a>	 &raquo; <span class="current">{$title}</span></div>    <div class="content-wrap">
+    	<div class="content">
+
+    		
+            <div class="article-container">
+        			<header class="article-header">
+                        <h1 class="article-title">{$title}</h1>
+                        <div class="article-meta">
+                            <span class="item item-time">{$postdate}</span>
+                            <span class="item item-edit">{$typename}</span>
+                        </div>
+                    </header>
+        		<article class="article-content">
+					<p>{$body|default:$description}</p>
+					{foreach $piclist as $k=>$v}<p><img src="{$v}" class="aligncenter size-full wp-image-120"/></p>{/foreach}
+                </article>
+                <div class="article-copyright">未经允许不得转载：<a href="/">{网站名称}</a> &raquo; <a href="{$thisurl}">{$title}</a></div>
+        		
+                
+                
+<div class="article-actions clearfix">
+	
+</div>
+            </div>
+            
+                        
+                            <div class="postitems">
+                    <h3><i class="faent">&#xe630;</i>相关推荐</h3>
+                    <ul>
+					{loop type="arclist" row="8"}
+						<li><a class="thumbnail" href="{$vo.url}"><img src="{$vo.pic}" alt="{$vo.title}" class="thumb" style="height:150px"><span class="tit">{$vo.title}</span></a></li>
+					{/loop}
+					</ul>
+                </div>
+            
+    	</div>
+    </div>
+	<div class="sidebar">
+<div class="cms-lists cms-lists-thumb-top cms-lists-title-lines-1 cms-lists-desc-lines-4"><header><h3>商品推荐</h3></header><div class="cms-lists-content">
+<ul>
+{loop type="arclist" row="8" ename="goods" tpl="goods"}
+<li><a href="{$vo.url}" class="thumbnail"><img src="{$vo.pic}" alt="{$vo.title}" class="thumb"></a><h2><a href="{$vo.url}">{$vo.title}</a></h2><footer><span class="price">&yen;{$vo.add_data.price}</span></footer></li>
+{/loop}
+</ul></div></div></div></section>
+
+{include file="footer.html"}
+</body>
+</html>

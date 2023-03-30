@@ -1,0 +1,50 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">企业简介模板</a></li>
+</ul>
+<form method="post">
+<input type="hidden" name="con[cid]" value="{$cid|default:0}">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config2" class="tableConfig">
+<tbody id="bodyconf">
+<tr>
+	<td colspan=3>
+		<font style="color:#cc0000;line-height:25px;">
+			<p>系统随机调用 ，支持使用模板标签，如：网站名称->&#123;$web_name} 等，参考模板标签指南《<a href="https://www.xxfseo.com/spider/template-tags.html" target="_blank">模板调用标签说明文档</a>》</p>
+			<p style="background:#FEFEE9;color:red;border:1px solid #ffcc00;padding:5px;">常用标签： &#123;企业简介长}，&#123;企业简介短}、{主营类别}</p>
+		</font>
+	</td>
+</tr>
+{if $abouttpls}
+{foreach $abouttpls as $k=>$vo}
+<tr  class="item{$k}" itemid="{$k}">
+	<td>{$k}.</td>
+	<td><textarea name="abouttpls[]" type="text" style="height:180px;width:650px;">{$vo}</textarea></td>
+	<td><a href="javascript:" onclick="deltr(this);"><i class="typcn typcn-trash"></i></a></td>
+</tr>
+{/foreach}
+{/if}
+</tbody>
+<tr>
+  <td width='20'>id</td>
+  <td width='620'><textarea name="abouttpls[]" type="text" style="height:180px;width:650px;"></textarea></td>
+  <td><button type="button" id="add" class="button">+增加</button></td>
+</tr>
+	</table>
+	</form>
+<script type="text/javascript">
+function deltr(elem){
+	var itemid=$(elem).parents('tr').attr('itemid');
+	$(elem).parents(".item"+itemid).fadeOut(300,function(){ this.remove() });
+}
+$("#add").click(function(){
+	var id = $("#bodyconf tr").prevAll("tr").length+1;
+	var input='<tr class="item'+id+'" itemid="'+id+'">';
+	input+='<td>'+id+'.</td><td><textarea name="abouttpls[]" type="text" style="height:100px;width:650px;"></textarea></td>';
+	input+='<td><a href="javascript:" onclick="deltr(this);"><i class="typcn typcn-trash"></i></a></td></tr>';
+	$("#bodyconf").append(input);
+});
+</script>
+{include file="footer.html"}
+</body>
+</html>

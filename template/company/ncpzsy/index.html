@@ -1,0 +1,148 @@
+{include file="header.html"}
+	<!-- E touch-top-wrapper --><!-- ==================== E top ==================== --><!-- ==================== S header ==================== -->
+	<div id="a1portalSkin_headerAreaA" class="header"><!-- Start_Module_228956 --><a name="26507" id="26507"></a>
+		<div class="module-default">
+			<div class="module-inner">
+				<div id="a1portalSkin_ctr228956228956_mainArea" class="module-content"><!-- Start_Module_228956 --><!-- S responsive-carousel -->
+					<div class="responsive-carousel carousel clearfix">
+						<div id="responsive-228956">               <div class="carousel-item">
+							<div class="carousel-img"><a href="javascript:;" target=""><img src="{$theme_path}/staic/images/8e08dfdf8bddf29621aacc52f312615b.jpg" alt="幻灯二" /></a></div>
+						</div>
+							<div class="carousel-item">
+								<div class="carousel-img"><a href="javascript:;" target=""><img src="{$theme_path}/staic/images/b19f799c5d0d680a847d226d80b68e72.jpg" alt="幻灯一" /></a></div>
+							</div>
+						</div>
+						<div class="carousel-btn carousel-btn-fixed" id="carousel-page-228956"></div>
+						<script type="text/javascript">
+
+                            $(window).load(function(){
+                                $("#responsive-228956").carouFredSel({
+                                    responsive : true,
+                                    width       : '100%',
+                                    items  : { visible : 1 },
+                                    auto     : { pauseOnHover: true, timeoutDuration:5000 },
+                                    swipe     : { onTouch:true, onMouse:true },
+                                    pagination  : "#carousel-page-228956"
+                                    //prev   : { button:"#carousel-prev-228956"},
+                                    //next   : { button:"#carousel-next-228956"},
+                                    //scroll : { fx : "coverfade", duration : 1200, timeoutDuration : 1500 }
+                                });
+
+                                $("#responsive-228956 .carousel-item").show();
+                            });
+						</script></div>
+					<!-- E responsive-carousel --><!-- End_Module_228956 --></div>
+			</div>
+		</div>
+	</div>
+	<!-- ==================== E Header ==================== --><!-- ==================== S main ==================== -->
+	<section class="main">
+		<div id="a1portalSkin_mainArea" class="full-screen clearfix"><!-- Start_Module_228957 --><a name="26510" id="26510"></a><!-- S module-full-screen -->
+			<div class="module-full-screen" style="">
+				<div class="module-inner not-animated" data-animate="fadeInUp" data-delay="200">
+					<div class="page-width">
+						<div class="module-full-screen-title">
+							<h2>产品中心 </h2>
+							<div class="module-title-content" ><i class="mark-left"></i>
+								<h3></h3>
+								<i class="mark-right"></i></div>
+						</div>
+						<div id="a1portalSkin_ctr228957228957_mainArea" class="module-full-screen-content"><!-- Start_Module_228957 --><!-- S portfolio-list -->
+							<div class="portfolio-list product-list ieCode-del">
+								<ul class="row2-svar clearfix">
+									{loop type="arclist" row='8'tpl="product_show" ename="products" }
+									<li class="col-4-1 not-animated" data-animate="fadeInUp">
+										<div class="product-item">
+											<div class="portfolio-img"><a href="{$vo.url}"><img src="{$vo.pic}" alt="{$vo.title}" /></a></div>
+											<div class="portfolio-title">
+												<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+											</div>
+										</div>
+									</li>
+{/loop}
+								</ul>
+							</div>
+							<!-- E portfolio-list --><!-- End_Module_228957 --></div>
+						<div class="module-full-screen-more"><a href="{geturl tpl='product_list'/}" target="_blank">查看更多</a></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- E module-full-screen --><!-- Start_Module_228958 --><a name="26511" id="26511"></a><!-- S module-full-screen -->
+			<div class="module-full-screen module-full-screen-gray-expand module-full-screen-gray" style="">
+				<div class="module-inner not-animated" data-animate="fadeInDown" data-delay="200">
+					<div class="page-width">
+						<div class="module-full-screen-title">
+							<h2>公司简介</h2>
+							<div class="module-title-content"><i class="mark-left"></i>
+								<h3></h3>
+								<i class="mark-right"></i></div>
+						</div>
+						<div id="a1portalSkin_ctr228958228958_mainArea" class="module-full-screen-content"><!-- Start_Module_228958 -->
+							<div class="qhd-content">
+								<p style="text-align: center;"> <span style="font-size: 16px; line-height: 28px;">{公司简介短}</span></p>
+								<p style="text-align: center;"> <span style="font-size:16px;"><img alt="" src="{$theme_path}/staic/images/a49632f0c12251c6e57f42a4fd9e9358.jpg" style="width: 857px; height: 200px;" /></span></p>
+							</div>
+							<!-- End_Module_228958 --></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- E module-full-screen --><!-- Start_Module_228959 --><a name="26512" id="26512"></a><!-- S module-full-screen -->
+			<div class="module-full-screen" style="">
+				<div class="module-inner not-animated" data-animate="fadeInUp" data-delay="200">
+					<div class="page-width">
+						<div class="module-full-screen-title">
+							<h2>新闻资讯 </h2>
+							<div class="module-title-content" ><i class="mark-left"></i>
+								<h3></h3>
+								<i class="mark-right"></i></div>
+						</div>
+						<div id="a1portalSkin_ctr228959228959_mainArea" class="module-full-screen-content"><!-- Start_Module_228959 --><!-- S headlines-list-2col -->
+								<div class="headlines-list-2col clearfix">
+									{loop type="arclist" row='1' tpl='product_list' }
+								<div class="headlines-content not-animated" data-animate="fadeInUp" data-delay="200">
+								<p><a href="{$vo.url}"><img src="{$vo.pic}" alt="{$vo.title}" /></a></p>
+								<h2><a href="{$vo.pic}">{$vo.title}</a></h2>
+								<div class="headlines-content-summary">
+									<div class="qhd-content">
+										<p style="text-align: left;">
+											{$vo.info}......</p>
+									</div>
+								</div>
+							</div>{/loop}
+								<div class="headlines-others not-animated" data-animate="fadeInUp" data-delay="400"><!-- S entry-list -->
+									<div class="entry-list entry-list-time-hl entry-set-time-hl">
+										{loop type="arclist" row='5' tpl='show'}
+										<!-- S entry-item -->
+										<div class="entry-item">
+											<div class="time">
+												<p class="time-day">{$vo.i}</p>
+												<p class="time-date">{当天日期}</p>
+											</div>
+											<div class="entry-title">
+												<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+											</div>
+											<div class="entry-summary">
+												<div class="qhd-content">
+													<p style="text-align: left;">
+														{$vo.info}......</p>
+												</div>
+											</div>
+										</div>{/loop}
+										<!-- E entry-item -->
+
+
+										<!-- E entry-item -->
+									</div>
+									<!-- E entry-list --></div>
+							</div>
+							<!-- E headlines-list-2col --><!-- End_Module_228959 --></div>
+						<div class="module-full-screen-more"><a href="{geturl tpl='list'/}" target="_blank">查看更多</a></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- E module-full-screen --></div>
+		<!-- end of page-width --></section>
+	{include file="footer.html"}

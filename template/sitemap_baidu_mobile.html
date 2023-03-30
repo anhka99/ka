@@ -1,0 +1,29 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">
+{loop type="arclist" row=150}
+<url>
+<loc>{$vo.url}</loc>
+<mobile:mobile type="pc,mobile"/>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.8</priority>
+</url>
+{/loop}
+{loop type="catelog" row=50}
+<url>
+<loc>{$vo.typeurl}</loc>
+<mobile:mobile type="pc,mobile"/>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.8</priority>
+</url>
+{/loop}
+{loop type="arclist" row=150}
+<url>
+<loc>{$vo.url}</loc>
+<mobile:mobile type="pc,mobile"/>
+<lastmod>{date('Y-m-d')}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.8</priority>
+</url>
+{/loop}
+</urlset>

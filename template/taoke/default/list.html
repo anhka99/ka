@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="cache-control" content="no-siteapp">
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+<meta name='robots' content='max-image-preview:large' />
+{include file="styles.html"}
+</head>
+<body class="archive category searchon m-nav-full catpage-catstep">
+{include file="header.html"}
+<section class="container">
+	
+	<div class="breadcrumbs">
+	<a href="/">首页</a> &raquo; <a href="{$thisurl}">{$typename}</a></div>	
+	<div class="leader">
+	    <h1>{$typename}</h1>
+	</div>
+
+	
+	<div class="cms-loop-default-content">
+	{loop type="arclist" row="16"}
+		<article class="cms-loop-item"><a class="thumbnail" href="{$vo.url}"><img src="{$vo.pic}" alt="{$vo.url}" class="thumb" style="display: inline;"></a><time>{$vo.postdate}</time><h2><a href="{$vo.url}">{$vo.title}</a></h2><div class="desc">{$vo.info}</div></article>
+	{/loop}
+
+	
+	<div class="pagination pagination-multi">
+	<ul>
+		<li class="prev-page"></li>
+		{loop type="page"}
+			{if $page==$vo.title}
+				<li class="active"><span>{$vo.title}</span></li>
+			{else}
+				<li><a href="{$vo.url}">{$vo.title}</a></li>
+			{/if}
+		{/loop}
+	</ul></div>
+</div>
+	
+</section>
+
+{include file="footer.html"}
+</body>
+</html>

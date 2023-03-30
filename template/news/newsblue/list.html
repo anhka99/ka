@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="applicable-device" content="pc">
+<meta name="renderer" content="webkit"/>
+<meta name="force-rendering" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<title>{$toptitle}</title>
+<meta name="keywords" content="{$keywords}">
+<meta name="description" content="{$description}">
+<meta name="referrer" content="always">
+<link type="text/css" href="{$theme_path}/css/base.css" rel="stylesheet" />
+<link type="text/css" href="{$theme_path}/css/common.css" rel="stylesheet" />
+</head>
+<body>
+{include file="header.html"}
+<!--content Star -->
+<div id="wrapper">
+	<div id="container">
+		<div class="pt5 clearfix">
+			<div class="breadcrumb">
+				<i class="ico-path"></i>您的位置：<a href='/'>主页</a> > <a href='{当前栏目URL}'>{当前栏目}</a> > 
+			</div>
+			<div class="search">
+			<form action="{随机内容URL}" target="_blank">
+				<input type="hidden" name="s" value="10520733385329581432">
+				<input type="hidden" name="ie" value="gbk">
+				<input type="text" name="q" class="searchinput" placeholder="请输入关键词">
+				<input type="submit" value=" " class="search-button">
+			</form>
+			</div>
+		</div>
+
+		<div id="main" class="clearfix">
+			<div class="main-left">
+				<div id="article">
+					<div class="mtb10 clearfix ">
+						<span id="index_top" class="jbTestPos"></span>
+					</div> 
+					<div class="artlistBar">
+						<div class="indexlist clearfix">
+						
+							<div class="index_bor clearfix">
+							
+							<div class="index_con">
+							<h2><a href="{catelog type="url"/}">{catelog type="name"/}</a></h2><SPAN><A href="{catelog type="url"/}" target="_blank">更多&gt;&gt; </A></SPAN>
+							</div>
+							
+							<ul class="index_list">
+ {loop type='arclist' row='20' islist="1"}
+
+							<li><span>{当天日期}</span><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+
+
+ {/loop}
+
+							
+							</ul></div>
+						
+						</div>
+						<div class="blank10 clearfix"></div>
+					</div>
+				</div><!--endborder-->
+			</div><!--end fl-->
+			  
+		<div class="main-right">
+			<div id="sidebar-right">
+				<div class="r300 clearfix" id="r1gg"><span id="r1gg" class="jbTestPos"></span></div>
+				<div class="sidebox bor-red clearfix">
+					<div class="bor-default">
+						<h4 class="red">文章分类</h4>
+						<ul class="catalog clearfix" >
+						  {loop type="catelog" row="6"}
+						<li><a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a></li>
+						  {/loop}
+						
+						
+						</ul>
+					</div>
+				</div>
+				<div class="r300 clearfix mt10"><span id="list_r_r300" class="jbTestPos"></span></div> 
+				<div class="sidebox bor-blue">
+					<div class="bor-default pb10">
+						<h4 class="blue">分类排行榜</h4>
+						<ul class="newsList newList-in">
+  {loop type='arclist' row='10'info='1' }
+
+						<li><EM class="no1">{$vo.i}</EM><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+  {/loop}
+
+					
+						</ul>
+					</div>
+				</div>
+				<div class="r300 clearfix mt10"><span id="list_r_mid" class="jbTestPos"></span></div>
+				<div class="sidebox bor-blue">
+					<div class="bor-default pb10">
+						<h4 class="blue">最近更新的内容</h4>
+						<ul class="newsListA">
+					  {loop type='arclist' row='10'}
+						<li><EM class="no1">1</EM><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+						{/loop}
+						</ul>
+					</div>
+				</div>
+				<!--  -->
+					<div class="sidebox bor-blue">
+						<div class="bor-default pb10">
+							<h4 class="blue">友情链接</h4>
+							<ul class="newsListA">
+								{loop type="domain"}<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>{/loop}
+								 {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>{/loop}
+							</ul>
+						</div>
+					</div>
+					<!--  -->
+			</div>
+		</div><!--end fr-->
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

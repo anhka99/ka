@@ -1,0 +1,18 @@
+<div class="flink">
+	<div class="flink_tit">--  友情链接 --</div>
+    <ul class="f5">
+		{loop type="domain"}
+       <li ><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	   {/loop}
+	   
+	   {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+       <li ><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	   {/loop}
+    </ul>
+</div>
+<div class="footer">
+	<p >&copy;{date('Y')} 版权所有 <a href="{$web_url}">{$web_name}</a> {$web_tongji} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if} <a href="http://{$host}/sitemap.xml">sitemap</a></p>
+</div>
+{$web_share}
+{$web_bdpush}

@@ -1,0 +1,149 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:" onClick="selectTab('config0',this)">电脑模板({$total_pc})</a></li>
+	<li class="unsub"><a href="javascript:" id="mtab" onClick="selectTab('config1',this)">手机模板({$total_mobile})</a></li>
+	<span class='tips'>全部共有{$total}套模板</span>
+</ul>
+<style type="text/css">
+.list img{ border:1px solid #eee;height:120px;width:160px}
+.list img.mobile{ height:220px;}
+.list li{ float:left;margin:10px;background:#f8f8f8;padding:10px;border-right:1px dotted #ccc;}
+.list p{ margin-bottom:5px;padding-bottom:5px;position: relative;}
+.list .name{ border-bottom:1px dotted #bbb;text-align:center;}
+.returnmsg{ color:red}
+.theme_name{padding:2px 4px;color:#fff;background-color:#555;border-radius:4px;position:absolute;right:6px;bottom:6px;opacity:0.8;}
+.theme_num{padding:2px 4px;color:#ff3300;background-color:#ffebdd;border-radius:4px;position:absolute;left:1px;top:1px;opacity:0.8;}
+.classlist{ width: 100%;margin:0}
+.classlist .typefirst{ border: 0;color: #ff3300;font-weight: bold;font-size: 14px;padding-right: 0;}
+.classlist .typefirst:hover{ background:none; color:#ff3300}
+</style>
+<script type="text/javascript">
+function search_tpl(){
+	art.dialog({
+		lock:true,
+		title:'查询网站绑定的模板小工具',
+		content:'网站地址：<input name="domainstr" type="text" class="input" size="30" id="domainstr" placeholder="http://www.xxfseo.com" /><br><br><div>模板类型：<label><input type="radio" name="dbtype" value="1" checked onclick="$(\'#module_tr\').show();$(\'#domain_tr\').hide();">模型模板</label><label><input type="radio" name="dbtype" value="2" onclick="$(\'#module_tr\').hide();$(\'#domain_tr\').show();">独立分组模板</label></div><br><div id="module_tr">所属模型：<select id="dirname1">{foreach $class_list as $vo}<option value="{$vo.dirname}">{$vo.name}</option>{/foreach}</select></div><div id="domain_tr" style="display:none">网站分组：<select id="dirname2">{foreach $domainlist as $vo}<option value="{$vo.dirname}">{$vo.name}</option>{/foreach}</select></div>',
+		ok: function(){
+			if($('#domainstr').val()!=''){
+				var dbtype=$('input[name="dbtype"]:checked').val();
+				if(dbtype=='1'){
+					var dirname=$('#dirname1').val();
+				}else{
+					var dirname=$('#dirname2').val();
+				}
+				var url="?admin-theme-search_tpl-dirname-"+dirname+"-url-"+encodeURIComponent($('#domainstr').val());
+				top.art.dialog.open(url,{ lock:true,title:'查询结果',id:'xxxtifrm',width:'500px'});
+			}
+		}
+	});
+}
+</script>
+<div id="admin_right_b" style="margin-top: -1px;">
+<div class="divtips">
+	<p>注：未绑定模板的域名将会随机调用，支持泛域名绑定，如: *.abc.com ，<u>支持根域名与www域名分别绑定</u> <button type="button" class="button button_primary button_small" onClick="search_tpl();"><i class="typcn typcn-zoom-in"></i>查询网站模板</button></p>
+	<p><b>注：绑定域名必须是对应（模型或网站分组）下的才有效</b>，注意你的网站分组选择的是模型模板还是独立分组模板</p>
+</div>
+<div id="config0">
+<ul class="classlist">
+<li><a href="javascript:" class="typefirst">模型模板：</a></li>
+<li {if $type==''}class="cur"{/if}><a href="?admin-theme-index-mtype-pc">全部分类</a></li>
+{foreach $class_list as $k=>$vo}
+	<li {if $type==$vo.dirname}class="cur"{/if}><a href="?admin-theme-index-type-{$vo.dirname}-mtype-pc">{$vo.name}(<font color="#ff6600"><b>{if $vo.num_pc}{$vo.num_pc}{else}0{/if}</b></font>)</a></li>
+{/foreach}
+</ul>
+<ul class="classlist">
+<li><a href="javascript:" class="typefirst">分组模板：</a></li>
+{if !$domainlist} <li><a href="javascript:">无分组</a></li> {/if}
+{foreach $domainlist as $k=>$vo}
+	<li {if $type==$vo.dirname}class="cur"{/if}><a href="?admin-theme-index-type-{$vo.dirname}-mtype-pc-dm-1">{$vo.name}(<b style="color:#ff6600;">{if $vo.num_pc}{$vo.num_pc}{else}0{/if}</b>)</a></li>
+{/foreach}
+</ul>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i> 电脑模板列表 ( <font color="red">模板路径: template/模型或分组文件夹/ </font> )</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="list">
+	{foreach $pclist as $k=>$vo}
+	<form action="?admin-theme-update_config-mtype-pc" method="post">
+	<input type="hidden" name="id" value="{$vo.dir}" />
+	<li>
+		<p class="picbox"><font  class="theme_num">{$vo.num}</font><img src="{$vo.pic}"><font  class="theme_name">{$vo.typename}</font></p>
+		<p class="name"><font color="blue">{$vo.name}</font></p>
+		<p>绑定域名(一行一个)：</p>
+		<p><textarea style="width:150px;height:100px;overflow:auto;" wrap="off" name="domain">{$vo.domain}</textarea></p>
+		<p><button type="button" class="button sbtn">保存</button> <span class="returnmsg"></span></p>
+	</li></form>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="config1" style="display:none">
+<ul class="classlist">
+<li><a href="javascript:" class="typefirst">模型模板：</a></li>
+<li {if $type==''}class="cur"{/if}><a href="?admin-theme-index-mtype-mobile">全部分类</a></li>
+{foreach $class_list as $k=>$vo}
+	<li {if $type==$vo.dirname}class="cur"{/if}><a href="?admin-theme-index-type-{$vo.dirname}-mtype-mobile">{$vo.name}(<b><font color="#ff6600">{if $vo.num_mobile}{$vo.num_mobile}{else}0{/if}</font></b>)</a></li>
+{/foreach}
+</ul>
+<ul class="classlist">
+<li><a href="javascript:" class="typefirst">分组模板：</a></li>
+{if !$domainlist} <li><a href="javascript:">无分组</a></li> {/if}
+{foreach $domainlist as $k=>$vo}
+	<li {if $type==$vo.dirname}class="cur"{/if}><a href="?admin-theme-index-type-{$vo.dirname}-mtype-mobile-dm-1">{$vo.name}(<b style="color:#ff6600;">{if $vo.num_mobile}{$vo.num_mobile}{else}0{/if}</b>)</a></li>
+{/foreach}
+</ul>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i> 手机模板列表 ( <font color="red">模板路径: template/模型或分组文件夹_mobile/ </font> )</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="list">
+	{foreach $mlist as $k=>$vo}
+	<form action="?admin-theme-update_config" method="post">
+	<input type="hidden" name="id" value="{$vo.dir}" />
+	<li>
+		<p class="picbox"><img src="{$vo.pic}" class="mobile"><font  class="theme_name">{$vo.typename}</font></p>
+		<p class="name"><font color="blue">{$vo.name}</font></p>
+		<p>绑定域名(一行一个)：</p>
+		<p><textarea style="width:150px;height:100px;overflow:auto;" wrap="off" name="domain">{$vo.domain}</textarea></p>
+		<p><button type="button" class="button sbtn">保存</button> <span class="returnmsg"></span></p>
+	</li></form>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+</div>
+{if $mtype=='mobile'}<script type="text/javascript">$('#mtab')[0].click();</script>{/if}
+<script>
+$(function() {
+	$(".sbtn").click(function(){
+		var _this=this;
+		$(_this).html('正在保存...').attr('disabled',true);
+		var $form=$(_this).parents('form');
+		$.ajax({
+			type: "POST",
+			url: $form.attr('action'),
+			data: $form.serialize(),
+			success: function (d) {
+				$(_this).html('保存').attr('disabled',false);
+				if(d.status){
+					$('.returnmsg',$form).html(d.info).show().fadeOut(2000);
+				}else{
+					showAlert('error',d.info,'',10);
+				}
+			}
+		});
+	});
+});
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

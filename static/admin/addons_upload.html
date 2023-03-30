@@ -1,0 +1,35 @@
+{include file="header.html"}
+<div style="padding:0 10px 10px 10px;">
+	<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+		<tbody>
+			<tr class="tdbg item_title">
+				<td align="right" width=120><i class="typcn typcn-cog"></i> 上传插件</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="divtips">你好，为了网站安全，已禁止上传！<br/>插件上传方法：插件解压后，得到一个文件夹，将此文件夹上传到 temp/addons/目录中<br/>然后打开插件管理就可以看到</div></td>
+			</tr>
+			<!-- <tr>
+			  <td align="right" width="150" class="config_td_first">选择文件：</td>
+			  <td id="updiv">
+				<div id="upaddon" class="uploader">
+					<div class="uploader-list"></div>
+					<div class="uploader-btns">
+						<div class="picker">选择文件</div>
+						<button type="button" class="uploadbtn button button_grey">开始上传</button>
+					</div>
+				</div>
+				<div style="padding-top:10px;color:red">上传插件包，zip格式。如有同名插件将会覆盖</div>
+			  </td>
+			</tr> -->
+		</tbody>
+	</table>
+</div>
+<style type="text/css">
+.webuploader-container .webuploader-pick .webuploader-pick{ padding:0;}
+</style>
+<script type="text/javascript">
+upload('#upaddon','zip',null,'addons');
+var html=$('#updiv').html();
+var i=1;
+</script>

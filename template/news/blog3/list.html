@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+{include file="header.html"}
+
+<article> 
+  <!--lbox begin-->
+  <div class="lbox">
+    <div class="whitebg lanmu"> <img src="">
+      <h1>{$typename}</h1>
+      <p>{$description}</p>
+    </div>
+    
+    <div class="whitebg zhuanti">
+      <h2 class="htitle">最新博文</h2>
+      <ul>
+      	{loop type="arclist" row='12'  islist="1"}
+			<li><i class="ztpic"><a href="{$vo.url}" target="_blank"><img src="{$vo.pic}"></a></i> <b>{$vo.title}</b>
+			<span>{$vo.info}</span>
+			<a href="{$vo.url}" target="_blank" class="readmore">文章阅读</a> </li>
+		{/loop}
+      </ul>
+      <!--pagelist-->
+   <div class="pagelist"><a title="Total record">&nbsp;<b>{随机数字}</b> 
+    {loop type="catelog" tpl='list'}
+			<a href="{$vo.typeurl}">{$k+1}</a>&nbsp;
+	{/loop}
+   </div>
+   </div>
+      <!--pagelist end--> 
+    </div>
+    <!--bloglist end--> 
+<!-- 侧边栏 --> 
+
+{include file="right.html"}
+</article>
+{include file="footer.html"}

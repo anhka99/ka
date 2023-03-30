@@ -1,0 +1,123 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a>网站管理</a></li>
+	<li class="unsub"><a href="javascript:" onclick="edit(0);"><i class="typcn typcn-plus"></i>添加网站</a></li>
+</ul>
+
+<div id="admin_right_b">
+	
+  <table border="0" align="center" cellpadding="3" cellspacing="0" class="table_b">
+   <form method="post"> 
+	<tr>
+	  <td width="30" align='center' class="title_bg">id</td>
+	  <td width="100" align='center' class="title_bg">分组名称</td>
+	  <td width="60" align='center' class="title_bg">所属模型</td>
+      <td width="120" class="title_bg">域名</td>
+	  <td width="80" align='center' class="title_bg">文件夹</td>
+	  <td width="60" align='center' class="title_bg">网站模式</td>
+	  <td width="60" align='center' class="title_bg">模板类型</td>
+	  <td width="60" align='center' class="title_bg">文章库</td>
+	  <td width="70" align='center' class="title_bg">网站栏目</td>
+	  <td width="60" align='center' class="title_bg">栏目数</td>
+	  <td width="70" align='center' class="title_bg">手机版</td>
+	  <td width="60" align='center' class="title_bg">域名</td>
+	  <td width="50" align='center' class="title_bg">关键词</td>
+	  <td width="50" align='center' class="title_bg">外链</td>
+	  <td width="130" align='center' class="title_bg">修改时间</td>
+      <td width="120" align='center' class="title_bg">管理</td>
+	  <td class="title_bg">&nbsp;</td>
+    </tr>
+	{foreach $list as $vo}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td align="center" height="25">{$vo.id}</td>
+	  <td align="center"><a href="javascript:" onclick="edit({$vo.id});" title="点击修改">{$vo.name}</a></td>
+	  <td align="center">{$vo.typename}</td>
+	  <td>&nbsp;&nbsp;<a href="javascript:" onclick="edit({$vo.id});" title="点击修改">{$vo.domain}</a></td>
+	  <td align="center">{$vo.dirname}</td>
+	  <td align="center">{if $vo.domain_mod==2}单域名{else}泛域名{/if}</td>
+	  <td align="center">{if $vo.themetype==2}<font color="blue">独立模板</font>{else}<font color="green">模型模板</font>{/if}</td>
+	  <td align="center">{if $vo.dbtype_article==2}<font color="blue">独立内容</font>{else}<font color="green">模型内容</font>{/if}</td>
+	  <td align="center">{if $vo.dbtype_catelog==2}<font color="blue">独立栏目</font>{else}<font color="green">模型栏目</font>{/if}</td>
+	  <td align="center"><b class="red">{$vo.catelog_num|default:0}</b></td>
+	   <td align="center">{if $vo.mobile_open}<font color="green">开启</font>{else}关闭{/if}</td>
+	  <td align="center"><b class="red">{$vo.domain_num}</b></td>
+	  <td align="center">{$vo.haskeywords}</td>
+	  <td align="center">{$vo.haslink}</td>
+	  <td align="center">{$vo.addtime}</td>
+	  <td align="center"><a href="javascript:" onclick="edit({$vo.id});" class="button button_small"><i class="typcn typcn-edit"></i>修改</a> <a href="?admin-domain-del-id-{$vo.id}" onclick='return confirm("确定删除？删除后不可恢复！\n---------------------------\n注：网站分组下的栏目也会被删除！");' class="button button_small button_remove"><i class="typcn typcn-trash"></i></a></td>
+	  <td align="center">&nbsp;</td>
+	 </tr>
+	{foreachelse}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+		<td align="center" colspan='17' height="25">请先添加网站分组！</td>
+	</tr>
+	{/foreach}
+	</form>
+	<tr>
+		  <td colspan="17" class="tdbg" style="padding:20px 0;">
+		  <span class="right"></span>&nbsp;&nbsp;
+		  <button type="button" class="button button_inverse" onClick="tiqu();"><i class="typcn typcn-link"></i>全站链接提取</button>
+	</td>
+    </tr>
+  </table>
+<script type="text/javascript">
+var listtpljson={$listtpljson};
+function show_listtpl_option(){
+	var modelid=$("#domaincid").find("option:selected").attr('data-model-id');
+	if(!modelid){
+		$('#tpl_list_td').html('文章页，选择分组可指定');
+		return false;
+	}
+	var mtpljson=listtpljson[modelid];
+	var s='';
+	for(var k in mtpljson){
+		s+='<option value="'+mtpljson[k]["tplfile"]+'" >'+mtpljson[k]["tplfile"]+'('+mtpljson[k]["tplname"]+')</option>';
+	}
+	$('#tpl_list_td').html('<select name="con[tpl_list]" id="urltpl">'+s+'</select>');
+}
+function tiqu(){
+	art.dialog({
+		lock:true,
+		title:'全站链接提取工具',
+		width:350,
+		content:'<table width="99%" border="0" align="center" cellpadding="4" cellspacing="0" class="tableConfig" style="width: 300px;"><tr class="tdbg"><td width=120 align="right" class="config_td_first"><b>网站分组：</b></td><td><select id="domaincid" onchange="show_listtpl_option();"><option value="" data-model-id="">全部分组</option>{foreach $list as $k=>$vo}<option value="{$vo.id}" data-model-id="{$vo.cid}">{$vo.name}</option>{/foreach}</select></td></tr><tr class="tdbg"><td align="right" class="config_td_first">链接类型：</td><td id="tpl_list_td">文章页，选择分组可指定</select></td></tr><tr class="tdbg"><td align="right" class="config_td_first">每个域名提取数量：</td><td><input name="num" type="text" class="input" size="3" id="num" value="10" /></td></tr></table>',
+		ok: function(){
+			if($('#num').val()!=''){
+				var urltpl=$('#urltpl').val();
+				var url="?g=plus&m=url&a=index&num="+$('#num').val()+'&id='+$('#domaincid').val()+'&urltpl='+(urltpl?urltpl:'');
+				var win = window.open(url);
+				if(win==null){
+					top.location.href=url;
+				}
+			}
+		}
+	});
+}
+</script>
+<div class="divtips" style="font-size:13px;margin-top:10px;">
+	<p>提示：</p>
+	<p>1). 网站分组管理，可以个性化每个网站的风格、内容、站点模式、关键词、外链等，<u><b>“分组文件夹不可和模型文件夹重复！”</b></u></p>
+	<p>2). 关键词、内容优化、外链是基于网站分组进行管理</p>
+	<p>3). <b>这里关键词、外链显示为 无 时，表示该分组未上传有文件，全局的和这里无关</b></p>
+	<p><b>txt地图：</b><font color="green">http://域名/sitemap.txt</font></p>
+	<p><b>百度pc xml地图：</b><font color="green">http://域名/sitemap.xml</font></p>
+	<p><b>百度移动xml地图：</b><font color="green">http://域名/sitemap/baidu_mobile.xml</font></p>
+	<p><b>谷歌xml地图：</b><font color="green">http://域名/sitemap/google.xml</font></p>
+</div>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+function edit(id){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'网站',
+		url:'?admin-domain-edit-id-'+id,
+		posturl:'?admin-domain-update',
+		width:860,
+		height:550
+	});
+}
+</script>
+</body>
+</html>

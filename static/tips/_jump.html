@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>友情提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="static/js/jquery.js"></script>
+</head>
+<body>
+<table border="0" align="center" cellpadding="5" cellspacing="1" style="font-size:14px;color:#333333;margin-top:100px;background:#333;border: 2px solid #26292b;border-radius: 5px 5px 0 0;">
+<tr style="color:#FFFFFF">
+    <th>{$msgTitle}</th>
+</tr>
+<tr><td height="100" style="font-size:12px; background:#FFFFFF">
+    <div style="font-size:14px;font-weight:bold;margin:10px;">{$message}{$error}</div>
+    <div style="margin:10px;">系统将在&nbsp;<span id="wait" style="color:#ff6600;font-weight:bold">{$waitSecond}</span>&nbsp;秒后自动跳转,如果不想等待,直接 <a href="{$jumpUrl}" style="color:#089c1c;" id="href">点击这里</a>&nbsp;&nbsp;<a href="javascript:" style="color:red;" onclick="stop();" id="stopstr">停止跳转</a></div>
+</td></tr>
+</table>
+<script type="text/javascript">
+var isstop=false,wait ={$waitSecond};
+function lastTime(){
+	if(isstop) return false;
+	document.getElementById('wait').innerHTML=wait.toString();
+	if(wait <= 0) {
+		location.href = document.getElementById('href').href;
+		return false;
+	}
+	wait--;
+	setTimeout(function(){ lastTime(); },1000);
+}
+function stop(){
+	isstop=true;
+	document.getElementById('stopstr').innerHTML='已停止';
+}
+lastTime();
+</script>
+</body>
+</html>

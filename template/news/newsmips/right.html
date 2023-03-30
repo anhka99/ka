@@ -1,0 +1,46 @@
+<aside class="sidebar-right">
+				<div class="widget-box widget wow fadeInDown" id="tabcelan">
+					<h3 class="widget-title">
+						<i class="fa fa-th"></i>最新文章
+					</h3>
+					<ul class="widget-content tabcelan">
+						<li id="con_one" class="con_one_list">
+							<ul id="con_one_1">
+								{loop type='arclist' row='9'}
+								<li><span class="li-icon li-icon-{$vo.i}">{$vo.i}</span> <a
+									href="{$vo.url}" data-type="mip"
+									data-title="{$vo.title}" title='{$vo.title}'>{$vo.title}</a>
+								</li>
+								{/loop}								
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="widget-box widget wow lanmu">
+					<h3 class="widget-title">
+						<i class="fa fa-th"></i>分类栏目
+					</h3>
+					<ul>
+						 {loop type="catelog" row=8}
+                 <li class="cat-item cat-item-107"><a href="{$vo.url}" rel="bookmark" data-type="mip" data-title="{$vo.title}" title="{$vo.title}">{$vo.title}</a></li>
+                  {/loop}
+					</ul>
+				</div>
+				<div class="widget-box widget wow">
+					<h3 class="widget-title">
+						<i class="fa fa-th"></i>最新推荐
+					</h3>
+					<ul class="widget-content tabcelan">
+						<li id="con_one" class="con_one_list">
+							<ul id="con_one_1">
+								{loop type='arclist' row='9'}
+								<li><span class="li-icon li-icon-{$vo.i}">{$vo.i}</span> <a
+									href="{$vo.url}" data-type="mip"
+									data-title="{$vo.title}" title='{$vo.title}'>{$vo.title}</a>
+								</li>
+								{/loop}								
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</aside>

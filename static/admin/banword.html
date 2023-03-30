@@ -1,0 +1,49 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">敏感词库设置</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips" style="font-size:13px;margin-top:10px;">
+	<p>提示：为了安全，请开启敏感词库！采集规则是默认开启监控，采集自动过滤</p>
+</div>
+
+<form method="post" action="{url('admin/banword/update')}" enctype="multipart/form-data">
+
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config2" class="tableConfig">
+
+		<tr class="tdbg item_title">
+			<td width="150" align="right"><i class="typcn typcn-cog"></i> 前台实时监控</td>
+			<td></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">监控标题：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[banword_title]" value="1" {if $banword_title} checked{/if}>开启</label>
+				<label><input type="radio" name="con[banword_title]" value="0" {if !$banword_title} checked{/if}>关闭</label>　<span>监控前台文章标题是否有敏感词，有就404！<font color="red">此选项词汇多于1000个时会卡CPU</font></span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">监控内容：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[banword_content]" value="1" {if $banword_content} checked{/if}>开启</label>
+				<label><input type="radio" name="con[banword_content]" value="0" {if !$banword_content} checked{/if}>关闭</label>　<span>监控前台文章内容是否有敏感词，有就404！<font color="red">此选项词汇多于1000个时会卡CPU</font></span></td>
+		</tr>
+		<tr class="tdbg item_title">
+			<td align="right"><i class="typcn typcn-cog"></i> 敏感词汇</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">敏感词汇<br/><br/>建议不超过5000个</td>
+			<td><div style="color:red;margin-bottom:5px;"><i class="typcn typcn-info"></i>每行一个敏感词  如：艹你马</div>
+			<textarea name="banword" class="inputs" style="width:350px;padding:1px;height:200px">{$banword}</textarea>
+			</td>
+		</tr>
+    <tr class="tdbg">
+	  <td align="center" class="tdbg">&nbsp;</td>
+      <td><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button></td>
+    </tr>
+	</table>
+	</form>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

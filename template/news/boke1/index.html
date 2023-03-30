@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Language" content="zh-CN"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="edge"/>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+<link rel="stylesheet" rev="stylesheet" href="{$theme_path}/zb_system/style/style.css" type="text/css" media="all"/>
+<script src="{$theme_path}/zb_system/script/common.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{$theme_path}/zb_system/script/html5-css3.js"></script>
+<![endif]-->
+</head>
+<body>
+{include file="head.html"}
+<div id="container">
+	<div class="content">
+		<div class="nbcontent">
+		{loop type="arclist" row="20"}
+			<div class="post">
+				<h2><a href="{$vo.url}" title="{$vo.title}" target="_blank" rel="bookmark">{$vo.title}</a></h2>
+				<div class="intro yincang">
+					<a href="{$vo.url}" target="_blank" rel="bookmark">
+					<p>{$vo.info}</p>
+					</a>
+				</div>
+				<h6>{$vo.postdate} |  浏览: {$vo.hits}</h6>
+			</div>
+			{/loop}
+		</div>
+	</div>
+	{include file="footer.html" }
+</div>
+</body>
+</html>

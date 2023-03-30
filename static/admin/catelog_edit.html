@@ -1,0 +1,190 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<input type="hidden" name="con[id]" value="{$id|default:0}">
+{if $pename=='products' ||  $ename=='products'}
+	<input type="hidden" name="con[isarticle]" value="0">
+{else}
+	<input type="hidden" name="con[isarticle]" value="1">
+{/if}
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig"> 
+<tr class="tdbg item_title">
+	<td colspan=2><i class="typcn typcn-cog"></i> 基本设置</td>
+	<td></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">所属类型：</td>
+  <td class="icheck_radios">
+	{if !$id && !$pid}
+		<label><input type="radio" id="dbtype1" name="con[dbtype]" value="1" {if $dbtype==1 || $dbtype==''}checked{/if}>模型公共</label>
+		<label><input type="radio" id="dbtype2" name="con[dbtype]" value="2" {if $dbtype==2}checked{/if}>网站分组</label>
+	{else}
+		<input type="hidden" name="con[dbtype]" value="{$dbtype}">
+		<b><font color="blue">{if $dbtype==1}模型公共{/if}{if $dbtype==2}网站分组{/if}</font></b>
+	{/if}
+	<span style="color:#ff3300;margin-left:20px;">保存后不可修改{if $pid}，跟随上级栏目{/if}</span>
+	</td>
+</tr>
+<tr id="module_tr" {if $dbtype==2}style="display:none"{/if} class="tdbg">
+	<td align="right" class="config_td_first">选择模型：</td> 
+	<td align="left">
+	{if $pid}
+		<b>{$modelname}</b> <input type="hidden" id="arctype" name="con[arctypeid]" value="{$arctypeid}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span>
+	{elseif $system}
+		<b>{$modelname}</b> <input type="hidden" id="arctype" name="con[arctypeid]" value="{$arctypeid}"><span style="color:#ff3300;margin-left:20px;">系统锁定，不可修改</span>
+	{else}
+		<select name="con[arctypeid]" id="arctype" onchange="show_listtpl_option();">
+		{foreach $modellist as $k=>$vo}
+			<option value="{$vo.id}" {if $arctypeid==$vo.id}selected{/if}>{$vo.name}</option>
+		{/foreach}
+		</select>
+	{/if}
+	</td>
+</tr>
+<tr id="domain_tr" {if $dbtype==1 || $dbtype==''}style="display:none"{/if} class="tdbg">
+	<td align="right" class="config_td_first">网站分组：</td> 
+	<td align="left">
+	{if $pid}
+		<b>{$dname}</b> <input type="hidden" id="domainid" name="con[domainid]" value="{$domainid}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span>
+	{elseif $system}
+		<b>{$dname}</b> <input type="hidden" id="domainid" name="con[domainid]" value="{$domainid}"><span style="color:#ff3300;margin-left:20px;">系统锁定，不可修改</span>
+	{else}
+		<select name="con[domainid]" id="domainid" onchange="show_listtpl_option();">
+		{foreach $domainlist as $k=>$vo}
+			<option data-model-id="{$vo.cid}" value="{$vo.id}"  {if $domainid==$vo.id}selected{/if}>{$vo.name}</option>
+		{/foreach}
+			</select>
+	{/if}
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">所属列表模板：</td>
+	{if $pid}
+		<td class="tdbg"><b>{$tpl_list}({$tpl_listname})</b> <input type="hidden" name="con[tpl_list]" value="{$tpl_list}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span></td>
+	{elseif $system}
+		<td class="tdbg"><b>{$tpl_list}({$tpl_listname})</b> <input type="hidden" name="con[tpl_list]" value="{$tpl_list}"><span style="color:#ff3300;margin-left:20px;">系统锁定，不可修改</span>
+	{else}
+		<td class="tdbg" id="tpl_list_td">- -</td>
+	{/if}
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">栏目名称：</td>
+	<td class="tdbg"><input name="con[name]" onblur="get_ename(this.value);" type="text" value="{$name}" class="input" size="30"> <font color="#ff3300">*</font></td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">栏目别名：</td>
+	{if $system}
+		<td class="tdbg"><b>{$ename}</b> <input type="hidden" name="con[ename]" value="{$ename}"><span style="color:#ff3300;margin-left:20px;">系统锁定，不可修改</span></td>
+	{else}
+		<td class="tdbg"><input name="con[ename]" id="ename" type="text" value="{$ename}" class="input" size="30"> <font color="#ff3300">*</font> <u style="color:#ff3300">填写字母</u>，用于伪静态！具有唯一性</td>
+	{/if}
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">上级栏目：</td>
+	<td class="tdbg">
+		{if $system}
+			<b>顶级栏目</b> <input type="hidden" name="con[pid]" value="0"><span style="color:#ff3300;margin-left:20px;">系统锁定，不可修改</span>
+		{else}
+			{if !$pid}<select name="con[pid]" id="pid">
+			<option value="0">顶级栏目</option>
+			{$class_option}
+			</select>{else} <input type="hidden" name="con[pid]" value="{$pid}"><font color="blue">{$pname}</font> ( id:{$pid} ){/if}
+		{/if}
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">指定{if $tpl_list=='product_list'}产品库{else}文章/信息库{/if}：</td>
+	<td class="tdbg">
+	<input name="con[articlefile]" type="text" id="articlefile" value="{$articlefile}" class="input" size="35"> <button onclick="window.parent.select_file(document,'articlefile','catelog_article',$('#cid').find('option:selected').attr('dir'));" type="button" class="button"><i class="typcn typcn-zoom-in"></i>选择</button> <span>{if $tpl_list=='product_list'}<font color="red">指定产品库</font>{else}不选则随机取文章/信息库{/if}{if $pid}，<span style="color:#ff3300;">未指定时跟随上级栏目</span>{/if}</span>
+	
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">keywords：</td>
+	<td class="tdbg"><input name="con[keywords]" type="text" value="{$keywords}" class="input" size="40"> <span>不填则自动生成，description也是</span></td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">description：</td>
+	<td valign="top"><textarea name="con[description]" style="width:90%;height:80px;" >{$description}</textarea>
+</td>
+</tr>
+
+<tr class="tdbg">
+	<td align="right" class="config_td_first">前台导航显示：</td>
+	<td class="icheck_radios">
+		<label><input type="radio" name="con[isshow]" value="1" {if $isshow || $isshow==''} checked{/if}>显示</label>
+		<label><input type="radio" name="con[isshow]" value="0" {if $isshow=='0'} checked{/if}>隐藏</label>
+		<span class="tips"></span>
+	</td>
+</tr>
+<!-- <tr class="tdbg">
+	<td align="right" class="config_td_first">system：</td>
+	<td class="icheck_radios">
+		<label><input type="radio" name="con[system]" value="1" {if $system} checked{/if}>yes</label>
+		<label><input type="radio" name="con[system]" value="0" {if !$system} checked{/if}>no</label>
+		<span class="tips"></span>
+	</td>
+</tr> -->
+<tr class="tdbg">
+	<td align="right" class="config_td_first">排序：</td>
+	<td class="tdbg"><input name="con[order]" type="text" value="{$order|default:1}" class="input" size="10"> 数字越大越前面</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+var listtpljson={$listtpljson};
+var tpl_list='{$tpl_list}';
+function show_listtpl_option(){
+	var thisdbtype=$('input[name="con[dbtype]"]:checked').val();
+	if(typeof thisdbtype=='undefined'){
+		thisdbtype=$('input[name="con[dbtype]"]').val();
+	}
+	var modelid='';
+	if(thisdbtype=='1'){
+		modelid=$('#arctype').val();
+	}else if(thisdbtype=='2'){
+		modelid=$("#domainid").find("option:selected").attr('data-model-id');
+		if(!modelid) modelid=$("#arctype").val();
+		$('#arctype').val(modelid);
+		$("#arctype").find("option[value='"+modelid+"']").attr("selected",true);
+	}
+	var mtpljson=listtpljson[modelid];
+	var s='';
+	for(var k in mtpljson){
+		s+='<option value="'+mtpljson[k]["tplfile"]+'" '+(tpl_list==mtpljson[k]["tplfile"]?'selected':'')+'>'+mtpljson[k]["tplfile"]+'('+mtpljson[k]["tplname"]+')</option>';
+	}
+	$('#tpl_list_td').html('<select name="con[tpl_list]">'+s+'</select>');
+	$('#pid option').show();
+	$('#pid option').each(function(n){
+		if($(this).attr('arctypeid')!==modelid){
+			$(this).hide();
+		}
+	});
+}
+show_listtpl_option();
+$("#dbtype2").on('ifChecked', function(event) {
+	$('#module_tr').hide();
+	$('#domain_tr').show(500);
+	show_listtpl_option();
+});
+$("#dbtype1").on('ifChecked', function(event) {
+	$('#domain_tr').hide();
+	$('#module_tr').show(500);
+	show_listtpl_option();
+});
+function get_ename(name){
+	if($('#ename').val()!=''){
+		return false;
+	}
+	$.ajax({
+		type:"post",
+		url:"?admin-catelog-get_ename",
+		data:'title='+name,
+		success:function(d){
+			$('#ename').val(d.info);
+		}
+	});
+}
+</script>
+</body>
+</html>

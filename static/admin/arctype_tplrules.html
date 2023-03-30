@@ -1,0 +1,109 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">TKD调用模板</a></li>
+</ul>
+<div id="admin_right_b">
+<style type="text/css">
+.boxlist dl{ width:120px;}
+.boxlist dt p{ text-align:center;}
+</style>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr>
+	<td colspan="5"><div class="divtips"><i class="typcn typcn-warning"></i>TKD调用模板 (即：title、keywords、description )</div></td>
+</tr>
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>以下为《模型》的默认TKD调用模板（<span class="tips" style="color:red">注：如果该模型未设置配置，则使用默认的调用配置</span>）</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="boxlist">
+		<dl class="default">
+			<dt><strong>默认的调用配置</strong><p>default</p></dt>
+			<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('default','默认的调用配置');">点击修改</a></dd>
+		  </dl>
+		{foreach $class_list as $k=>$vo}
+		<dl>
+			<dt><strong>{$vo.name}</strong><p>{$vo.dirname}</p></dt>
+			<dd>
+				{if $vo.isset}
+					<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.dirname}','{$vo.name}');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;
+					{if $vo.system}
+						<button class='button button_small button_grey disabled' disabled type='button'>清除</button>
+					{else}
+						<a href="?admin-arctype-tplrules_del-dir-{$vo.dirname}" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>
+					{/if}
+				{else}
+					<a class="button button_small" href="javascript:" onclick="edit('{$vo.dirname}','{$vo.name}');">未设置，点击设置</a>
+				{/if}</dd>
+		  </dl>
+		{/foreach}
+	</div>
+	</td>
+</tr>
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>以下为《网站分组》的独立TKD调用模板<span class="tips" style="color:red"><br><b>注1：</b>如果网站分组未设置独立的TKD模板，则使用对应模型的调用模板，如未设置泛域名配置，则使用主配置。<br><b>注2：</b>所以调用的优先级为：<u>独立网站分组配置</u> > <u>所属模型配置</u> > <u>默认调用配置</u></span></td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="boxlist">
+		{foreach $domain_list as $k=>$vo}
+		<dl style="width: 200px;text-align:left;">
+			<dt>
+				<p style="text-align:left;">分组名称：<b>{$vo.name}</b></p>
+				<p style="text-align:left;">所属模型：{$vo.typename}</p>
+			</dt>
+			<dd>
+				<b style="color:black">主配置：</b>
+				{if $vo.isset_zhu}
+					<a class="button button_small button_success" href="javascript:" onclick="editdm('{$vo.id}','{$vo.name}','zhu');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-arctype-tplrules_deldm-id-{$vo.id}-type-zhu" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>
+				{else}
+					<a class="button button_small" href="javascript:" onclick="editdm('{$vo.id}','{$vo.name}','zhu');">未设置，点击设置</a>
+				{/if}
+			</dd>
+			<dd style="margin-top:5px;border-top:1px dotted #ccc;padding:5px 0;">
+				<b style="color:black">泛域名：</b>
+				{if $vo.isset_fan}
+					<a class="button button_small button_success" href="javascript:" onclick="editdm('{$vo.id}','{$vo.name}','fan');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-arctype-tplrules_deldm-id-{$vo.id}-type-fan" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>
+				{else}
+					<a class="button button_small" href="javascript:" onclick="editdm('{$vo.id}','{$vo.name}','fan');">未设置，点击设置</a>
+				{/if}
+			</dd>
+		  </dl>
+		{/foreach}
+	</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(dir,typename){
+	var title=dir?'修改':'添加';
+	edit_dialog({
+		title:title+'TKD调用模板【<font color=red>模型：'+typename+'</font>】',
+		url:'?admin-arctype-tplrules_edit-dir-'+dir,
+		posturl:'?admin-arctype-update_tplrules-dir-'+dir,
+		width:850,
+		height:520
+	});
+}
+function editdm(id,typename,type){
+	var title=id?'修改':'添加';
+	if(type=='zhu'){
+		typename+='（主配置）';
+	}else if(type=='fan'){
+		typename+='（泛域名配置）';
+	}
+	edit_dialog({
+		title:title+'TKD调用模板【<font color=red>分组：'+typename+'</font>】',
+		url:'?admin-arctype-tplrules_editdm-id-'+id+'-type-'+type,
+		posturl:'?admin-arctype-tplrules_updatedm-id-'+id+'-type-'+type,
+		width:850,
+		height:520
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

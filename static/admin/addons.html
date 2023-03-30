@@ -1,0 +1,68 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a>插件列表</a></li>
+	<li class="unsub"><a href="javascript:up_addon();"><i class="typcn typcn-upload" style="font-size:15px;"></i> 上传插件</a></li>
+</ul>
+<div id="admin_right_b">
+	<div class="divtips">
+	注：插件必须选择分组才会被启用，开发插件参考<a href="https://www.xxfseo.com/spider/203.html" target="blank">《小旋风·万能蜘蛛池》插件开发说明</a>
+
+	</div>
+  <table border="0" align="center" cellpadding="3" cellspacing="0" class="table_b">
+	<tr>
+	  <td width="20" align='center' class="title_bg">序号</td>
+      <td width="150" class="title_bg">插件名称</td>
+	  <td width="70" align='center' class="title_bg">标识</td>
+	  <td width="180" class="title_bg">开启的分组</td>
+	  <td width="300" align='center' class="title_bg">描述</td>
+	  <td width="70" align='center' class="title_bg">作者</td>
+	  <td width="40" align='center' class="title_bg">版本</td>
+	  <td width="80" align='center' class="title_bg">状态</td>
+      <td width="120" align='center' class="title_bg">管理</td>
+	  <td class="title_bg"></td>
+    </tr>
+{foreach $list as $k=>$vo}
+    <tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td align="center">{$vo.id}</td>
+      <td>{$vo.title}</td>
+	  <td>{$vo.name}</td>
+	  <td align="center"><font  color="#ff6600">{$vo.groupname}</font></td>
+	  <td>{$vo.description}</td>
+	  <td align="center">{$vo.author}</td>
+	  <td align="center">{$vo.version}</td>
+      <td align="center">
+	  {if $vo.errmsg}
+		错误
+	 {else}
+		{if $vo.status}
+			<a class="button button_small button_success" href="?admin-addons-status-sid-0-name-{$vo.name}" title="点击关闭启用">已启用</a>
+		{else}
+			<a class="button button_small button_warning" href="?admin-addons-status-sid-1-name-{$vo.name}" title="点击启用">未启用</a>
+		{/if}
+	{/if}</td>
+   <td align="center">
+		<a class="button button_small" href="?admin-addons-config-name-{$vo.name}">配置</a>&nbsp;&nbsp;
+		<a href="?admin-addons-del-name-{$vo.name}" class="button button_small button_remove" onclick='return confirm("确定删除?删除后不可恢复!");'><i class="typcn typcn-trash"></i></a>
+		</td>
+	  <td></td>
+    </tr>
+{foreachelse}
+	<tr bgcolor='#ffffff'>
+		<td colspan='10' height="25" align="center">暂无插件！</td>
+	</tr>
+{/foreach}
+	
+  </table>
+<script type="text/javascript">
+function up_addon(){
+	top.art.dialog.open('?admin-addons-upload',{ lock:true,opacity:0.3,title:'上传插件',id:'uptxtifrm',width:'750px',height:'400px',close: function () {
+		location.reload();
+	}});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

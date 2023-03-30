@@ -1,0 +1,20 @@
+<div id="footer" class="w960">
+  <div class="footlink">
+	<strong>友情链接</strong>
+    <ul>
+	{loop type="domain"}<li ><a href="{$vo.url}" target="_blank">{$vo.title}</a>&nbsp;&nbsp;{/loop} </li >
+	 
+	   {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+       <li ><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	   {/loop}
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<div id="copyright">
+<div class="copy">
+<div class="l">Copyright &copy; {date('Y')} Powered by <a href="{$web_url}">{$web_name}</a>&nbsp;&nbsp;{$web_tongji} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if} <a href="http://{$host}/sitemap.xml">sitemap</a></p>{$web_share}{$web_bdpush}</div>
+<div class="r"></div>
+</div>
+</div>

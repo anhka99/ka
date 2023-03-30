@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+{include file="header.html"}
+<div class="post single">
+	<h4 class="post-date">{$postdate}</h4>
+	<h2 class="post-title">{$title}</h2>
+	<div class="post-body">{$body}</div>
+	<h6 class="post-footer">浏览:{随机数字}</h6>
+</div>
+<label id="AjaxCommentBegin"></label>
+
+<div class="pagebar commentpagebar">
+</div>
+<label id="AjaxCommentEnd"></label>
+
+<!--评论框-->
+<div class="post" id="divCommentPost">
+	<p><a name="comment">访客，请您发表评论:</a><a rel="nofollow" id="cancel-reply" href="#divCommentPost" style="display:none;"><small>取消回复</small></a></p>
+	<form id="frmSumbit" target="_self" method="post" >
+	<input type="hidden" name="inpId" id="inpId" value="6" />
+	<input type="hidden" name="inpRevID" id="inpRevID" value="0" />
+	<input type="hidden" name="inpName" id="inpName" value="访客" />
+	<input type="hidden" name="inpEmail" id="inpEmail" value="null@null.com" />
+	<input type="hidden" name="inpHomePage" id="inpHomePage" value="" />	
+		<p><textarea name="txaArticle" id="txaArticle" class="text" cols="50" rows="4" tabindex="5" ></textarea></p>
+	<p><input name="sumbit" type="submit" tabindex="6" value="提交" onclick="return VerifyMessage()" class="button" /></p>
+	</form>
+</div>
+</div>
+<!-- 下面是侧边代码 -->
+<div id="divSidebar">
+	<!-- 调用分类 -->
+	<dl class="function" id="divCatalog">
+	<dt class="function_t">网站分类</dt>
+	<dd class="function_c">
+	<ul>
+		{loop type="catelog" row='8' tpl='list'}
+			<li><a href="{$vo.url}">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</dd>
+	</dl>
+	<!-- 调用热门文章 -->
+	<dl class="function" id="divComments">
+	<dt class="function_t">热门文章</dt><dd class="function_c">
+	<ul>
+		{loop type="arclist" row='15' tpl='show'}
+			<li><a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</dd>
+	</dl>
+	<!-- 调用友情链接 -->
+	<dl class="function" id="divLinkage">
+	<dt class="function_t">友情链接</dt><dd class="function_c">
+	<ul>
+		{loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+			<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+		{loop type="domain"}
+			<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+
+	</ul>
+	</dd>
+	</dl>
+	</div>
+{include file="footer.html"}

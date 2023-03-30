@@ -1,0 +1,144 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr class="tdbg item_title">
+	<td colspan=2><i class="typcn typcn-cog"></i> 批量添加设置</td>
+	<td></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">所属类型：</td>
+  <td class="icheck_radios">
+	{if !$id && !$pid}
+		<label><input type="radio" id="dbtype1" name="con[dbtype]" value="1" {if $dbtype==1 || $dbtype==''}checked{/if}>模型公共</label>
+		<label><input type="radio" id="dbtype2" name="con[dbtype]" value="2" {if $dbtype==2}checked{/if}>网站分组</label>
+	{else}
+		<input type="hidden" name="con[dbtype]" value="{$dbtype}">
+		<b><font color="blue">{if $dbtype==1}模型公共{/if}{if $dbtype==2}网站分组{/if}</font></b>
+	{/if}
+	<span style="color:#ff3300;margin-left:20px;">保存后不可修改{if $pid}，跟随上级栏目{/if}</span>
+	</td>
+</tr>
+<tr id="module_tr" {if $dbtype==2}style="display:none"{/if} class="tdbg">
+	<td align="right" class="config_td_first">选择模型：</td> 
+	<td align="left">
+	{if $pid}
+		<b>{$modelname}</b> <input type="hidden" id="arctype" name="con[arctypeid]" value="{$arctypeid}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span>
+	{else}
+		<select name="con[arctypeid]" id="arctype" onchange="show_listtpl_option();">
+		{foreach $modellist as $k=>$vo}
+			<option value="{$vo.id}" {if $arctypeid==$vo.id}selected{/if}>{$vo.name}</option>
+		{/foreach}
+		</select>
+	{/if}
+	</td>
+</tr>
+<tr id="domain_tr" {if $dbtype==1 || $dbtype==''}style="display:none"{/if} class="tdbg">
+	<td align="right" class="config_td_first">网站分组：</td> 
+	<td align="left">
+	{if $pid}
+		<b>{$dname}</b> <input type="hidden" id="domainid" name="con[domainid]" value="{$domainid}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span>
+	{else}
+		<select name="con[domainid]" id="domainid" onchange="show_listtpl_option();">
+		{foreach $domainlist as $k=>$vo}
+			<option data-model-id="{$vo.cid}" value="{$vo.id}"  {if $domainid==$vo.id}selected{/if}>{$vo.name}</option>
+		{/foreach}
+			</select>
+	{/if}
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">所属列表模板：</td>
+	{if $pid}
+		<td class="tdbg"><b>{$tpl_list}({$tpl_listname})</b> <input type="hidden" name="con[tpl_list]" value="{$tpl_list}"><span style="color:#ff3300;margin-left:20px;">跟随上级栏目</span></td>
+	{else}
+		<td class="tdbg" id="tpl_list_td">- -</td>
+	{/if}
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">上级栏目：</td>
+	<td class="tdbg">{if !$pid}<select name="con[pid]" id="pid">
+	<option value="0" arctypeid="0">顶级栏目</option>
+	{$class_option}
+	</select>{else} <input type="hidden" name="con[pid]" value="{$pid}"><font color="blue">{$pname}</font> ( id:{$pid} ){/if}</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">栏目名称：</td>
+	<td valign="top"><p><font color="blue">每行填写一个栏目名称,不要超过500个</font></p><textarea name="con[name]" style="width:300px;height:150px;" ></textarea>
+</td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">栏目别名生成：</td>
+  <td class="icheck_radios">
+		<label><input type="radio" name="con[ename_type]" value="1" checked>首字母</label>
+		<label><input type="radio" name="con[ename_type]" value="2">拼音</label>
+		<label><input type="radio" name="con[ename_type]" value="3">随机字母</label>
+	<span style="color:#ff3300;margin-left:20px;">栏目别名根据栏目名称自动生成。</span>
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">前台显示：</td>
+	<td class="icheck_radios">
+		<label><input type="radio" name="con[isshow]" value="1" checked>显示</label>
+		<label><input type="radio" name="con[isshow]" value="0">隐藏</label>
+		<span class="tips"></span>
+	</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+var listtpljson={$listtpljson};
+var tpl_list='{$tpl_list}';
+function show_listtpl_option(){
+	var thisdbtype=$('input[name="con[dbtype]"]:checked').val();
+	if(typeof thisdbtype=='undefined'){
+		thisdbtype=$('input[name="con[dbtype]"]').val();
+	}
+	var modelid='';
+	if(thisdbtype=='1'){
+		modelid=$('#arctype').val();
+	}else if(thisdbtype=='2'){
+		modelid=$("#domainid").find("option:selected").attr('data-model-id');
+		$('#arctype').val(modelid);
+		$("#arctype").find("option[value='"+modelid+"']").attr("selected",true);
+	}
+	var mtpljson=listtpljson[modelid];
+	var s='';
+	for(var k in mtpljson){
+		s+='<option value="'+mtpljson[k]["tplfile"]+'" '+(tpl_list==mtpljson[k]["tplfile"]?'selected':'')+'>'+mtpljson[k]["tplfile"]+'('+mtpljson[k]["tplname"]+')</option>';
+	}
+	$('#tpl_list_td').html('<select name="con[tpl_list]">'+s+'</select>');
+	$('#pid option').show();
+	$('#pid option').each(function(n){
+		if($(this).attr('arctypeid')!==modelid && $(this).attr('arctypeid')!='0'){
+			$(this).hide();
+		}
+	});
+}
+show_listtpl_option();
+$("#dbtype2").on('ifChecked', function(event) {
+	$('#module_tr').hide();
+	$('#domain_tr').show(500);
+	show_listtpl_option();
+});
+$("#dbtype1").on('ifChecked', function(event) {
+	$('#domain_tr').hide();
+	$('#module_tr').show(500);
+	show_listtpl_option();
+});
+function get_ename(name){
+	if($('#ename').val()!=''){
+		return false;
+	}
+	$.ajax({
+		type:"post",
+		url:"?admin-catelog-get_ename",
+		data:'title='+name,
+		success:function(d){
+			$('#ename').val(d.info);
+		}
+	});
+}
+</script>
+</body>
+</html>

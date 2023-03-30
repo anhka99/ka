@@ -1,0 +1,94 @@
+{include file="header.html"}
+<body>
+<style type="text/css">
+body {
+	background:#333;
+}
+.ddname{ width:60px;display:inline-block;}
+</style>
+<form method="post">
+		<div id="login">
+				{if $msg}
+					<div class="divtips" style="margin-bottom:10px;">
+						<p>{$msg}</p>
+					</div>
+				{else}
+					<div class="divtips" style="margin-bottom:10px;color: #148f29;background-color: #def3cf;border-color: #bfedc7;">
+						<p><i class="typcn typcn-lock-closed" style="font-size:26px;"></i> 欢迎回来，请登录！</p>
+					</div>
+				{/if}
+				<dl>
+					<dd><span class="ddname">账 号：</span><input class="text" type="text" name="username" id="username" /></dd>
+					<dd><span class="ddname">密 码：</span><input class="text" type="password" name="password" id="password" /></dd>
+					{if $admin_safecode}
+					<dd><span class="ddname">安全码：</span><input class="text" type="password" name="safecode" style="width:180px;" id="safecode" />&nbsp;<a tabindex='-1' href="javascript:;" onclick="showAlert('notice','查看./temp/config.php',null,'null');">忘记安全码？</a></dd>
+					{/if}
+					{if $admin_login_vcode}
+					<dd><span class="ddname">验证码：</span><input class="text" type="text" name="vcode" id="vcode" style="width:80px;" />&nbsp;<img src="?admin-login-vcode" style="vertical-align: middle;cursor: pointer;" class="hand" id="vcodeimg" onclick="revcode();" title="点击更换" /></dd>
+					{/if}
+					<dd><span class="ddname">&nbsp;</span><button type="submit" id="dologin" class="button button_submit">登 录</button>&nbsp;</span><a href="javascript:repass();">忘记密码？</a></dd>
+				</dl>
+				<div class="login_img logo_text" style="font-size: 25px;text-align: center;width: 450px;left:0"><i class="typcn typcn-spiral"></i>{$panel_name}</div>
+		</div>
+</form>
+
+<script type="text/javascript">
+$(function() {
+	$("#dologin").click(function(){
+		showDialog();
+		var autologin=$("input[type='checkbox']").is(':checked') ? $("input[type='checkbox']").attr('value') : '';
+		$.ajax({
+			type:"post",
+			url:"{url('admin/login/check')}",
+			data:$("form").serialize(),
+			dataType:'json',
+			timeout:20000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					showAlert('success','恭喜你，登录成功',data.url);
+				}else{
+					showAlert('error',data.info);
+					revcode();
+				}
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+				showAlert('info',XMLHttpRequest.responseText);
+			}
+		});
+		return false;
+	});
+});
+function revcode(){
+	$('#vcodeimg').attr('src','?admin-login-vcode-t-'+Math.round(Math.random() * 10000));
+}
+function repass(){
+	top.art.dialog({
+		content: '<div id="licence-box"><p>删除./temp/repass.lock文件后，点击确定重置！</p></div>',
+		fixed: true,
+		title: '提示信息',
+		lock: true,
+		id: 'repassbox',
+		okVal: '确定重置',
+		icon: 'notice',
+		ok: function () {
+			$.ajax({
+				type:"get",
+				url:"{url('admin/repass/repass')}",
+				success:function(data){
+					if(data.status==1){
+						showAlert('success',data.info,'','null');
+						top.art.dialog.list['repassbox'].close();
+					}else{
+						showAlert('error',data.info,'','null');
+					}
+				}
+			});
+			return false;
+		}
+	});
+}
+
+</script>
+</body>
+</html>

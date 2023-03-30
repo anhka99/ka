@@ -1,0 +1,88 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">关键词设置</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips">插入的关键词可以在模板文件或者TKD模板中调用，能调用的数量取决于设置的插入关键词个数<br>模板文件或者TKD模板中的调用标签 {<a></a>$randkws}、{<a></a>$randkws1}、{<a></a>$randkws2}...</div>
+<style type="text/css">
+.boxlist dl{ min-width:180px;width:auto;}
+.red{ color:red}
+</style>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>关键词设置配置（一个网站分组一个配置） (<span class="tips" style="color:red">注：如果网站分组未设置，则使用默认配置</span>)</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="boxlist">
+	<dl class="default">
+		<dt>
+			<p class="title">默认的调用配置</p>
+			<p>插入概率：{$default.insertkw_odds}%</p>
+			<p>调用全局关键词库：{if $default.insertkw_common}<b style="color:green">是</b>{else}<b class="blue">否</b>{/if}</p>
+			<p>限制域名：{if $default.insertkw_domains}<b style="color:red">限制</b>{else}<b class="blue">不限制</b>{/if}</p>
+			<p>首页标题插入：{if $default.insertkw_index}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章栏目页标题插入：{if $default.insertkw_list}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章内容页标题插入：{if $default.insertkw_show}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章内容插入：{if $default.insertkw2content}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词加粗显示：{if $default.insertkw_strong}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词unicode转码：{if $default.insertkw_unicode}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词插入数量：{$default.insertkw_num|default:1}</p>
+			<p>标题的格式：-----</p>
+		</dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('0','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $list as $k=>$vo}
+	<dl>
+        <dt>
+			<p class="title">{$vo.name}</p>
+			{if $vo.isset}
+			<p>插入概率：{$vo.data.insertkw_odds}%</p>
+			<p>调用全局关键词库：{if $vo.data.insertkw_common}<b style="color:green">是</b>{else}<b class="blue">否</b>{/if}</p>
+			<p>限制域名：{if $vo.data.insertkw_domains}<b style="color:red">限制</b>{else}<b class="blue">不限制</b>{/if}</p>
+			<p>首页标题插入：{if $vo.data.insertkw_index}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章栏目页标题插入：{if $vo.data.insertkw_list}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章内容页标题插入：{if $vo.data.insertkw_show}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>文章内容插入：{if $vo.data.insertkw2content}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词加粗显示：{if $vo.data.insertkw_strong}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词unicode转码：{if $vo.data.insertkw_unicode}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>关键词插入数量：{$vo.data.insertkw_num|default:1}</p>
+			<p>标题的格式：-----</p>
+			{else}
+			<p>插入概率：未设置</p>
+			<p>调用全局关键词库：未设置</p>
+			<p>限制域名：未设置</p>
+			<p>首页标题插入：未设置</p>
+			<p>文章栏目页标题插入：未设置</p>
+			<p>文章内容页标题插入：未设置</p>
+			<p>文章内容插入：未设置</p>
+			<p>关键词加粗显示：未设置</p>
+			<p>关键词unicode转码：未设置</p>
+			<p>关键词插入数量：未设置</p>
+			<p>标题的格式：-----</p>
+			{/if}
+		</dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-keywords-del-cid-{$vo.id}" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>{else}<a class="button button_small" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(id,typename){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'关键词插入配置【'+typename+'】',
+		url:'?admin-keywords-edit-cid-'+id,
+		posturl:'?admin-keywords-update',
+		width:880,
+		height:550
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

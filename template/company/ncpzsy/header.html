@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<head id="Head">
+	<script type="text/javascript">var allpane = 'topAreaB|topAreaA|headerAreaA|mainArea|footerAreaA|bottomAreaA|fixedBottomArea|fixed-left|fixed-right|popup-area';</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>{$toptitle}</title>
+	<meta name="description" content="{$description}" />
+	<meta name="keywords" content="{$keywords}" />
+	<link href="/1034/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta http-equiv="PAGE-ENTER" content="RevealTrans(Duration=0,Transition=1)" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/qhdcontent.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/content.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/menu.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/jquery.fancybox-1.3.4.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/pgwslideshow.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/animate.min.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="{$theme_path}/staic/css/style-green.css" />
+	<!--[if lt IE 9]>
+	<script src="{$theme_path}/staic/js/html5.js"></script>
+	<![endif]--><!--[if IE 6]>
+	<script type="text/javascript" src="{$theme_path}/staic/js/ie7.js"></script>
+	<script type="text/javascript" src="{$theme_path}/staic/js/dd_belatedpng.js"></script>
+	<script type="text/javascript">
+		DD_belatedPNG.fix('.top img, .footer img, .bottom img, .form-btn, .module-icon-default');
+	</script>
+	<![endif]-->
+
+	<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+</head>
+<!-- 外部样式 -->
+<body class="font-zh-CN" style="background:url({$theme_path}/staic/images/bg-img-02.jpg) top center fixed;">
+<script src="{$theme_path}/staic/js/a1portal.js"></script>
+<script src="{$theme_path}/staic/js/a1portalcore.js"></script>
+<script src="{$theme_path}/staic/js/jquery-1.7.2.min.js"></script>
+<script src="{$theme_path}/staic/js/superfish.js"></script>
+<script src="{$theme_path}/staic/js/jquery.caroufredsel.js"></script>
+<script src="{$theme_path}/staic/js/jquery.touchswipe.min.js"></script>
+<script src="{$theme_path}/staic/js/jquery.tools.min.js"></script>
+<script src="{$theme_path}/staic/js/jquery.fancybox-1.3.4.pack.js"></script>
+<script src="{$theme_path}/staic/js/pgwslideshow.min.js"></script>
+<script src="{$theme_path}/staic/js/jquery.fixed.js"></script>
+<script src="{$theme_path}/staic/js/cloud-zoom.1.0.2.min.js"></script>
+<script src="{$theme_path}/staic/js/device.min.js"></script>
+<script src="{$theme_path}/staic/js/html5media-1.2.js"></script>
+<script src="{$theme_path}/staic/js/animate.min.js"></script>
+<script src="{$theme_path}/staic/js/isotope.pkgd.min.js"></script>
+<script src="{$theme_path}/staic/js/custom.js"></script>
+<div id="wrapper" class="home-page"><!-- ==================== S top ==================== -->
+	<header class="top header-v4 desktops-section default-top" ><!-- top-bar -->
+		<div class="top-bar clearfix">
+			<div class="page-width clearfix">
+				<div id="a1portalSkin_topAreaB" class="QHDEmptyArea top-widget float-right"></div>
+				<div id="a1portalSkin_topAreaA" class="QHDEmptyArea top-widget float-left"></div>
+			</div>
+		</div>
+		<!-- top-bar -->
+		<div class="page-width clearfix"><!-- S top-main -->
+			<div class="top-main">
+				<div class="page-width clearfix">
+					<div class="logo" skinobjectzone="HtmlLogo_634"><a href="{$web_url}">{$web_name}</a></div>
+					<!-- end of logo --><!-- S language -->
+					<div class="language" skinobjectzone="HtmlLanguage_689"></div>
+					<!-- E language -->
+					<div class="top-main-content float-right"><!-- S nav -->
+						<nav class="nav">
+							<div class="main-nav clearfix" skinobjectzone="menu_870">
+								<ul class="sf-menu">
+									<li class="current"><a class="first-level" href="{$web_url}"><strong>首页</strong></a><i></i></li>
+									<li class=""><a class="first-level" href="{geturl tpl='about'/}"><strong>关于我们 </strong></a><i></i>
+
+									</li>
+									<li class=""><a class="first-level" href="{geturl tpl='product_list'/}"><strong>产品中心 </strong></a><i></i>
+										<ul class="">
+											{loop type="catelog" row='4' tpl='product_list'}
+											<li class=""><a class="" href="{$vo.typeurl}"><strong>{$vo.typename}</strong></a></li>
+											{/loop}
+										</ul>
+									</li>
+									<li class=""><a class="first-level" href="{geturl tpl='list'/}"><strong>新闻资讯 </strong></a><i></i>
+										<ul class="">
+											{loop type="catelog" row='4' tpl='list'}
+											<li class=""><a class="" href="{$vo.typeurl}"><strong>{$vo.typename}</strong></a></li>
+											{/loop}
+										</ul>
+									</li>
+									<li class=""><a class="first-level" href="{随机栏目URL}"><strong>成功案例 </strong></a><i></i>
+									</li>
+									<li class=""><a class="first-level" href="{随机栏目URL}"><strong>服务中心 </strong></a><i></i>
+									</li>
+									<li class=""><a class="first-level" href="{geturl tpl="contact"/}"><strong>联系我们</strong></a><i></i>
+									</li>
+								</ul>
+							</div>
+						</nav>
+						<!-- E nav--></div>
+				</div>
+			</div>
+			<!-- E top-main --></div>
+
+	</header>
+	<!-- S touch-top-wrapper -->
+	<div class="touch-top mobile-section clearfix">
+		<div class="touch-top-wrapper clearfix">
+			<div class="touch-logo" skinobjectzone="HtmlLogo_1717"><a href="{$web_url}">{$web_name}</a></div>
+			<!-- S touch-navigation -->
+			<div class="touch-navigation">
+				<div class="touch-toggle">
+					<ul>
+						<li class="touch-toggle-item-last"><a href="javascript:;" class="drawer-menu" data-drawer="drawer-section-menu"><i class="touch-icon-menu"></i><span>导航</span></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- E touch-navigation --></div>
+		<!-- S touch-top -->
+		<div class="touch-toggle-content touch-top-home">
+			<!--<div class="drawer-section drawer-section-language">
+			  <ul class="touch-language clearfix" skinobjectzone="HtmlLanguage_1982">
+				<li><a href="/">中文简体</a></li>
+			  </ul>
+			</div>-->
+			<div class="drawer-section drawer-section-menu">
+				<div class="touch-menu" skinobjectzone="menu_2200">
+					<ul>
+						<li class="current"><a class="first-level" href="{$web_url}"><strong>首页</strong></a><i></i></li>
+						<li class=""><a class="first-level" href="{geturl tpl='about'/}"><strong>关于我们 </strong></a><i></i>
+
+						</li>
+						<li class=""><a class="first-level" href="{geturl tpl='product_list'/}"><strong>产品中心 </strong></a><i></i>
+							<ul class="">
+								{loop type="catelog" row='4' tpl='product_list'}
+								<li class=""><a class="" href="{$vo.typeurl}"><strong>{$vo.typename}</strong></a></li>
+								{/loop}
+							</ul>
+						</li>
+						<li class=""><a class="first-level" href="{geturl tpl='list'/}"><strong>新闻资讯 </strong></a><i></i>
+							<ul class="">
+								{loop type="catelog" row='4' tpl='list'}
+								<li class=""><a class="" href="{$vo.typeurl}"><strong>{$vo.typename}</strong></a></li>
+								{/loop}
+							</ul>
+						</li>
+						<li class=""><a class="first-level" href="{随机栏目URL}"><strong>成功案例 </strong></a><i></i>
+						</li>
+						<li class=""><a class="first-level" href="{随机栏目URL}"><strong>服务中心 </strong></a><i></i>
+						</li>
+						<li class=""><a class="first-level" href="{geturl tpl="contact"/}"><strong>联系我们</strong></a><i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<script type="text/javascript">
+                $(document).ready(function(){
+
+                    $(".touch-toggle a").click(function(event){
+                        var className = $(this).attr("data-drawer");
+
+                        if( $("."+className).css('display') == 'none' ){
+                            $("."+className).slideDown().siblings(".drawer-section").slideUp();
+                        }else{
+                            $(".drawer-section").slideUp();
+                        }
+                        event.stopPropagation();
+                    });
+
+                    /*$(document).click(function(){
+					 $(".drawer-section").slideUp();
+					})*/
+
+                    $('.touch-menu a').click(function(){
+                        if( $(this).next().is('ul') ){
+                            if( $(this).next('ul').css('display') == 'none' ){
+                                $(this).next('ul').slideDown();
+                                $(this).find('i').attr("class","touch-arrow-up");
+                            }else{
+                                $(this).next('ul').slideUp();
+                                $(this).next('ul').find('ul').slideUp();
+                                $(this).find('i').attr("class","touch-arrow-down");
+                            }
+                        }
+                    });
+                });
+			</script></div>
+		<!-- E touch-top --></div>

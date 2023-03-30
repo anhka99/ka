@@ -1,0 +1,39 @@
+<div class="wrapper">
+        <div class="friend-link">
+            <h1>友情链接</h1>
+            <ul>
+               {loop type="domain"}<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>{/loop}
+				
+			   {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+			   <li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+			   {/loop}
+            </ul>
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <section class="wrapper">
+        <div class="left">
+            <nav class="footer_menu">
+                <ul class="menu"></ul>
+            </nav>
+            <section class="footer_contact"></section>
+            <section class="copyright">
+                &copy;{date('Y')} Powered By <a href="/">{网站名称}</a>
+            </section>
+        </div>
+        <div class="right">
+            <a href="//{$host}/sitemap.xml" target="_blank">网站地图</a>
+            <section class="footer_btn">
+                <a href="#" title="" rel="external nofollow "><i class="icon icon-weibo "></i></a>
+                <a href="#" title="" rel="external nofollow"><i class="icon icon-tencent-weibo"></i></a>
+            </section>
+        </div>
+    </section>
+</footer>
+
+{统计代码} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if}
+{百度推送代码}

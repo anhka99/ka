@@ -1,0 +1,114 @@
+{include file="header.html"}
+<body class="body-main">
+<style type="text/css">
+.hourtime{ line-height:30px; }
+.hourtime label{ margin: 0 10px; }
+</style>
+<form method="post">
+<input type="hidden" name="con[cid]" value="{$cid|default:0}">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config2" class="tableConfig">
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">网站分组：</td>
+		  <td class="tdbg"><font color="blue">{$classname}</font></td>
+		</tr>
+<tr>
+	<td align="right" class="config_td_first">蜘蛛强引开关：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[robot_redirect_open]" value="1" {if $robot_redirect_open} checked{/if}>开启</label>
+	<label><input type="radio" name="con[robot_redirect_open]" value="0" {if !$robot_redirect_open} checked{/if}>关闭</label>
+	<span class="tips" style="color:red"><i class="typcn typcn-warning"></i>开启后将强制把蜘蛛引到外链上，慎用，蜘蛛会变少</span>
+	</td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">指定蜘蛛：</td>
+	<td><input type="hidden" name="con[robot_redirect_items]" id="rb_value" value="{$robot_redirect_items}" /><font id="rb_items" color="#ff6600">{if !$robot_redirect_itemsname}不限制{else}{$robot_redirect_itemsname}{/if}</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="select_robots();"><i class="typcn typcn-zoom-in"></i>点击选择</a> <span class="tips" style="color:red"><i class="typcn typcn-warning"></i>选中的蜘蛛才进行强引，一个不选则全部强引</span></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">指定强引域名：<br>( <cc style="color:red">填蜘蛛池的域名</cc>)</td>
+  <td><font color="red"><i class="typcn typcn-warning"></i> 一行一条，支持泛域名格式：*.a.com ，不填则不限制</font>
+ <br/><textarea name="con[robot_redirect_domainlist]" class="inputs" style="width:350px;height:100px">{$robot_redirect_domainlist}</textarea></td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">权重传递：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[robot_redirect_weight]" value="301" {if $robot_redirect_weight=='301'} checked{/if}>是</label>
+	<label><input type="radio" name="con[robot_redirect_weight]" value="302" {if !$robot_redirect_weight or $robot_redirect_weight=='302'} checked{/if}>否</label>
+	</td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">蜘蛛类型：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[robot_redirect_terminal]" value="all" {if !$robot_redirect_terminal || $robot_redirect_terminal=='all'} checked{/if}>不限</label>
+	<label><input type="radio" name="con[robot_redirect_terminal]" value="pc" {if $robot_redirect_terminal=='pc'} checked{/if}>PC蜘蛛</label>
+	<label><input type="radio" name="con[robot_redirect_terminal]" value="mobile" {if $robot_redirect_terminal=='mobile'} checked{/if}>移动蜘蛛</label>
+	</td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">蜘蛛强引概率：</td>
+  <td class="tdbg"><input name="con[robot_redirect_odds]" type="text" class="input" value="{$robot_redirect_odds|default:60}" size="12">
+  <span class="tips">1到100的概率设置，100为100%</span>
+  </td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">强引时间段：</td>
+  <td class="icheck_radios robot_redirect_timetype"><label><input type="radio" name="con[robot_redirect_timetype]" value="1"{if $robot_redirect_timetype || $robot_redirect_timetype==''} checked{/if}>按日期</label>
+		<label><input type="radio" name="con[robot_redirect_timetype]" value="2"{if $robot_redirect_timetype=='2'} checked{/if} >按每日时间段</label>
+		 <span class="tips"></span>
+	</td>
+</tr>
+<script type="text/javascript">
+	$('.robot_redirect_timetype input').on('ifChecked ifClicked', function(event){
+		if(this.value==1){
+			$('.timetype2').hide();
+			$('.timetype1').fadeIn();
+		}
+		if(this.value==2){
+			$('.timetype1').hide();
+			$('.timetype2').fadeIn();
+		}
+	});
+</script>
+<tr class="tdbg timetype1" {if $robot_redirect_timetype==2} style="display:none"{/if} >
+  <td align="right" class="config_td_first"><font color="#ff6600">按日期强引：</font></td>
+  <td class="tdbg"><input name="con[robot_redirect_starttime]" type="text" onClick="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input Wdate" style="width:130px;" value="{if $robot_redirect_starttime}{$robot_redirect_starttime|date:'Y-m-d H:i'}{/if}">
+  &nbsp;至 &nbsp;<input name="con[robot_redirect_endtime]" type="text" onClick="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input Wdate" style="width:130px;" value="{if $robot_redirect_endtime}{$robot_redirect_endtime|date:'Y-m-d H:i'}{/if}">
+  <span class="tips">不填则为不限制</span>
+  </td>
+</tr>
+<tr class="tdbg timetype2" {if $robot_redirect_timetype==1 || $robot_redirect_timetype==''} style="display:none"{/if} >
+  <td align="right" class="config_td_first"><font color="#ff6600">按每日时间段强引：</font></td>
+  <td class="tdbg">
+	<div class="hourtime">
+		<?php for($i=0;$i<24;$i++){?>
+		<?php if($i && $i%5==0){ echo '<br>'; }?>
+		<?php $si=$i; if($i<10){ $si='0'.$i; }?>
+		<label><input type="checkbox" name="robot_redirect_hour[]" value="<?php echo $i;?>" <?php if(in_array($i,$this->_var['robot_redirect_hour'])){ echo ' checked'; }?>><?php echo $si;?>时</label>
+		<?php }?>
+		<br>
+		<label><input type="checkbox" id='checkall_time'>全选</label>
+		</div>
+  </td>
+</tr>
+<script type="text/javascript">
+$("#checkall_time").click(function(){   
+	if(this.checked){   
+		$(".hourtime :checkbox").prop("checked", true);  
+	}else{   
+		$(".hourtime :checkbox").prop("checked", false);
+	}   
+});
+</script>
+<tr>
+	<td align="right" class="config_td_first">强引外链类型：</td>
+	<td class="icheck_radios"><label><input type="radio" name="con[robot_redirect_type]" value="system" {if !$robot_redirect_type or $robot_redirect_type=='system'} checked{/if}>系统外链（<font color="red">外链管理里的</font>）</label>
+	<label><input type="radio" name="con[robot_redirect_type]" value="custom" {if $robot_redirect_type=='custom'} checked{/if}>自定义外链（<font color="red">下面的</font>）</label>
+	</td>
+</tr>
+<tr class="list">
+  <td align="right" class="config_td_first">自定义强引外链：</td>
+  <td>↑↑↑上面的类型需设置为自定义外链，建议1000条以内（支持外链url标签）<br><textarea name="robot_redirect_data" type="text" style="height:250px;width:600px;">{$robot_redirect_data}</textarea></td>
+</tr>
+	</table>
+	</form>
+{include file="group_robot_list.html"}
+{include file="group_list.html"}
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,19 @@
+<footer class="footer">
+	<div class="container">
+							<div class="flinks">
+				<strong>友情链接</strong>
+	<ul class='xoxo blogroll'>
+	 {loop type="domain"}<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>{/loop}
+	
+   {loop type="flink"}<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>{/loop}
+{loop type="link"}
+  <li> <a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+   {/loop}
+	</ul>
+
+			</div>
+			    <p>Copyright &copy; {date('Y')} Powered by <a href="{$web_url}">{网站名称}</a>&nbsp;&nbsp;{统计代码} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if} <a href="http://{$host}/sitemap.xml">sitemap</a></p>
+</div>    </div>
+</footer>
+{分享代码}
+{百度推送代码}

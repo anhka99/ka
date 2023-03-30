@@ -1,0 +1,588 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="applicable-device" content="pc">
+<meta name="renderer" content="webkit"/>
+<meta name="force-rendering" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<title>{$toptitle}</title>
+<meta name="keywords" content="{$keywords}">
+<meta name="description" content="{$description}">
+<link href="{$theme_path}/css/index.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+{include file="header.html"}
+<div id="wrapper">
+	<div id="container">
+		<div class="main bgf">
+			<div class="nav_t">
+			   <div>
+			   	 {loop type="catelog" row="15"}
+					<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+					 {/loop}
+				</div>
+			</div>
+		</div>
+	
+		<div class="main clearfix">
+			<div class="search">
+			  <form action="{随机内容URL}" target="_blank">
+					<input type="hidden" name="s" value="10520733385329581432"/>
+					<input type="hidden" name="ie" value="gbk"/>
+					<input type="text" name="q" class="key_input" placeholder="请输入关键词"/>
+					<input type="submit" value=" " class="c_btn"/>
+				</form>
+			</div>
+			<div class="aorg"><span class="tag">特色栏目</span> {loop type="catelog" row="5"}
+					<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+					 {/loop}
+			</div>
+		</div>
+		<div class="main clearfix">
+			<span id="tonglan1" class="jbTestPos"></span>
+		</div>
+
+		<div class="main mt10 bgf">
+		  <div class="ione cf">
+			<div class="il">
+			  <div class="slider" id="slider">
+			  	 {loop type='arclist' row='1'}
+				<a rel="nofollow" href="{$vo.url}"  target="_blank"><img alt='jieidc' src='{$vo.pic}' /><p><span>{$vo.title}</span></p></a>
+
+				  {/loop}
+			
+			  </div>
+			  
+			  <ul class="zt_ul">
+
+			  	 {loop type='arclist' row='1'}
+				 <li class="one">
+					<div><span>推荐</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></div>
+					<p>{$vo.info}...</p>
+				 </li>
+				   {/loop}
+				   	 {loop type='arclist' row='4'}
+				 <li><a title='{$vo.title}' href="{$vo.url}" target="_blank" class="red">{$vo.title}</a></li>
+ {/loop}
+
+			
+			  </ul>
+			  
+			</div>
+			<div class="ic" id="ic">
+			  <div class="title cf" id="ic_title">
+  	 {loop type="catelog" row="4"}
+					
+					
+
+
+				<span><a title="{$vo.typename}" href="{$vo.typeurl}" class="on" data-on="on">{$vo.typename}</a></span>
+				 {/loop}
+			</div>
+			  <ul class="list">
+
+
+			  
+
+  	 {loop type='arclist' row='16'}
+
+<li><a href="{catelog type="url"/}" title="{catelog type="name"/}" target="_blank"  class="tag">{catelog type="name"/}</a><a href="{$vo.url}" title="{$vo.title}" target="_blank" class="tt">{$vo.title}</a><span>{当天日期}</span></li>
+ {/loop}
+		
+			  </ul>
+			  <ul class="list" style="display:none"> {loop type='arclist' row='16'}
+
+<li><a href="{catelog type="url"/}" title="{catelog type="name"/}" target="_blank"  class="tag">{catelog type="name"/}</a><a href="{$vo.url}" title="{$vo.title}" target="_blank" class="tt">{$vo.title}</a><span>{当天日期}</span></li>
+ {/loop}
+			  </ul>
+			  <ul class="list" style="display:none"> {loop type='arclist' row='16'}
+
+<li><a href="{catelog type="url"/}" title="{catelog type="name"/}" target="_blank"  class="tag">{catelog type="name"/}</a><a href="{$vo.url}" title="{$vo.title}" target="_blank" class="tt">{$vo.title}</a><span>{当天日期}</span></li>
+ {/loop}
+			  </ul>
+			  <ul class="list" style="display:none"> {loop type='arclist' row='16'}
+
+<li><a href="{catelog type="url"/}" title="{catelog type="name"/}" target="_blank"  class="tag">{catelog type="name"/}</a><a href="{$vo.url}" title="{$vo.title}" target="_blank" class="tt">{$vo.title}</a><span>{当天日期}</span></li>
+ {/loop}
+			  </ul>
+			</div>
+			<div class="ir">
+			  <div class="title"><a href="{catelog type="url"/}" rel="nofollow" target="_blank" class="more">更多+</a><span>{catelog type="name"/}</span></div>
+			  <ul class="list itnews">
+			  	{loop type='arclist' row='1'}
+			  <li class="first">
+		<a href="{$vo.url}" title='{$vo.title}' target="_blank"><img src='{$vo.pic}'/></a><p><a href="{$vo.url}" title='{$vo.title}' target="_blank">{$vo.title}</a></p>
+	    </li>
+	     {/loop}
+	       	{loop type='arclist' row='5'}
+			  <li>
+				<div class="new_img"><a href="{$vo.url}" title='{$vo.title}' target="_blank"><img src='{$vo.pic}'/></a></div>
+				<div class="new_info">
+					<a href="{$vo.url}" title='{$vo.title}' target="_blank">{$vo.title}</a>
+				</div>
+			  </li>
+ {/loop}
+			
+			  <li class="clear"></li>
+			  </ul>
+			  <div class="ggao">
+			    <div class="gg_title"><span> &nbsp;公告</span></div>
+
+		<ul>
+	{loop type='arclist' row='3'}
+			<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+			 {/loop}
+
+</ul>
+				  <div class="clear"></div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="blank10"></div>
+		  <div class="clearfix"><span id="tonglan3_1" class="jbTestPos"></span></div>
+		  <div class="clearfix"></div>
+		  <div class="ilist cf">
+
+			<div>
+				<div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+      <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div class="ic-sec">
+         <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+				
+	  <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div>
+			  <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+	 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+		  </div>
+		  <div class="blank10"></div>
+		  <div class="clearfix"><span id="tonglan3_3" class="jbTestPos"></span></div>
+		  <div class="clearfix"></div>
+		  <div class="ilist cf">
+			<div>
+			  <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+	 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div class="ic-sec">
+				  <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+			<ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div>
+            <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+			 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+		  </div>
+		  <div class="blank10"></div>
+		  <div class="ilist cf">
+			<div>
+			 <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+			 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div class="ic-sec">
+				 <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+				 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+			<div>
+		 <div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a><a href="{catelog type="url"/}" target="_blank">{catelog type="name"/}</a></div>
+			 <ul class="list">
+      	{loop type='arclist' row='12'}
+	<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+
+      </ul>
+			</div>
+		  </div>
+		  <div class="blank10"></div>
+		  <div class="clearfix"><span id="tonglan3_2" class="jbTestPos"></span></div>
+		  <div class="blank10 clearfix"></div>
+		  <div class="ithree cf">
+			<div class="il">
+
+				<div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a>
+
+					<div class="itag">
+{loop type="catelog" row="4"}
+					
+					
+
+
+			
+			
+						<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+	 {/loop}
+						</div>
+						{loop type="catelog" row="1"}
+					
+					
+
+
+			
+			
+						<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+	 {/loop}
+						</div>
+			  <div class="ilt cf">
+			  <div>
+				<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+				</ul>
+			  </div>
+			  <div>
+			<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+	 
+				</ul>
+			  </div>
+			  <div>
+					<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+	 
+				</ul>
+			  </div>
+			  <div>
+				<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+	 
+				</ul>
+			  </div>
+			  </div>
+			</div>
+			
+
+			<div class="ir">
+				<div class="title"><a href="{catelog type="url"/}" class="more" target="_blank">更多+</a>{catelog type="name"/}</div>
+			  <ul class="list">
+
+{loop type='arclist' row='9'}
+				<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+ {/loop}
+
+			
+				</ul>
+			  <div class="title"><a href="{catelog type="url"/}" class="more">更多+</a>{catelog type="name"/}</div>
+			  <ul class="list_ico" id="th_s">
+{loop type='arclist' row='8'}
+				<li  data-on="on">
+					<a href="{$vo.url}" title="{$vo.title}" target="_blank">
+					<div class="img">
+					<img src='{$vo.pic}'/>
+				  </div>
+				  <p>{$vo.title}</p>
+				  </a>
+				</li>
+{/loop}
+				
+			  </ul>
+			</div>
+
+
+			<!-- </div> -->
+
+			<!-- 1151515 -->
+			<div class="bk10"></div>
+			<div class="dxy1200 clearfix"><span id="tonglan2_1" class="jbTestPos"></span></div>
+			<div class="blank5 clearfix"></div>
+		<div class="il">
+
+				<div class="title"><a href="{catelog type="url"/}" target="_blank" class="more">更多+</a>
+
+					<div class="itag">
+{loop type="catelog" row="4"}
+<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+{/loop}
+						</div>
+{loop type="catelog" row="1"}
+		<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a>
+ {/loop}
+						</div>
+			  <div class="ilt cf">
+			  <div>
+				<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+				</ul>
+			  </div>
+			  <div>
+				<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+				</ul>
+			  </div>
+			  <div>
+					<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+				</ul>
+			  </div>
+			  <div>
+					<div class="title">{catelog type="name"/}</div>
+				<ul class="list">
+{loop type='arclist' row='3'}
+					<li class="aimg"><a href="{$vo.url}" target="_blank"><img src='{$vo.pic}'/><p><span>{$vo.title}</span></p></a></li>
+
+					 {/loop}
+{loop type='arclist' row='5'}
+
+
+					<li><span class="data">{当天日期}</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+	 {/loop}
+
+				</ul>
+			  </div>
+			  <div>
+			</div>
+			</div>
+			</div>
+			<div class="ir">
+				<div class="title"><a href="{catelog type="url"/}" class="more" target="_blank">更多+</a>{catelog type="name"/}推荐</div>
+
+
+				
+
+
+			  <ul class="list">
+				{loop type='arclist' row='9'}
+				<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>
+ {/loop}
+
+
+				</ul>
+			  <div class="title"><a href="{catelog type="url"/}" class="more">更多+</a>{catelog type="name"/}</div>
+			  <ul class="list_ico" id="th_m">
+
+
+				
+
+{loop type='arclist' row='9'}
+				<li  data-on='on'>
+					<a href="{$vo.url}" title="{$vo.title}" target="_blank">
+					<div class="img">
+					<img src='{$vo.pic}'/>
+				  </div>
+				  <p>{$vo.title}</p>
+				  </a>
+				</li>
+ {/loop}
+
+			
+			  </ul>
+			</div>
+		  </div>
+
+
+		  <!--  </div> -->
+		  <div class="bk10"></div>
+		  <div class="dxy1200 clearfix"><span id="tonglan2_2" class="jbTestPos"></span></div>
+		  <div class="blank5 clearfix"></div>
+		  <div class="ifour cf">
+			<div>
+			  <div>
+				 <div class="title"><a href="{catelog type="url"/}" class="more">更多+</a>{catelog type="name"/}</div>
+				<ul class="list">
+
+{loop type='arclist' row='10' }
+					<li><em>{$vo.i}</em><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+					</li>
+ {/loop}
+				
+				</ul>
+			  </div>
+			  <div>
+				 <div class="title"><a href="{catelog type="url"/}" class="more">更多+</a>{catelog type="name"/}</div>
+				<ul class="list">
+
+{loop type='arclist' row='10' }
+					<li><em>{$vo.i}</em><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+					</li>
+ {/loop}
+				
+				</ul>
+			  </div>
+			  <div>
+			 <div class="title"><a href="{catelog type="url"/}" class="more">更多+</a>{catelog type="name"/}</div>
+				<ul class="list">
+
+{loop type='arclist' row='10'}
+					<li><em>{$vo.i}</em><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+					</li>
+ {/loop}
+				
+				</ul>
+			  </div>
+			  <div>
+				<div class="title">友情链接</div>
+				<ul class="list_ico list_tol"  id="s_t">
+								{loop type="domain"}<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>{/loop}
+								 {loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}<li><a href="{$vo.url}" title="{$vo.title}" target="_blank">{$vo.title}</a></li>{/loop}
+				
+			  </ul>
+			  </div>
+			</div>
+		  </div>
+		  <div class="t_tag">
+			<div class="title">网站地图导航</div>
+
+			<div><span><i></i>{catelog type="name"/}</span>
+
+				   {loop type="catelog" row="8"}
+			<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a><em></em>
+
+			
+        {/loop}
+		
+			</div>
+
+
+			<div><span class="rspan"><i></i>{catelog type="name"/}</span>
+			   {loop type="catelog" row="8"}
+			<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a><em></em>
+
+			
+        {/loop}
+			</div>
+			<div><span class="yspan"><i></i>{catelog type="name"/}</span>
+			   {loop type="catelog" row="8"}
+			<a href="{$vo.typeurl}" target="_blank">{$vo.typename}</a><em></em>
+
+			
+        {/loop}
+			</div>
+		  </div>
+		  <div class="ifriend cf">
+			
+			
+			<p>
+
+			<div class="blank10 clearfix"></div>
+			</p>
+		  </div>
+		</div>
+
+</div>
+</div>
+
+{include file="footer.html"}
+</div>
+</body>
+</html>

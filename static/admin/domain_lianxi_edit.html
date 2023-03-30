@@ -1,0 +1,41 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">自定义联系方式</a></li>
+</ul>
+<form method="post">
+<input type="hidden" name="con[cid]" value="{$cid|default:0}">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config2" class="tableConfig">
+		<tr class="tdbg">
+		  <td width="150" align="right" class="config_td_first">网站分组：</td>
+		  <td class="tdbg"><font color="blue">{$classname}</font></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">联系电话：</td>
+			<td><div style="color:red;margin-bottom:5px;"><i class="typcn typcn-warning"></i>每行一个电话号码，系统会随机调用</div>
+			<textarea name="con[company_tel]" class="inputs" style="width:350px;padding:1px;height:150px">{$company_tel}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">联系地址：</td>
+			<td><div style="color:red;margin-bottom:5px;"><i class="typcn typcn-warning"></i>每行一个联系地址，系统会随机调用</div>
+			<textarea name="con[company_address]" class="inputs" style="width:350px;padding:1px;height:150px">{$company_address}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">联系邮箱：</td>
+			<td><div style="color:red;margin-bottom:5px;"><i class="typcn typcn-warning"></i>每行一个邮箱地址，系统会随机调用</div>
+			<textarea name="con[company_email]" class="inputs" style="width:350px;padding:1px;height:150px">{$company_email}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">联系QQ：</td>
+			<td><div style="color:red;margin-bottom:5px;"><i class="typcn typcn-warning"></i>每行一个QQ号码，系统会随机调用</div>
+			<textarea name="con[company_qq]" class="inputs" style="width:350px;padding:1px;height:150px">{$company_qq}</textarea>
+			</td>
+		</tr>
+	</table>
+	</form>
+{include file="footer.html"}
+</body>
+</html>

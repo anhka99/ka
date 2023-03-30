@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+{include file="header.html"}
+<section class="container">
+	<div class="content-wrap">
+	<div class="content">
+	<div class="catleader"><h1>{$typename}</h1><div class="catleader-desc">{$description}</div></div>
+	{loop type="arclist" row="10" tpl="show"  islist="1"}
+		<article class="excerpt excerpt-1">
+		<a target="_blank" class="focus" href="{$vo.url} ">
+		<img data-src="{$vo.pic}" alt="{$vo.title}" src="{$vo.pic}" class="thumb">
+		</a>
+		<header>
+		<h2><a target="_blank" href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></h2>
+		</header>
+		<p class="meta">
+			<time><i class="fa fa-clock-o"></i>{$vo.postdate}</time>
+			<span class="pv"><i class="fa fa-eye"></i>阅读({$vo.hits})</span>
+			<a href="javascript:;" etap="like" class="post-like"><i class="fa fa-thumbs-o-up"></i>赞(<span>{随机数字}</span>)</a>
+		</p>
+		<p class="note">{$vo.info}</p>
+	</article>
+	{/loop}
+	<div class="pagination">
+		<ul>
+		<li class="prev-page"></li>
+			{loop type="catelog" tpl='list'}
+			<li><a href='{$vo.typeurl}'>{$k+1}</a></li>
+			{/loop}
+		</ul>
+	</div>
+	</div>
+	</div>
+	{include file="right.html"}
+</section>
+{include file="footer.html" }

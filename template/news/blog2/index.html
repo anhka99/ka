@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+{include file="header.html"}
+<section class="container">
+	<div class="content-wrap">
+	<div class="content">
+    <div id="focusslide" class="swiper-container swiper-container-initialized swiper-container-horizontal">
+  <div class="swiper-wrapper" style="transform: translate3d(-2460px, 0px, 0px); transition-duration: 0ms;">
+    <div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" style="width: 820px;">
+        <img src="{随机图片}" style="width: 820px;height:150px">
+    </div>
+    <div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="1" style="width: 820px;">
+        <img src="{随机图片}" style="width: 820px;height:150px">
+    </div>
+    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="2" style="width: 820px;">
+        <img src="{随机图片}" style="width: 820px;height:150px">
+    </div>
+    <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="3" style="width: 820px;">
+        <img src="{随机图片}" style="width: 820px;height:150px">
+    </div>
+    <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="4" style="width: 820px;">
+        <img src="{随机图片}" style="width: 820px;height:150px">
+    </div>
+  </div>
+  <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span>
+    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
+    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 3"></span>
+  </div>
+  <div class="swiper-button-next swiper-button-white" tabindex="0" role="button" aria-label="Next slide">
+    <i class="fa fa-chevron-right"></i>
+  </div>
+  <div class="swiper-button-prev swiper-button-white" tabindex="0" role="button" aria-label="Previous slide">
+    <i class="fa fa-chevron-left"></i>
+  </div>
+  <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+</div>
+    
+	{loop type="arclist" row="10" tpl="show"}
+		<article class="excerpt excerpt-1">
+		<a target="_blank" class="focus" href="{$vo.url} ">
+		<img data-src="{$vo.pic}" alt="{$vo.title}" src="{$vo.pic}" class="thumb">
+		</a>
+		<header>
+		<h2><a target="_blank" href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></h2>
+		</header>
+		<p class="meta">
+			<time><i class="fa fa-clock-o"></i>{$vo.postdate}</time>
+			<span class="pv"><i class="fa fa-eye"></i>阅读({$vo.hits})</span>
+			<a href="javascript:;" etap="like" class="post-like"><i class="fa fa-thumbs-o-up"></i>赞(<span>{随机数字}</span>)</a>
+		</p>
+		<p class="note">{$vo.info}</p>
+	</article>
+	{/loop}
+	<div class="pagination">
+		<ul>
+		<li class="prev-page"></li>
+			{loop type="catelog" tpl='list'}
+			<li><a href='{$vo.typeurl}'>{$k+1}</a></li>
+			{/loop}
+		</ul>
+	</div>
+	</div>
+	</div>
+	{include file="right.html"}
+</section>
+{include file="footer.html" }

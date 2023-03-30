@@ -1,0 +1,5 @@
+/temp/banner/bannter01.jpg
+/temp/banner/bannter02.jpg
+/temp/banner/bannter03.jpg
+/temp/banner/bannter04.jpg
+/temp/banner/bannter05.jpg

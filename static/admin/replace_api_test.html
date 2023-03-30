@@ -1,0 +1,52 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tbody>
+<tr>
+  <td align="right" width="100">功能说明：</td>
+  <td>
+	<div style="color:red">用于测试《{$api_title}》伪原创API</div>
+  </td>
+</tr>
+<tr class="tdbg">
+  <td align="right">测试内容：</td>
+  <td><textarea type="text" id="body" name="body" style="height:100px;width:95%;overflow:scroll;">据小旋风了解，字节跳动正多方协商不出售美国业务的解决方案。有消息人士表示，字节跳动不会出售TikTok美国分公司，同时“不会将源代码交给任何美国买家”。而微软发布声明表示，字节跳动9月13日通知他们，不会把TikTok的美国业务卖给微软。消息人士也表示，也不会将TikTok美国分公司出售给甲骨文。</textarea></td>
+</tr>
+<tr>
+  <td align="right"></td>
+  <td><button type="button" id="ssbtn" class="button">开始测试</button></td>
+</tr>
+<tr class="tdbg">
+  <td align="right">结果提取：</td>
+  <td><textarea type="text" id="returnmsg" style="height:100px;width:95%;overflow:scroll;">请先开始测试</textarea></td>
+</tr>
+<tr class="tdbg">
+  <td align="right">api返回原始内容：</td>
+  <td><textarea type="text" id="returnhtml" style="height:100px;width:95%;overflow:scroll;">请先开始测试</textarea><font color="blue">注：如出现@符号，为本系统对html的特殊处理方式，不必理会</font></td>
+</tr>
+</tbody>
+</table>
+</form>
+<script>
+$("#ssbtn").click(function(){
+	var _this=this;
+	$(_this).html('正在发送...').attr('disabled',true);
+	$('#returnmsg').val('正在发送...');
+	$('#returnhtml').val('正在发送...');
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: '?admin-replace-api_test-id-{$id}',
+		data:$("form").serialize(),
+		success: function (d) {
+			$(_this).html('开始测试').attr('disabled',false);
+			$('#returnmsg').val(d.body);
+			$('#returnhtml').val(d.html);
+		}
+	});
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">关键词插入设置</a></li>
+</ul>
+<form method="post">
+<input type="hidden" name="con[cid]" value="{$cid|default:0}">
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+		<tr class="tdbg">
+		  <td width="150" align="right" class="config_td_first">插入概率：</td>
+		  <td class="tdbg"><input name="con[insertkw_odds]" type="text" class="input" value="{$insertkw_odds|default:100}" size="12">
+		  <span class="tips">1到100的概率设置，100为100%</span>
+		  </td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">关键词unicode加密：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_unicode]" value="1" {if $insertkw_unicode} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw_unicode]" value="0" {if !$insertkw_unicode} checked{/if}>关闭</label>　<span>关键词是否进行unicode转码，如果tkd那边也开启了unicode，这里就不要开了</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">调用关键词个数：</td>
+		  <td class="tdbg"><input name="con[insertkw_num]" type="text" class="input" value="{$insertkw_num|default:1}" size="12">
+		  <span class="tips">调用多少个关键词，一般5个以内</span>
+		  </td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">是否调用全局关键词库：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_common]" value="1" {if $insertkw_common=='1' || $insertkw_common==''} checked{/if}>是</label>
+				<label><input type="radio" name="con[insertkw_common]" value="0" {if $insertkw_common=='0'} checked{/if}>否</label>　<span>是否调用全局关键词库，否则只调用本分组关键词</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first"><font color="blue">文章内容</font>插入关键词：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw2content]" value="1" {if $insertkw2content || $insertkw2content==''} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw2content]" value="0" {if !$insertkw2content} checked{/if}>关闭</label>　<span>文章内容是否自动插入关键词</td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">内容关键词加粗显示：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_strong]" value="1" {if $insertkw_strong} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw_strong]" value="0" {if !$insertkw_strong} checked{/if}>关闭</label>　<span>文章内容中插入的关键词是否进行加粗显示</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">指定开启的域名：</td>
+		  <td><font color="red">一行一条，支持泛域名格式：*.a.com ，不填则不限制域名</font>
+		 <br/><textarea name="con[insertkw_domains]" class="inputs" style="width:350px;height:150px">{$insertkw_domains}</textarea></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first"><font color="blue">首页标题</font>插入关键词：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_index]" value="1" {if $insertkw_index} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw_index]" value="0" {if !$insertkw_index} checked{/if}>关闭</label>　<span>首页标题插入随机关键词，<font color="red">注：TKD模板中的title模板必须带<cc>{</cc>$title}标签，默认是不带的</font></span></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">首页标题的格式：</td>
+			<td><span class="c9"><font color="#ff6600">&#123;$title} 表示标题、&#123;$word}表示关键词，如：&#123;$title}_&#123;$word}</font><br>多个关键词如：&#123;$word}、&#123;$word1}、&#123;$word2}...<br>一行一条，随机调用，不填则随机插入位置，这个word，只是在这里设置，模板中调用请用&#123;$randkws}...<br/><font color="blue">这里相当把TKD模板中的$title替换掉，一行一个随机调用</font><br/></span>
+			<textarea name="con[insertkw_tpl_index]" class="inputs" style="width:450px;padding:1px;height:100px">{$insertkw_tpl_index}</textarea>
+			</td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first"><font color="blue">文章栏目页标题</font>插入关键词：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_list]" value="1" {if $insertkw_list} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw_list]" value="0" {if !$insertkw_list} checked{/if}>关闭</label>　<span>栏目页标题插入随机关键词，格式同上</span></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">文章栏目页标题的格式：</td>
+			<td>
+			<textarea name="con[insertkw_tpl_list]" class="inputs" style="width:450px;padding:1px;height:100px">{$insertkw_tpl_list}</textarea>
+			</td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first"><font color="blue">文章内容页标题</font>插入关键词：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insertkw_show]" value="1" {if $insertkw_show} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw_show]" value="0" {if !$insertkw_show} checked{/if}>关闭</label>　<span>内容页标题插入随机关键词，格式同上</span></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">文章内容页标题的格式：</td>
+			<td>
+			<textarea name="con[insertkw_tpl_show]" class="inputs" style="width:450px;padding:1px;height:100px">{$insertkw_tpl_show}</textarea>
+			</td>
+		</tr>
+</form>
+</body>
+</html>

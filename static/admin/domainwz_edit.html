@@ -1,0 +1,183 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">域名设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config1',this)">站点模式</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config2',this)">URL规则设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config3',this)">其他设置</a></li>
+</ul>
+<div id="admin_right_b">
+<form method="post">
+<input type="hidden" name="r[id]" value="{$id|default:0}">
+<input type="hidden" name="con[type]" value="@wanzhan">
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config0">
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 域名设置</td>
+		<td><span style="font-weight:500;color:red"><i class="typcn typcn-warning"></i>当前为万站模板类型</span></td>
+	</tr>
+	<tr>
+      <td width="100" align="right" class="config_td_first">分组名称：</td>
+      <td class="tdbg" colspan="4"><input name="r[name]" type="text" value="{$name}" class="input" size="20"> <font color="#ff3300">*</font> <span>给本分组起个名字</span></td>
+    </tr>
+	<tr>
+      <td align="right" class="config_td_first">（<font color="red">不可重复</font>）配置文件夹：</td>
+      <td class="tdbg" colspan="4"><input name="r[dirname]" id="dirname" type="text" value="{$dirname}" class="input" size="20"> <font color="#ff3300">*</font> <font size="" color="red">填字母数字</font>，<span>分组的关键词和外链将放在此文件夹</span></td>
+    </tr>
+	<tr>
+	 <td align="right" class="config_td_first">根域名(<font color="red">非子域名</font>)<br>一行一个，不加端口</td>
+	  <td><textarea name="domain" id="text" type="text" style="height:220px;width:350px;">{$domain}</textarea></td>
+	</tr>
+	
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config1" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 站点模式</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">站点模式：</td>
+	  <td><select name="r[domain_mod]">
+		<option value="1" {if !$domain_mod || $domain_mod=='1'} selected="selected"{/if}>泛域名</option>
+		<option value="2" {if $domain_mod=='2'} selected="selected"{/if}>单域名</option>
+	  </select>&nbsp;&nbsp;<span>泛域名需泛解析</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">301重定向到www：</td>
+	  <td class="icheck_radios"><label><input type="radio" name="con[rewww]" value="1" {if $rewww==1} checked{/if}>全部重定向</label>
+			<label><input type="radio" name="con[rewww]" value="2" {if $rewww==2} checked{/if}>顶级域名重定向</label>
+			<label><input type="radio" name="con[rewww]" value="0" {if !$rewww} checked{/if}>关闭</label></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">泛域名前缀：</td>
+      <td class="icheck_radios prefix_type"><label><input type="radio" name="con[prefix_type]" value="1"{if $prefix_type} checked{/if} onclick="$('.make').show();$('.automake').hide();">自定义（<font color="red">推荐</font>）</label>
+			<label><input type="radio" name="con[prefix_type]" value="0"{if !$prefix_type} checked{/if} onclick="$('.automake').show();$('.make').hide();">自动生成</label>
+			 <span class="tips"></span>
+		</td>
+    </tr>
+	<script type="text/javascript">
+		$('.prefix_type input').on('ifChecked ifClicked', function(event){
+			if(this.value==1){
+				$('.make').show();$('.automake').hide();
+			}
+			if(this.value==0){
+				$('.automake').show();$('.make').hide();
+			}
+		});
+	</script>
+	<tr {if $prefix_type} style="display:none"{/if} class="automake">
+      <td align="right" class="config_td_first">自动生成前缀：</td>
+      <td class="tdbg">生成级数：<input name="con[prefix_leve]" type="text" class="input" size="2" value="{$prefix_leve|default:1}">&nbsp;级 ，随机范围：<input name="con[prefix_start]" type="text" class="input" size="2" value="{$prefix_start|default:5}">&nbsp;至&nbsp;<input name="con[prefix_end]" type="text" class="input" size="2" value="{$prefix_end|default:5}">&nbsp;位数</td>
+    </tr>
+	<tr {if !$prefix_type} style="display:none"{/if} class="make">
+	  <td align="right" class="config_td_first">屏蔽非自定义泛前缀访问</td>
+	  <td class="tdbg icheck_radios"><label><input type="radio" name="con[ban_prefix]" value="1" {if $ban_prefix} checked{/if}>开启</label>
+			<label><input type="radio" name="con[ban_prefix]" value="0" {if !$ban_prefix} checked{/if}>关闭</label>　<span>屏蔽非自定义泛前缀的域名访问</span></td>
+	</tr>
+	<tr {if !$prefix_type} style="display:none"{/if} class="make">
+		<td></td>
+		<td class="tdbg"><font color="blue">注：如果前缀使用了标签并且超过50个，不要屏蔽，否则会卡</font></td>
+	</tr>
+	<tr {if !$prefix_type} style="display:none"{/if} class="make">
+	 <td align="right" class="config_td_first">自定义泛域名前缀：<br>(一行一个<br>注：不要超过1000)</td>
+	  <td><span class="red">支持标签：{数字}、{字母}、{数字字母}<br>标签后面加数字是位数，{数字8}表示8个数字、{数字1-8}示随机1-8个数字<br></span><textarea name="domain_prefix" type="text" style="height:180px;width:350px;">{$domain_prefix}</textarea></td>
+	</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config2" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="180" align="right"><i class="typcn typcn-cog"></i> 设置URL规则</td>
+		<td></td>
+	</tr>
+	
+	<tr>
+		<td align="right" class="config_td_first">屏蔽非URL规则地址(<font color="#ff6600">new</font>)</td>
+		<td class="icheck_radios">
+			<label><input type="radio" name="con[urlrule_ban]" value="1" {if $urlrule_ban} checked{/if}>开启</label>
+			<label><input type="radio" name="con[urlrule_ban]" value="0" {if !$urlrule_ban} checked{/if}>关闭</label>
+			<span class="tips">不符合设置的URL规则就显示404</span>
+		</td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">图片URL规则：</td>
+      <td><input name="con[urlrule_pic]" type="text" value="{$urlrule_pic}" class="input" size="30"> <font color="#ff3300">*</font> <br><span>开启图片url本地化时有效，必须带上<font color="red">{id}</font>且不支持标签</span></td>
+    </tr>
+	<tr>
+	 <td align="right" class="config_td_first">内页URL规则(一行一个)<br>填写URL后缀<br>系统随机调用</td>
+	  <td><textarea name="con[urlrules]" id="text" type="text" style="height:150px;width:450px;">{$urlrules}</textarea></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2"><div class="divtips" style="font-size:13px;line-height:25px">
+			<p><b>内页URL规则设置说明：</b></p>
+			<p><b>url规则标签：</b> {数字}、{字母}、{大写字母}、{大小写字母}、{大写字母数字}、{大小写字母数字}、{数字字母}、<br>{日期}、{年}、{月}、{日}、{时}、{分}、{秒}、{随机字符}
+			<p>非时间的标签后面加数字是位数，如： {数字8}表示8个随机数字、{数字1-8}表示随机1-8个数字</p>
+			<p>示例：<font color="#0066ff">{日期}/{数字字母5}.html</font></p>
+			</div></td>
+	</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config3" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="120" align="right"><i class="typcn typcn-cog"></i> 其他设置</td>
+		<td>( <font style="font-weight:500;color:red">独立设置优先于全局设置</font> )</td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>屏蔽游客访问：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[user_ban]" value="1"{if $user_ban==1} checked{/if}>是</label>
+			<label><input type="radio" name="con[user_ban]" value="0"{if $user_ban=='0'} checked{/if}>否</label>
+			<label><input type="radio" name="con[user_ban]" value="2"{if $user_ban=='2' || $user_ban==''} checked{/if}>跟随全局设置</label>
+			 <span class="tips">禁止非蜘蛛用户访问</span>
+			</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>游客访问跳转：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[user_jump]" value="1"{if $user_jump==1} checked{/if}>是</label>
+			<label><input type="radio" name="con[user_jump]" value="0"{if $user_jump=='0'} checked{/if}>否</label>
+			<label><input type="radio" name="con[user_jump]" value="2"{if $user_jump=='2' || $user_jump==''} checked{/if}>跟随全局设置</label>
+			 <span class="tips">非蜘蛛用户访问后自动跳转到指定地址</span>
+			</td>
+    </tr>
+
+    <tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="red">独立</font>游客跳转地址：</td>
+      <td class="tdbg"><input name="con[user_jumpurl]" type="text" class="input" value="{$user_jumpurl|default:'http://'}" size="60"></td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>流量统计代码：</td>
+      <td><textarea name="con[tongji]"  rows="3"  class="inputs" style="width:450px;">{$tongji}</textarea></td>
+    </tr>
+
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1">
+	<tr>
+	  <td width="120" align="center" class="tdbg">&nbsp;</td>
+	  <td><button type="button" id="dosave" class="button button_submit">提交保存</button></td>
+	</tr>
+	</table>
+</form>
+<script type="text/javascript">
+$("#dosave").click(function(){
+		var _this=this;
+		$(_this).html('正在保存...').attr('disabled','disabled');
+		$.ajax({
+			type:"post",
+			url:"?admin-domain-update",
+			data:$("form").serialize(),
+			dataType:'json',
+			timeout:28000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					showAlert('success',data.info);
+					setTimeout(function(){ var win = art.dialog.open.origin;win.location.reload(); top.art.dialog.list['openifrm'].close(); },2000);
+				}else{
+					showAlert('error',data.info);
+				}
+				$(_this).html('提交保存').attr('disabled',false);
+			}
+		});
+	 return false;
+	});
+</script>
+</body>
+</html>

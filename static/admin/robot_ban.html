@@ -1,0 +1,55 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">蜘蛛防火墙设置</a></li>
+</ul>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td><i class="typcn typcn-cog"></i>蜘蛛防火墙配置（一个网站分组一个配置） (<span class="tips" style="color:red">注：如果网站分组未设置，则使用默认配置</span>)</td>
+</tr>
+<tr>
+	<td>
+	<div class="boxlist">
+	<dl class="default">
+		<dt>
+			<p class="title">默认的配置</p>
+			<p>防火墙开关：{if $default.web_robot_ban}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>屏蔽的蜘蛛：<font title="{$default.robot_ban_lists}">{$default.robot_ban_list}</font></p>
+		</dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('0','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $list as $k=>$vo}
+	<dl>
+        <dt>
+			<p class="title">{$vo.name}</p>
+			{if $vo.isset}
+			<p>防火墙开关：{if $vo.data.web_robot_ban}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>屏蔽的蜘蛛：<font title="{$vo.data.robot_ban_lists}">{$vo.data.robot_ban_list}</font></p>
+			{else}
+			<p>防火墙开关：未设置</p>
+			<p>屏蔽的蜘蛛：未设置</p>
+			{/if}
+		</dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');">修改配置</a>&nbsp;&nbsp;<a href="?admin-robot-ban_del-cid-{$vo.id}" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除配置</a>{else}<a class="button button_small" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(id,typename){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'蜘蛛防火墙配置【'+typename+'】',
+		url:'?admin-robot-ban_edit-cid-'+id,
+		posturl:'?admin-robot-ban_update',
+		width:580,
+		height:520
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

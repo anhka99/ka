@@ -1,0 +1,127 @@
+{include file="header.html"}
+<div style="padding:0 10px 10px 10px;">
+	<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+		<tbody>
+			<tr class="tdbg item_title">
+				<td align="right"><i class="typcn typcn-cog"></i> 上传<font class="title"></font></td>
+				<td></td>
+			</tr>
+			<tr class="tdbg">
+			  <td align="right" class="config_td_first">选择上传的库归属：</td>
+			  <td class="icheck_radios"><label><input type="radio" id="dbtype1" name="dbtype" value="1" checked>模型公共库</label>
+					<label><input type="radio" id="dbtype2" name="dbtype" value="2">网站分组库</label>
+					{if $input_name=='article'}<label><input type="radio" id="dbtype3" name="dbtype" value="3">栏目文章库</label>{/if}
+				</td>
+			</tr>
+			<tr id="module_tr">
+				<td align="right">所属模型：</td> 
+				<td align="left"><select name="arctype" id="arctype" onchange="change_type(this.value);">
+				{foreach $class_list as $k=>$vo}
+					<option value="{$vo.dirname}">{$vo.name}</option>
+				{/foreach}
+					</select>
+				</td>
+			</tr>
+			<tr id="domain_tr" style="display:none">
+				<td align="right">网站分组：</td>
+				<td align="left"><select name="domaincid" id="domaincid" onchange="change_type(this.value);">
+				{foreach $domainlist as $k=>$vo}
+					<option value="{$vo.dirname}">{$vo.name}</option>
+				{/foreach}
+					</select>
+				</td>
+			</tr>
+			{if $input_name=='article'}
+				<tr id="catelog_tr" style="display:none">
+					<td align="right">&nbsp;</td> 
+					<td align="left"><font color="red">栏目文章库：用于在指定栏目指定文章库时使用</font></td>
+				</tr>
+				<tr>
+					<td align="right">内容类型：</td>
+					<td class="icheck_radios"><label><input type="radio" class="article_type" id="article_type1" name="article_type" value="1" checked>包含文章内容</label>
+						<label><input type="radio" id="article_type2" class="article_type" name="article_type" value="2">仅基本信息（适合图片、无内容产品）</label>
+					</td>
+				</tr>
+				<tr id="article_type1_tr"><td align="right">TXT内容格式：</td><td><font color="red">文章库每行一篇文章，一般格式：<font color="blue">标题******内容</font><br/>带附加数据的格式：<font color="blue">标题******内容******附加数据</font><br/>附加数据也是用<font color="blue">******</font>分隔开来，调用方式请看模板说明</font></font></td></tr>
+				<tr id="article_type2_tr" style="display:none"><td align="right">TXT内容格式：</td><td><font color="red">每行一条基本信息，一般格式：<font color="blue">标题******缩略图******描述</font> ，其中<font color="blue">标题</font>为必填项<br/>带附加数据的格式：<font color="blue">标题******缩略图******描述******附加数据</font><br/>附加数据也是用<font color="blue">******</font>分隔开来，调用方式请看模板说明</font></td></tr>
+			{else}
+				<tr><td align="right">TXT内容格式：</td><td><font color="red">每行一个<font class="title"></font></font></td></tr>
+			{/if}
+			<tr>
+			  <td align="right" width="150" class="config_td_first">上传文件：</td>
+			  <td id="updiv">
+				<div id="up{$input_name}" class="uploader">
+					<div class="uploader-list"></div>
+					<div class="uploader-btns">
+						<div class="picker">选择文件</div>
+						<button type="button" class="uploadbtn button button_grey">开始上传</button>
+					</div>
+				</div>
+				<div style="padding-top:10px;color:green">上传<font class="title"></font>txt，支持多选，不建议使用中文文件名</div>
+			  </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<style type="text/css">
+.webuploader-container .webuploader-pick .webuploader-pick{ padding:0;}
+</style>
+<script type="text/javascript">
+var type=top.art.dialog.data('type');
+var dbtype=1;
+var article_type=$(".article_type:checked").val();
+$("#arctype").find("option[value='"+type+"']").attr("selected",true);
+upload('#up{$input_name}','txt',null,'{$input_name}/'+$('#arctype').val()+'|'+dbtype+'|'+article_type);
+$('.title').html(top.art.dialog.data('title'));
+var html=$('#updiv').html();
+var i=1;
+var dirname=$("#arctype").val();
+$("#dbtype3").on('ifChecked', function(event) {
+	$('#module_tr').hide();
+	$('#domain_tr').hide();
+	$('#catelog_tr').show(300);
+	dbtype=3;
+	change_type();
+});
+$("#dbtype2").on('ifChecked', function(event) {
+	$('#module_tr').hide();
+	$('#catelog_tr').hide();
+	$('#domain_tr').show(300);
+	dbtype=2;
+	change_type();
+});
+$("#dbtype1").on('ifChecked', function(event) {
+	$('#domain_tr').hide();
+	$('#catelog_tr').hide();
+	$('#module_tr').show(300);
+	dbtype=1;
+	change_type();
+});
+$("#article_type1").on('ifChecked', function(event) {
+	$('#article_type2_tr').hide();
+	$('#article_type1_tr').show(300);
+	change_type(1);
+});
+$("#article_type2").on('ifChecked', function(event) {
+	$('#article_type1_tr').hide();
+	$('#article_type2_tr').show(300);
+	change_type(2);
+});
+function change_type(article_type){
+	if(dbtype==1){
+		dirname=$("#arctype").val();
+	}else if(dbtype==2){
+		dirname=$("#domaincid").val();
+	}else if(dbtype==3){
+		dirname='_catelog_article';
+	}
+	if(!article_type){
+		article_type=$(".article_type:checked").val();
+	}
+	$('#updiv').html('');
+	var newhtml=html.replace('up{$input_name}','up{$input_name}'+i);
+	$('#updiv').html(newhtml);
+	upload('#up{$input_name}'+i,'txt',null,'{$input_name}/'+dirname+'|'+dbtype+'|'+article_type);
+	i++;
+}
+</script>

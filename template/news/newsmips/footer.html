@@ -1,0 +1,54 @@
+<div class="container-fluid links  wow fadeInDown">
+		<div class="links-box">
+			<ul>
+			{loop type="domain"}
+			<li><a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></li>
+			{/loop}
+			{loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+			<li><a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></li>
+			{/loop}
+			</ul>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	</main>
+<div class="clear"></div>
+<footer class="footer">
+<div class="footer_container">
+	<div class="clearfix">
+		<div class="footer-col footer-col-logo"></div>
+		<div class="footer-col footer-col-copy">
+			<ul class="footer-nav hidden-xs">
+				<li class="menu-item"><a href="http://www.miitbeian.gov.cn/" rel="nofollow" target="_blank" class="beian-ico" title=""></a></li>
+			</ul>
+			<div class="copyright">
+						Copyright
+				<i class="fa fa-copyright"></i>{date('Y')} Powered By 
+				<a data-type="mip" href="{网站地址}" target="_blank">{网站名称}</a>
+			</div>
+		</div>
+		<div class="footer-col footer-col-sns">
+			<div class="footer-sns">
+				<a class="sns-wx" target="_blank" title="网站地图" href="/sitemap.xml"><i class="fa fa-envelope"></i></a> {$web_tongji} {if $web_beian}<a target="_blank" href="http://beian.miit.gov.cn" rel="nofollow">{$web_beian}</a>{/if}
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+</footer><mip-fixed type="gototop"><mip-gototop></mip-gototop></mip-fixed>
+<script src="https://c.mipcdn.com/static/v2/mip.js"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-stats-baidu/mip-stats-baidu.js"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-sidebar/mip-sidebar.js"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-gototop/mip-gototop.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-history/mip-history.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-fixed/mip-fixed.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-share/mip-share.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-form/mip-form.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://c.mipcdn.com/extensions/platform/v2/mip-cambrian/mip-cambrian.js"></script>
+<script src="https://mipcache.bdstatic.com/static/v2/mip-changyan/mip-changyan.js"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-lightbox/mip-lightbox.js"></script>
+<script src="https://c.mipcdn.com/static/v2/mip-semi-fixed/mip-semi-fixed.js"></script>
+{$web_share} 
+{$web_bdpush}

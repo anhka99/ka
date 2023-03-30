@@ -1,0 +1,91 @@
+<tr class="tdbg">
+	<td class="w100 config_td_first" align="right">规则名称：</td> 
+	<td align="left">
+	<input type="text" name="r[name]" class="input"  value="{$name}" style="width:200px"> <font color="red">*</font> 
+	</td>
+</tr>
+<tr class="tdbg">
+  <td rowspan="2"  align="right" class="config_td_first"><font color="#ff3300">选择保存到的库：</font></td>
+  <td class="icheck_radios"><label><input type="radio" id="dbtype1" name="rules[dbtype]" value="1" {if $rules.dbtype==1 || $rules.dbtype==''}checked{/if}>模型公共库</label>
+		<label><input type="radio" id="dbtype2" name="rules[dbtype]" value="2" {if $rules.dbtype==2}checked{/if}>指定网站分组库(<font color="red">new</font>)</label>
+	</td>
+</tr>
+<tr class="tdbg" id="module_tr" {if $rules.dbtype==2}style="display:none"{/if}>
+  <td align="left" class="config_td_first"><b>所属模型：</b><select name="arctype[]" multiple="multiple" class="multiple">
+  {foreach $classlist as $vo}
+	<option value="{$vo.id}" {if in_array($vo['id'],$arctypes)}selected="selected"{/if}>{$vo.name}</option>
+  {/foreach}
+  </select>(可按住 CTRL 多选)</td>
+</tr>
+<tr id="domain_tr" {if $rules.dbtype==1 || $rules.dbtype==''}style="display:none"{/if}>
+	<td align="left" class="config_td_first"><b>网站分组：</b><select name="rules[domaincid]" id="domaincid">
+	{foreach $domainlist as $k=>$vo}
+		<option value="{$vo.id}" {if $vo.id==$rules.domaincid}selected="selected"{/if}>{$vo.name}</option>
+	{/foreach}
+		</select>
+	</td>
+</tr>
+<script type="text/javascript">
+$("#dbtype2").on('ifChecked', function(event) {
+	$('#module_tr').hide();
+	$('#domain_tr').show(500);
+});
+$("#dbtype1").on('ifChecked', function(event) {
+	$('#domain_tr').hide();
+	$('#module_tr').show(500);
+});
+</script>
+<tr class="tdbg">
+	<td class="w100 config_td_first" align="right">采集上限：</td> 
+	<td align="left">
+	<input type="text" name="r[maxnum]" class="input"  value="{$maxnum|default:0}" style="width:70px"> <span>个，也是自动采集的每日上限，0为不限制  <font color="red">*</font> 
+	</td>
+</tr>
+
+<tr class="tdbg">
+  <td align="right" class="config_td_first">每日采集次数上限：</td>
+  <td><input name="rules[collect_day_num]" type="text" class="input" value="{$rules.collect_day_num|default:0}" size="5"> <span>次，即每天的采集次数，匹配的网址全部采集后才算一次，0为不限制  <font color="red">*</font> </span></span>
+  </td>
+</tr>
+<tr class="tdbg">
+	<td align="right" class="config_td_first">User-Agent：</td>
+	<td>
+	<input name="rules[user_agent]" id="co_user_agent" type="text" class="input" value="{$rules.user_agent|default:'Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 5.2; SV1; Maxthon; .NET CLR 1.1.4322)'}" style='width:450px' />&nbsp;
+	<select onchange="$('#co_user_agent').val(this.value);">
+		<option value="">自定义</option>
+		<option {if $rules['user_agent']=="Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 5.2; SV1; Maxthon; .NET CLR 1.1.4322)"}selected{/if} value="Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 5.2; SV1; Maxthon; .NET CLR 1.1.4322)">正常访问</option>
+		<option {if $rules['user_agent']=="Baiduspider/2.0+(+http://www.baidu.com/search/spider.htm)"}selected{/if} value="Baiduspider/2.0+(+http://www.baidu.com/search/spider.htm)">百度蜘蛛</option>
+		<option {if $rules['user_agent']=="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}selected{/if} value="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)">谷歌蜘蛛</option>
+	</select>（浏览器标识符，可模拟蜘蛛）
+	</td>
+</tr>
+{if $model!='pic' && $model!='typename'}
+<tr class="tdbg">
+	<td align="right" class="config_td_first"><font color="#ff3300">内容语言：</font></td> 
+	<td>
+		<select name="rules[collect_lang]">
+			<option value="cn" {if $rules.collect_lang=='cn'}selected="selected"{/if}>中文</option>
+			<option value="en" {if $rules.collect_lang=='en'}selected="selected"{/if}>英文</option>
+		</select> <span> 如果是英文或者属于空格分割的语言（越、泰语等）请选择英文</span></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first"><font color="blue">伪原创 · 词汇替换</font>：</td>
+  <td class="icheck_radios"><label><input type="radio" name="rules[replace_word]" value="1" {if $rules.replace_word} checked{/if}>开启</label>
+		<label><input type="radio" name="rules[replace_word]" value="0" {if !$rules.replace_word} checked{/if}>关闭</label> <span>是否进行伪原创词汇替换，词汇在<font color="green">站点优化->伪原创 · 词汇</font>中设置</span>
+	</td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first"><font color="blue">伪原创 · API</font>：</td>
+  <td>{if $repalce_api_list}<select name="rules[replace_api]">
+			<option value="">----不使用！----</option>
+			 {foreach $repalce_api_list as $vo}
+				<option value="{$vo.id}" {if $vo.id==$rules.replace_api}selected="selected"{/if}>{$vo.api_title}</option>
+			  {/foreach}
+		</select>
+		{else}
+		<font color="red">无伪原创API，请先添加！</font>
+		{/if}
+		<span>选择伪原创API处理，在<font color="green">站点优化->伪原创 · AI</font>中设置</span>
+	</td>
+</tr>
+{/if}

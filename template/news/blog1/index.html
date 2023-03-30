@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<title>{$toptitle}</title>
+<meta name="description" content="{$description}" />
+<meta name="keywords" content="{$keywords}" />
+{include file="header.html"}
+
+{loop type="arclist" row='10' tpl='show'}
+<div class="post multi">
+	<h4 class="post-date">{$vo.postdate}</h4>
+	<h2 class="post-title"><a href="{$vo.url}">{$vo.title} </a></h2>
+	<div class="post-body">{$vo.info}</div>
+	<h6 class="post-footer">浏览:{$vo.hits}</h6>
+</div>
+{/loop}
+<div class="pagebar">
+{loop type="catelog"}
+	<span class="page now-page"><a href='{$vo.typeurl}'>{$k+1}</a></span>
+{/loop}
+</div>
+</div>
+<div id="divSidebar">
+	<dl class="function" id="divCatalog">
+	<dt class="function_t">网站分类</dt>
+	<dd class="function_c">
+	<ul>
+		{loop type="catelog" row='8'}
+			<li><a href="{$vo.url}">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</dd>
+	</dl>
+	<dl class="function" id="divComments">
+	<dt class="function_t">热门文章</dt><dd class="function_c">
+	<ul>
+		{loop type="arclist" row='5' tpl='show'}
+			<li><a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</dd>
+	</dl>
+	<!-- 调用友情链接 -->
+	<dl class="function" id="divLinkage">
+	<dt class="function_t">友情链接</dt><dd class="function_c">
+	<ul>
+		{loop type="flink"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+{loop type="link"}
+			<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+		{loop type="domain"}
+			<li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+		{/loop}
+	</ul>
+	</dd>
+	</dl>
+	</div>
+{include file="footer.html"}

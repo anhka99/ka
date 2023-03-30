@@ -1,0 +1,81 @@
+<header class="site-header">
+		<div id="header" class="navbar ">
+			<nav id="top-header">
+				<div class="top-nav">
+					<div class="menu-container">
+						<ul class="top-menu">
+							<li><a href="/sitemap.xml"
+								target="_blank">网站地图</a></li>
+						</ul>
+					</div>
+					<div id="inf-d">
+						<div id="inf-b">您好，欢迎{网站名称}!</div>
+						<div id="inf-e"></div>
+					</div>
+				</div>
+			</nav>
+			<div class="header">
+				<h2 id="logo">
+					<a target="_blank" href="/"> <mip-img
+							src="{logo width='250'/}"
+							class="img-responsive" alt="{网站名称}"></mip-img>
+					</a>
+				</h2>
+				<div class="search">
+					<mip-form url="{随机栏目URL}"
+						action="{随机栏目URL}" method="GET" target="_self"
+						class="mip-element mip-layout-container searchform"> <input
+						type="text" name="q" validatetarget="q" validatetype="must"
+						placeholder="搜索" class="text"> <input type="submit"
+						value="提交" class="btn"> </mip-form>
+				</div>
+
+				<div class="nav-sjlogo">
+					<div on="tap:right-sidebar.open">
+						<i class="fa fa-navicon"></i>
+					</div>
+				</div>
+				<mip-sidebar id="right-sidebar" layout="nodisplay" side="left"
+					class="mip-layout-nodisplay mip-element" aria-hidden="true">
+				<ul>
+					<li>
+						<button on="tap:right-sidebar.close">X</button>
+					</li>
+					<li><a target="_blank" href="/">网站首页</a></li>
+					{menu row='6'}
+					<li><a href="{$vo.url}" data-type="mip"
+						data-title="{$vo.title}" title="{$vo.title}">{$vo.title}</a></li>
+					{/menu}
+				</ul>
+				</mip-sidebar>
+				<div class="nav-sousuo">
+					<button class="" on="tap:my-lightbox.toggle">
+						<a href="" id="mo-so"> <i class="fa fa-search icon-search"></i></a>
+					</button>
+					<mip-lightbox id="my-lightbox" layout="nodisplay"
+						class="mip-layout-nodisplay mip-element"> <mip-form url="{随机栏目URL}" action="{随机栏目URL}" method="GET" target="_self"
+						class="mip-element mip-layout-container"> <input type="text" name="q" validatetarget="q" validatetype="must" placeholder="搜索在手，天下我有" class="left">
+					<button type="submit" value="提交" class="left bgd">
+						<i class="fa fa-search"></i>
+					</button>
+					</mip-form> </mip-lightbox>
+				</div>
+				<div class="header-nav" data-type="index" data-infoid="index">
+					<aside class="mobile_aside mobile_nav">
+						<div class="mobile-menu">
+							<ul id="nav" class="nav-pills">
+								<li><a href="/" data-type="mip"
+									rel="nofollow" data-title="{网站名称}" title='{网站名称}'><i
+										class="fa fa-home"></i>首页</a></li>
+								{menu row='6'}	
+								<li class='mipmb-dropdown-item '><a
+									href="{$vo.url}" data-type="mip" data-title="{$vo.title}"
+									title="{$vo.title}"><i class="fa fa-tasks"></i>{$vo.title}</a></li>
+								{/menu}				
+							</ul>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</header>

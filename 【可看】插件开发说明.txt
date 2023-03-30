@@ -1,0 +1,45 @@
+============《小旋风·蜘蛛池站群》插件开发说明=============
+
+插件目录结构如以下（ 以自带的test插件为示范 ）：
+
+|-temp
+|   |-addons		[所有插件存放的目录]
+|   |   |-test			[插件目录，小写英文，且不能包含符号]
+|   |   |   |-template		[模板目录，如需载入模板，文件就放此目录下，可有可无]
+|   |   |   |-config.php		[配置文件，可有可无]
+|   |   |   |-config.html		[插件配置模板，可有可无]
+|   |   |   |-testAddon.class.php	[插件主要功能实现文件，文件命名："插件目录名+Addon.class.php"]
+
+注：所有文件必须 utf8 编码
+
+具体结构以及使用方法，请参考自带插件中的 testAddon.class.php 文件。
+
+可获取的部分系统参数
+
+常量：
+IS_ROBOT		是否蜘蛛访问
+ROBOT_NAME	蜘蛛类型
+IS_MIP		当前模板是否MIP模板
+IS_MOBILE	是否手机访问
+IS_CACHED	是否已缓存页面
+CACHE_FILE	缓存页面文件路径
+
+变量：
+$GLOBALS['thisurl']		当前页面url地址
+$GLOBALS['domain_id']	 当前网站分组ID
+$GLOBALS['domain_cid']	当前网站所属模型ID
+$GLOBALS['domain_dirname']	当前网站分组文件夹
+$GLOBALS['domain_config']	当前网站分组配置
+$GLOBALS['arctype_config']	当前网站所属模型配置
+$GLOBALS['arctype_dirname']	当前模型文件夹
+$GLOBALS['reform_config']	当前网站优化配置
+$GLOBALS['catelog_this']		当前栏目信息
+$GLOBALS['catelog_parent']	父栏目信息
+$GLOBALS['html']		网页html，供before_show钩子调用和修改
+$this->config		当前插件的自定义配置
+
+函数：
+config();			获取所有配置
+config('xxx');		获取配置xxx的值
+config('web_theme')		当前模板文件名
+send_http_status(404);	返回404状态码

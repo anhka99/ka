@@ -1,0 +1,360 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">基本设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config1',this)">站点模式</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config2',this)">内容模式</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config5',this)">URL设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config4',this)">手机版设置</a></li>
+	<li class="unsub"><a href="javascript:void(0)" onClick="selectTab('config6',this)">其他设置</a></li>
+</ul>
+<div id="admin_right_b">
+<form method="post">
+<input type="hidden" name="r[id]" value="{$id|default:0}">
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config0">
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 基本设置</td>
+		<td></td>
+	</tr>
+	<tr>
+      <td width="100" align="right" class="config_td_first">分组名称：</td>
+      <td class="tdbg" colspan="4"><input name="r[name]" type="text" value="{$name}" class="input" size="20"> <font color="#ff3300">*</font> <span>给本分组起个名字</span></td>
+    </tr>
+	<tr>
+      <td align="right" class="config_td_first">配置文件夹（<font color="red">不可重复</font>）</td>
+      <td class="tdbg" colspan="4"><input name="r[dirname]" id="dirname" type="text" value="{$dirname}" class="input {if $id}lockinput{/if}" size="20" {if $id} readonly{/if}> <font color="#ff3300">*</font> <font size="" color="red">填字母</font>，<span>分组的关键词和外链将放在此文件夹，<font color="red">保存后不可更改</font></span></td>
+    </tr>
+	<tr>
+	  <td align="right" class="config_td_first">所属模型：</td>
+	  <td class="tdbg"> {if $id}
+		<input type="hidden" name="r[cid]" value="{$cid}">
+	  {/if}
+	  <select name="r[cid]" id="cid" onchange="get_catelog_num(this.value);" {if $id}disabled{/if}>
+	  {foreach $classlist as $vo}
+		<option dir="{$vo.dirname}" value="{$vo.id}" {if $vo['id']==$cid}selected="selected"{/if}>{$vo.name}</option>
+	  {/foreach}
+	  </select> <span> <font color="#ff3300">*</font> <font color="red">保存后不可更改</font></span></td>
+	</tr>
+	<tr>
+	  <td align="right" class="config_td_first">模板类型：</td>
+	  <td class="icheck_radios tdbg">
+			<label><input type="radio" name="con[themetype]" value="1" {if $themetype==1 || !$themetype} checked{/if}>模型模板</label>
+			<label><input type="radio" name="con[themetype]" value="2" {if $themetype==2} checked{/if}>本分组独立模板</label>
+			 <font color="#ff3300">*</font> <span>使用模型模板还是本独立分组下的模板</span>
+	</tr>
+	<tr>
+	 <td align="right" class="config_td_first">根域名(<font color="red">非子域名</font>)<br><br>非二级域名，不带www<br>一行一个，不加端口</td>
+	  <td> <font color='green'>如：google.com</font><textarea name="domain" id="text" type="text" style="height:220px;width:350px;margin-top:5px">{$domain}</textarea></td>
+	</tr>
+	
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config1" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 站点模式</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">站点模式：</td>
+	  <td><select name="r[domain_mod]">
+		<option value="1" {if !$domain_mod || $domain_mod=='1'} selected="selected"{/if}>泛域名</option>
+		<option value="2" {if $domain_mod=='2'} selected="selected"{/if}>单域名</option>
+	  </select>&nbsp;&nbsp;<span>泛域名需泛解析</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">301重定向到www：</td>
+	  <td class="icheck_radios"><label><input type="radio" name="con[rewww]" value="1" {if $rewww==1} checked{/if}>全部重定向</label>
+			<label><input type="radio" name="con[rewww]" value="2" {if $rewww==2} checked{/if}>顶级域名重定向</label>
+			<label><input type="radio" name="con[rewww]" value="0" {if !$rewww} checked{/if}>关闭</label></td>
+	</tr>
+	<tr class="make">
+	  <td align="right" class="config_td_first">屏蔽非自定义泛前缀访问：</td>
+	  <td class="tdbg icheck_radios"><label><input type="radio" name="con[ban_prefix]" value="1" {if $ban_prefix} checked{/if}>开启</label>
+			<label><input type="radio" name="con[ban_prefix]" value="0" {if !$ban_prefix} checked{/if}>关闭</label>　<span>屏蔽非自定义泛前缀的域名访问</span></td>
+	</tr>
+	<tr class="make">
+	  <td align="right" class="config_td_first">启用城市泛域名：</td>
+	  <td class="tdbg icheck_radios"><label><input type="radio" name="con[city_prefix]" value="1" {if $city_prefix} checked{/if}>开启</label>
+			<label><input type="radio" name="con[city_prefix]" value="0" {if !$city_prefix} checked{/if}>关闭</label>　<span style="color:red">开启后自动将城市拼音加入泛域名前缀列表</span></td>
+	</tr>
+	<tr class="make">
+		<td></td>
+		<td class="tdbg"><font color="blue">注：如果前缀使用了标签并且超过50个，不要屏蔽，否则会卡</font></td>
+	</tr>
+	<tr class="make">
+	 <td align="right" class="config_td_first">自定义泛域名前缀：<br>(一行一个<br>注：不要超过1000)</td>
+	  <td><span class="red">支持标签：{数字}、{字母}、{数字字母}<br>标签后面加数字是位数，{数字8}表示8个数字、{数字1-8}示随机1-8个数字<br></span><textarea name="domain_prefix" type="text" style="height:180px;width:350px;">{$domain_prefix}</textarea></td>
+	</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config5" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="160" align="right"><i class="typcn typcn-cog"></i> URL设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">URL规则缓存开关：</td>
+	  <td><select name="con[urlrules_cache]">
+		<option value="1" {if $urlrules_cache || $urlrules_cache==''} selected="selected"{/if}>开启</option>
+		<option value="0" {if $urlrules_cache=='0'} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>开启后可实现一个站点固定一条url规则，不开启则随机获取</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">URL路径：</td>
+	  <td class="tdbg icheck_radios"><label><input type="radio" name="con[url_prefix]" value="1" {if $url_prefix==1 || $url_prefix==''} checked{/if}>绝对路径</label>
+			<label><input type="radio" name="con[url_prefix]" value="2" {if $url_prefix==2} checked{/if}>相对路径</label>　<span>相对路径不带域名</span></td>
+	</tr>
+	<tr>
+		<td align="right" class="config_td_first">屏蔽非URL规则地址：</td>
+		<td class="icheck_radios" colspan="2">
+			<label><input type="radio" name="con[urlrule_ban]" value="2" {if $urlrule_ban=='2'} checked{/if}>重定向到URL规则地址</label>
+			<label><input type="radio" name="con[urlrule_ban]" value="1" {if $urlrule_ban=='1'} checked{/if}>显示404</label>
+			<label><input type="radio" name="con[urlrule_ban]" value="0" {if !$urlrule_ban} checked{/if}>不处理</label>
+			<span class="tips">如何处理不符合设置的URL规则</span>
+		</td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">图片url本地化(<font color="red">new</font>)</td>
+	  <td class="icheck_radios"><label><input type="radio" name="con[localpic]" value="1" {if $localpic} checked{/if}>开启</label>
+			<label><input type="radio" name="con[localpic]" value="0" {if !$localpic} checked{/if}>关闭</label>　<span>关闭则直接调用原始图片url（<u style="color:red">仅在开启缩略图补给时有效</u>）</span></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">图片URL规则：</td>
+      <td><input name="con[urlrule_pic]" type="text" value="{$urlrule_pic}" class="input" size="30"> <font color="#ff3300">*</font> <br><span>开启图片url本地化时有效，必须带上<font color="red">{id}</font>且不支持标签</span></td>
+    </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config2" style="display:none">
+	<tr>
+		<td colspan="2" class="divtips">提示：请确保你选择的库类型里面有文件，否则前台无内容</td>
+	</tr>
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 内容模式设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">随机导航：</td>
+	  <td><select name="con[menu_rand]">
+		<option value="1" {if $menu_rand=='' || $menu_rand=='1'} selected="selected"{/if}>开启</option>
+		<option value="0" {if $menu_rand=='0'} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>导航是否随机调用栏目库，多栏目时推荐开启</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">导航缓存：</td>
+	  <td><select name="con[menu_cache]">
+		<option value="1" {if $menu_cache} selected="selected"{/if}>开启</option>
+		<option value="0" {if !$menu_cache} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>开启随机导航时，可实现当前域名导航固定</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">随机栏目：</td>
+	  <td><select name="con[catelog_rand]">
+		<option value="1" {if $catelog_rand=='' || $catelog_rand=='1'} selected="selected"{/if}>开启</option>
+		<option value="0" {if $catelog_rand=='0'} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>loop调用的栏目库是否随机，多栏目时推荐开启</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">网站名称库：</td>
+	  <td class="icheck_radios">
+			<label><input type="radio" name="con[dbtype_webname]" value="1" {if $dbtype_webname==1 || !$dbtype_webname} checked{/if}>模型公共库</label>
+			<label><input type="radio" name="con[dbtype_webname]" value="2" {if $dbtype_webname==2} checked{/if}>本分组独立库( <font color="#ff6600" id="webname_num_dm">0</font>个文件 )</label>
+			 <font color="#ff3300">*</font> <span>使用模型公共库还是本网站分组下的网站名称库</span>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">栏目库：</td>
+	  <td class="icheck_radios">
+			<label><input type="radio" class="dbtype_catelog" name="con[dbtype_catelog]" value="1" {if $dbtype_catelog==1 || !$dbtype_catelog} checked{/if}>模型公共库</label>
+			<label><input type="radio" class="dbtype_catelog" name="con[dbtype_catelog]" value="2" {if $dbtype_catelog==2} checked{/if}>本分组独立库( <font color="#ff6600" id="catelog_num_dm">0</font>个栏目 )</label>
+			 <font color="#ff3300">*</font> <span>使用模型公共库还是本网站分组下的栏目库</span>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">文章/信息库：</td>
+	  <td class="icheck_radios">
+			<label><input type="radio" name="con[dbtype_article]" value="1" {if $dbtype_article==1 || !$dbtype_article} checked{/if}>模型公共库</label>
+			<label><input type="radio" name="con[dbtype_article]" value="2" {if $dbtype_article==2} checked{/if}>本分组独立库( <font color="#ff6600" id="article_num_dm">0</font>个文件 )</label>
+			 <font color="#ff3300">*</font> <span>使用模型公共库还是本网站分组下的文章/信息库</span>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">图片库：</td>
+	  <td class="icheck_radios">
+			<label><input type="radio" class="dbtype_pic" name="con[dbtype_pic]" value="1" {if $dbtype_pic==1 || !$dbtype_pic} checked{/if}>模型公共库</label>
+			<label><input type="radio" class="dbtype_pic" name="con[dbtype_pic]" value="2" {if $dbtype_pic==2} checked{/if}>本分组独立库( <font color="#ff6600" id="pic_num_dm">0</font>个文件 )</label>
+			 <font color="#ff3300">*</font> <span>使用模型公共库还是本网站分组下的图片库</span>
+	</tr>
+</table>
+<script type="text/javascript">
+var domainid='{$id|default:0}';
+if(domainid){
+	get_catelog_num($('#cid').val());
+}
+function get_catelog_num(arctypeid){
+	$.ajax({
+		type:"get",
+		url:"?admin-domain-get_catelog_num-arctypeid-"+arctypeid+"-domainid-"+domainid,
+		success:function(d){
+			$('#catelog_num_dm').html(d.catelog_num);
+			$('#webname_num_dm').html(d.webname_num);
+			$('#article_num_dm').html(d.article_num);
+		}
+	});
+}
+</script>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config3" style="display:none">
+
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> MIP模块设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">是否MIP站点：</td>
+	  <td><select name="con[mip_open]">
+		<option value="1" {if $mip_open} selected="selected"{/if}>是</option>
+		<option value="0" {if !$mip_open} selected="selected"{/if}>否</option>
+	  </select>&nbsp;&nbsp;<span>当前站点是否设为MIP站点，MIP站点使用MIP模板</span></td>
+	</tr>
+	<tr>
+      <td align="right" class="config_td_first">mip域名前缀：</td>
+      <td class="tdbg" colspan="4"><input name="con[mip_prefix]" type="text" value="{$mip_prefix}" class="input" size="10"> <span>mip域名前缀，如：mip，当域名前缀为该设置时设为MIP站点</span></td>
+    </tr>
+	<tr>
+	  <td class="tdbg">&nbsp;</td>
+	  <td><font color="red">注：mip域名前缀设置为空时，本分组下的全部域名都视为MIP站点（请关闭手机版)</font></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">无视MIP效验：</td>
+	  <td><select name="con[mip_nosee]">
+		<option value="1" {if $mip_nosee} selected="selected"{/if}>开启</option>
+		<option value="0" {if !$mip_nosee} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;<span><font color="red">关闭后，广告、统计将失效，以便通过MIP效验</font></span></td>
+	</tr>
+	<!-- <tr>
+	  <td class="tdbg">&nbsp;</td>
+	  <td><font color="red">· 关闭才能通过效验，不过统计广告这些自定义js是无法通过效验的<br>· 通不过效验就进不了百度MIP索引，变成普通站点</font></td>
+	</tr> -->
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> MIP统计设置</td>
+		<td><font color="blue" style="font-weight:500">（MIP引擎只支持以下统计，开启无视MIP效验时，将使用系统设置里的）</font></td>
+	</tr>
+	<tr>
+      <td align="right" class="config_td_first">百度统计token：</td>
+      <td class="tdbg" colspan="4"><input name="con[mip_tj_bdtk]" type="text" value="{$mip_tj_bdtk}" class="input" size="20"> <span>百度统计代码里的token的值，一般是32位的字符</span></td>
+    </tr>
+	<tr>
+      <td align="right" class="config_td_first">cnzz统计token：</td>
+      <td class="tdbg" colspan="4"><input name="con[mip_tj_cnzztk]" type="text" value="{$mip_tj_cnzztk}" class="input" size="20"> <span>cnzz友盟统计的token，一般是一串数字</span></td>
+    </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config4" style="display:none">
+	<tr class="tdbg item_title">
+		<td width="100" align="right"><i class="typcn typcn-cog"></i> 手机版设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">开启手机版：</td>
+	  <td><select name="con[mobile_open]">
+		<option value="1" {if $mobile_open} selected="selected"{/if}>开启</option>
+		<option value="0" {if !$mobile_open} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>是否开启手机版</span></td>
+	</tr>
+	<tr class="tdbg">
+	  <td align="right" class="config_td_first">地址跳转：</td>
+	  <td><select name="con[mobile_jump]">
+		<option value="1" {if $mobile_jump} selected="selected"{/if}>开启</option>
+		<option value="0" {if !$mobile_jump} selected="selected"{/if}>关闭</option>
+	  </select>&nbsp;&nbsp;<span>手机访问时自动转到手机版地址</span></td>
+	</tr>
+	<tr>
+      <td align="right" class="config_td_first">手机域名前缀：</td>
+      <td class="tdbg" colspan="4"><input name="con[mobile_prefix]" type="text" value="{$mobile_prefix}" class="input" size="10"> <span>手机版域名前缀，如：m 或者 wap，<font color="red">留空则全部打开都是手机版</font></span></td>
+    </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableConfig" id="config6" style="display:none">
+	
+	<tr class="tdbg item_title">
+		<td width="120" align="right"><i class="typcn typcn-cog"></i> 其他设置</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">文章库内容支持标签：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[articlebody_tag]" value="1"{if $articlebody_tag} checked{/if}>开启</label>
+			<label><input type="radio" name="con[articlebody_tag]" value="0"{if !$articlebody_tag} checked{/if}>关闭</label>
+			 <span>开启文章库txt的内容也支持标签</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">其他模板内容标签调用：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[is_show_tpl]" value="1"{if $is_show_tpl} checked{/if}>开启</label>
+			<label><input type="radio" name="con[is_show_tpl]" value="0"{if !$is_show_tpl} checked{/if}>关闭</label>
+			 <span>开启后非show模板，也可以使用内容页show的标签，如 $body</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">sitemap开关：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[sitemap_open]" value="1"{if $sitemap_open=='1' || $sitemap_open==''} checked{/if}>开启</label>
+			<label><input type="radio" name="con[sitemap_open]" value="0"{if $sitemap_open=='0'} checked{/if}>关闭</label>
+			 <span>关闭后，打开sitemap地图将显示404</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">缩略图补给：</td>
+      <td class="icheck_radios"><label><input type="radio" name="con[litpic_supply]" value="1"{if $litpic_supply=='1' || $litpic_supply==''} checked{/if}>开启</label>
+			<label><input type="radio" name="con[litpic_supply]" value="0"{if $litpic_supply=='0'} checked{/if}>关闭</label>
+			 <span>没有缩略图的文章自动从图片库提取补给</span>
+		</td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">文章内容自动插图(<font color="red">new</font>)：</td>
+      <td class="icheck_radios">
+			<label><input type="radio" name="con[pic_insert_body]" value="0"{if !$pic_insert_body} checked{/if}>关闭</label>
+			<label><input type="radio" name="con[pic_insert_body]" value="1"{if $pic_insert_body=='1'} checked{/if}>无图时插</label>
+			<label><input type="radio" name="con[pic_insert_body]" value="2"{if $pic_insert_body=='2'} checked{/if}>全部插</label>
+			 <span>文章内容中自动插入图片库的图片</span>
+			 <span style="padding-top:5px;margin-top: 8px;border-top:1px solid #eee;display: block;color: #222;">图片插入数：<input name="con[pic_insert_body_num]" type="text" value="{$pic_insert_body_num|default:3}" class="input" size="5"> 张 </span>
+			 <span style="padding-top:5px;margin-top: 8px;border-top:1px solid #eee;display: block;color: #222;">指定图片库：<input name="con[pic_insert_body_file]" type="text" id="bodypicfile" value="{$pic_insert_body_file}" class="input" size="25"> <button onclick="window.parent.select_file(document,'bodypicfile','pic',$('#cid').find('option:selected').attr('dir'));" type="button" class="button">选择</button> <span>不填则随机取自图片库<br/>(<font color="#ff6600">指定后，插入的图片url就不会进行本地化</font>)</span></span>
+		</td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td width="120" align="right"><i class="typcn typcn-cog"></i> 独立设置</td>
+		<td>( <font style="font-weight:500;color:red">独立设置优先于全局设置</font> )</td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>屏蔽游客访问：</td>
+      <td class="icheck_radios">
+			<label><input type="radio" name="con[user_ban]" value="0"{if $user_ban=='0'} checked{/if}>不屏蔽</label>
+			<label><input type="radio" name="con[user_ban]" value="1"{if $user_ban=='1'} checked{/if}>PC端屏蔽</label>
+			<label><input type="radio" name="con[user_ban]" value="2"{if $user_ban=='2'} checked{/if}>移动端屏蔽</label>
+			<label><input type="radio" name="con[user_ban]" value="4"{if $user_ban=='4'} checked{/if}>全部屏蔽</label>
+			<label><input type="radio" name="con[user_ban]" value="3"{if $user_ban=='3' || $user_ban==''} checked{/if}>跟随全局设置</label>
+			 <span class="tips">禁止非蜘蛛用户访问</span>
+			</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>游客访问跳转：</td>
+      <td class="icheck_radios">
+			<label><input type="radio" name="con[user_jump]" value="0"{if $user_jump=='0'} checked{/if}>不跳转</label>
+			<label><input type="radio" name="con[user_jump]" value="1"{if $user_jump=='1'} checked{/if}>PC端跳转</label>
+			<label><input type="radio" name="con[user_jump]" value="2"{if $user_jump=='2'} checked{/if}>移动端跳转</label>
+			<label><input type="radio" name="con[user_jump]" value="4"{if $user_jump=='4'} checked{/if}>全部跳转</label>
+			<label><input type="radio" name="con[user_jump]" value="3"{if $user_jump=='3' || $user_jump==''} checked{/if}>跟随全局设置</label>
+			 <span class="tips">蜘蛛不跳转</span>
+
+			</td>
+    </tr>
+
+	<tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="red">独立</font>游客跳转地址（<font color="red">PC端</font>）：</td>
+      <td class="tdbg"><input name="con[user_jumpurl_pc]" type="text" class="input" value="{$user_jumpurl_pc|default:'http://'}" size="60"></td>
+    </tr>
+	<tr class="tdbg">
+      <td width="150" align="right" class="config_td_first"><font color="red">独立</font>游客跳转地址（<font color="red">移动端</font>）：</td>
+      <td class="tdbg"><input name="con[user_jumpurl_m]" type="text" class="input" value="{$user_jumpurl_m|default:'http://'}" size="60"></td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first"><font color="red">独立</font>流量统计代码：</td>
+      <td><textarea name="con[tongji]"  rows="3"  class="inputs" style="width:450px;">{$tongji}</textarea></td>
+    </tr>
+
+</table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">蜘蛛设置</a></li>
+</ul>
+<div id="admin_right_b">
+
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+
+<tr class="tdbg item_title">
+	<td colspan="2"><i class="typcn typcn-cog"></i> 蜘蛛强引配置（一个网站分组一个配置） (<span class="tips" style="color:red">注：如果网站分组未设置，则使用默认配置</span>)</td>
+</tr>
+<tr>
+	<td colspan="2">
+	<div class="boxlist">
+	<dl class="default">
+		<dt>
+			<p class="title">默认的强引配置</p>
+			<p>强引开关：{if $default.robot_redirect_open}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+			<p>指定蜘蛛：<b>{if $default.robot_redirect_items}<b class="red">已指定</b>{else}未指定{/if}</b></p>
+			<p>指定强引域名：<b>{if $default.robot_redirect_domainlist}<b class="red">已指定</b>{else}未指定{/if}</b></p>
+			<p>权重传递：{if $default.robot_redirect_weight=='301'}<b style="color:green">是</b>{else}<b class="red">否</b>{/if}</p>
+			<p>蜘蛛类型：<font color="blue">{$default.terminal}</font></p>
+			<p>强引时间段：{if $default.robot_redirect_timetype=='2'}按时间段{else}按日期{/if}</p>
+			<p>强引概率：<b style="color:green">{$default.robot_redirect_odds|default:100}%</b></p>
+			<p>强引外链类型：{if $default.robot_redirect_type=='system'}系统外链{else}自定义外链{/if}</p>
+		</dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('0','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $list as $k=>$vo}
+	<dl>
+        <dt>
+			<p class="title">{$vo.name}</p>
+			{if $vo.isset}
+				<p>强引开关：{if $vo.data.robot_redirect_open}<b style="color:green">已开启</b>{else}<b class="red">已关闭</b>{/if}</p>
+				<p>指定蜘蛛：<b>{if $vo.data.robot_redirect_items}<b class="red">已指定</b>{else}未指定{/if}</b></p>
+				<p>指定强引域名：<b>{if $vo.data.robot_redirect_domainlist}<b class="red">已指定</b>{else}未指定{/if}</b></p>
+				<p>权重传递：{if $vo.data.robot_redirect_weight=='301'}<b style="color:green">是</b>{else}<b class="red">否</b>{/if}</p>
+				<p>蜘蛛类型：<font color="blue">{$vo.data.terminal}</font></p>
+				<p>强引时间段：{if $vo.data.robot_redirect_timetype=='2'}按时间段{else}按日期{/if}</p>
+				<p>强引概率：{$vo.data.robot_redirect_odds}%</p>
+				<p>强引外链类型：{if $vo.data.robot_redirect_type=='system'}系统外链{else}自定义外链{/if}</p>
+			{else}
+				<p>强引开关：未设置</p>
+				<p>指定蜘蛛：未设置</p>
+				<p>指定强引域名：未设置</p>
+				<p>权重传递：未设置</p>
+				<p>蜘蛛类型：未设置</p>
+				<p>强引时间段：未设置</p>
+				<p>强引概率：未设置</p>
+				<p>强引外链类型：未设置</p>
+			{/if}
+		</dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-robot-redirect_del-cid-{$vo.id}" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>{else}<a class="button button_small" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+    
+	</table>
+</form>
+<script type="text/javascript">
+function edit(id,typename){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'蜘蛛强引配置【'+typename+'】',
+		url:'?admin-robot-redirect_edit-cid-'+id,
+		posturl:'?admin-robot-redirect_update',
+		width:850,
+		height:550
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

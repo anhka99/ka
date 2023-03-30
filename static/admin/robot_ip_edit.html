@@ -1,0 +1,39 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<input type="hidden" name="con[key]" value="{$key}">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config1"  class="tableConfig">
+	<tr class="tdbg">
+		  <td align="right" width="120" class="config_td_first">蜘蛛名称：</td>
+		  <td class="tdbg"><font color="blue">{$name}</font></td>
+	</tr>
+	<tr>
+		<td align="right" class="config_td_first">蜘蛛识别依据：</td>
+		<td class="icheck_radios">
+			<label><input type="radio" name="con[robotip_checktype]" value="1" {if $robotip_checktype=='1' || $robotip_checktype==''} checked{/if}>仅UA识别</label>
+			<label><input type="radio" name="con[robotip_checktype]" value="2" {if $robotip_checktype=='2'} checked{/if}>仅IP识别</label>
+			<label><input type="radio" name="con[robotip_checktype]" value="3" {if $robotip_checktype=='3'} checked{/if}>UA+IP双重验证</label>
+			<label><input type="radio" name="con[robotip_checktype]" value="4" {if $robotip_checktype=='4'} checked{/if}>UA或IP识别</label>
+			<br><font class="red" style="margin:10px 0;display: block;">默认仅UA识别，如果你的IP规则没有十足把握，不建议开启仅IP识别</font>
+		</td>
+	</tr>
+	<tr>
+		<td align="right" class="config_td_first">屏蔽假蜘蛛：</td>
+		<td class="icheck_radios"><label><input type="radio" name="con[robotip_ban]" value="1" {if $robotip_ban} checked{/if}>开启</label>
+			<label><input type="radio" name="con[robotip_ban]" value="0" {if !$robotip_ban} checked{/if}>关闭</label>
+			<font color="#ff6600"> *屏蔽不符合设置的IP规则的“{$name}”ua蜘蛛</font>
+		</td>
+	</tr>
+	<tr class="list">
+	  <td align="right">
+		每行一个IP规则<br>可使用星号通配符<font color=red>*</font><br><br>
+		支持的格式如下：<br><br>
+		<font>192.168.1.100<br>
+		192.168.<font color='red'>*</font>.100<br>
+		192.168.1.1<font color='red'>~</font>192.168.1.100</font></td>
+	  <td><font class="red" style="margin:10px 0;display: block;">注：超过100个请使用通配符格式，否则可能影响性能！</font><textarea name="robotip_rules" type="text" style="height:250px;width:400px;">{$robotip_rules}</textarea></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

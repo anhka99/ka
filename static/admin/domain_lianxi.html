@@ -1,0 +1,86 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">联系/简介管理</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips" style="font-size:13px;margin-top:10px;">
+	<p>提示：一般用于企业模型，设置后随机调用！<br><font color="blue">注意：<i class="typcn typcn-warning"></i> 如未生效，请清除模板编译缓存或者页面缓存！</font></p>
+</div>
+<style type="text/css">
+.boxlist dl{ min-width:180px;width:auto;}
+.red{ color:red}
+</style>
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>《联系方式》配置（一个网站分组一个配置） (<span class="tips" style="color:red">注：如果网站分组未设置，则使用默认配置</span>)</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="boxlist">
+	<dl class="default">
+		<dt>
+			<p class="title">默认的调用配置</p>
+		</dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('0','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $lianxi_list as $k=>$vo}
+	<dl>
+        <dt>
+			<p class="title">{$vo.name}</p>
+		</dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-domain-item_del-cid-{$vo.id}-type-lianxi" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>{else}<a class="button button_small" href="javascript:" onclick="edit('{$vo.id}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>《企业简介》配置（一个网站分组一个配置） (<span class="tips" style="color:red">注：<b>仅企业模型可用</b>，如果网站分组未设置，则使用默认配置</span>)</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="boxlist">
+	<dl class="default">
+		<dt>
+			<p class="title">默认的调用配置</p>
+		</dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit_about('0','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $about_list as $k=>$vo}
+	<dl>
+        <dt>
+			<p class="title">{$vo.name}</p>
+		</dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit_about('{$vo.id}','{$vo.name}');"><i class="typcn typcn-edit"></i>修改</a>&nbsp;&nbsp;<a href="?admin-domain-item_del-cid-{$vo.id}-type-about" class="button button_small button_remove" onclick='return confirm("确定清除该配置？!");'>清除</a>{else}<a class="button button_small" href="javascript:" onclick="edit_about('{$vo.id}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(id,typename){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'联系方式配置【'+typename+'】',
+		url:'?admin-domain-item_edit-type-lianxi-cid-'+id,
+		posturl:'?admin-domain-item_update-type-lianxi',
+		width:860,
+		height:520
+	});
+}
+function edit_about(id,typename){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'企业简介配置【'+typename+'】',
+		url:'?admin-domain-item_edit-type-about-cid-'+id,
+		posturl:'?admin-domain-item_update-type-about',
+		width:860,
+		height:520
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

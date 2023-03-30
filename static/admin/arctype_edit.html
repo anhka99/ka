@@ -1,0 +1,222 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="unsub"><a href="{url('admin/arctype/index')}">模型管理</a></li>
+	<li class="sub"><a>{if $id==0}添加{else}编辑{/if}模型</a></li>
+	<li class="unsub"><a href="javascript:" onclick="nodeImport(0);"><i class="typcn typcn-download" style="font-size:15px;"></i> 导入模型</a></li>
+</ul>
+<style type="text/css">
+.border-err{ border:2px solid #ff3300;}
+.tdbg2{ line-height: 25px;height: 25px;}
+</style>
+<script type="text/javascript">
+function nodeImport(id){
+	art.dialog.open('?admin-arctype-import-id-'+id,{lock:true,title:'导入模型',id:'nodeTestifrm',width:'700px',height:'400px'});
+}
+</script>
+<div id="admin_right_b">
+  <form method="post">
+    <table width="98%" border="0" align="center" cellpadding="5" cellspacing="0" class="tableConfig">
+	<tr class="item_title">
+		<td colspan="3"><i class="typcn typcn-cog"></i> 基本设置</td>
+	</tr>
+	<tr onmouseover=this.bgColor='#fff5ea'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+      <td width="120" align="right" class="config_td_first">模型名称：</td>
+	  <input type="hidden" name="con[id]" value="{$id|default:0}">
+      <td class="tdbg2" colspan="2" align="l"><input name="con[name]" type="text" value="{$name}" class="input" size="30"> <font color="#ff3300">*</font></td>
+    </tr>
+
+	<tr onmouseover=this.bgColor='#fff5ea'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+      <td align="right" class="config_td_first">配置文件夹：</td>
+      <td class="tdbg2" colspan="2"><font color="#ff3300">*</font> <font color="">填写文件夹名称，数字和字母，不要有中文和符号，不要有重复</font><br> <input name="con[dirname]" type="text" value="{$dirname}" class="input {if $id>0}lockinput{/if}" size="20"{if $id>0} readonly{/if}>&nbsp;<font color="red">* 添加后不可修改，内容库以及模板等设置会以此为命名基础</font></td>
+    </tr>
+	<tr onmouseover=this.bgColor='#fff5ea'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+      <td align="right" class="config_td_first">可取值url参数：<br/>( <font color="red">专家填写</font> )<br/><br/><label><input type="checkbox" onclick="$('#params').removeClass('lockinput');$('#params').attr('readonly',false);this.checked=true;" />我是专家</label></td>
+      <td class="tdbg2" colspan="2">
+	  可取值的URL参数，一行一个( <font color="red">填字母</font> )。一般用于tag或者搜索，或者联动筛选(如产品的年份)！<br>
+	  用于在模板调用url参数，格式： <font color="red">参数----数据类型----最大长度</font>   ，如：<font color="red">typeid----1----10</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="open_notes('params','可取值url参数');"><i class="typcn typcn-zoom-in"></i>点击查看说明</a> <br/> 
+	  <font color="blue">注：数据类型有 (<font color="red">1->数字,2->纯字母,3->数字字母,4->不限</font>)，不可用参数有：id,cid,aid,ename,p,a,m,g,n,w<br></font>
+	  <textarea readonly name="con[params]" id="params" class="textarea lockinput" style="width:450px;height:100px;">{$params}</textarea></td>
+    </tr>
+	<tr onmouseover=this.bgColor='#fff5ea'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+      <td align="right" class="config_td_first">附加数据字段：<br/>( <font color="red">专家填写</font> )<br/><br/><label><input type="checkbox" onclick="$('#addfields').removeClass('lockinput');$('#addfields').attr('readonly',false);this.checked=true;" />我是专家</label></td>
+      <td class="tdbg2" colspan="2">
+		一行一个字段( <font color="red">填字母</font> )，通常基本信息包含标题、缩略图、描述。（导入时会有格式说明）<br/>除了这3个以外的，其他的附加数据字段可在此填写（如：作者、年份、型号...）&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="open_notes('addfields','附加数据字段');"><i class="typcn typcn-zoom-in"></i>点击查看说明</a>
+		<textarea readonly name="con[addfields]" id="addfields" class="textarea lockinput" style="width:450px;height:100px;">{$addfields}</textarea></td>
+    </tr>
+	<tr onmouseover=this.bgColor='#fff5ea'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+      <td align="right" class="config_td_first">模型备注介绍：<br/>( <font color="red">选填</font> )</td>
+      <td class="tdbg2" colspan="2">
+		<textarea name="con[notes]" class="textarea" style="width:550px;height:100px;">{$notes}</textarea></td>
+    </tr>
+	<tr class="item_title">
+		<td colspan="3"><i class="typcn typcn-cog"></i> 模板URL规则列表</td>
+	</tr>
+	<tr>
+	<td colspan="3">
+		<div class="divtips" style="font-size:13px;line-height:25px">
+			<p>URL规则设置说明：</p>
+			<p>- 支持的url规则标签： {数字}、{字母}、{大写字母}、{大小写字母}、{大写字母数字}、{大小写字母数字}、{数字字母}、{日期}、{年}、{月}、{日}、{时}、{分}、{秒}、{随机字符}
+			<p>- 标签后面加数字是位数(时间日期除外)，如： {数字8}表示8个随机数字、{数字1-8}表示随机1-8个数字</p>
+			<p><font color="blue">2个标签之间最好使用一个分隔符，如：{id}-{page}，避免各规则冲突</font></p>
+			<p><b>注1：修改url规则后，需清除url规则缓存才生效！各个模板规则注意不要雷同，避免冲突</b></p>
+			<p><b>注2：如模板设为栏目页，则可以在栏目管理单独给该模板添加栏目名称，且title调用的是栏目名称（如：企业模型中的产品列表页）</b></p>
+			<p><b>注3：一般只用到{id}、{pinyin} 这2个标签，用其他的随机标签会产生标题重复（除非标题插入了随机关键词或者调用了其他东西）</b></p>
+		</div>
+		<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" class="tableConfig">
+			<tbody id="tbody_urlrules">
+				<tr class="headtr" align="center">
+				  <td width="50">ID</td>
+				  <td width="100">模板文件名</td>
+				  <td width="100">模板说明</td>
+				  <td width="300">url规则(每行一条)</td>
+				  <td width="100">页面类型</td>
+				  <td width="120">操作</td>
+				  <td>&nbsp;</td>
+				</tr>
+				<tr align="center">
+					<td align="center">1</td>
+					<td><input type="text" value="index" class="input lockinput" style="width:100px;" disabled></td>
+					<td><input type="text" value="首页模板" class="input lockinput" style="width:100px;" readonly/></td>
+					<td align="left"><input type="text" value="/" class="input" style="width:350px;font-size:13px;" disabled></td>
+					<td  align="center"><select disabled>
+						<option value="0">其他页</option>
+					</select></td>
+					<td  align="center"><font color="red">系统</font></td>
+					<td align="center">&nbsp;</td>
+				</tr>
+				{php}$i=2;{/php}
+				{if $urlrules}
+				{foreach $urlrules as $k=>$vo}
+				<?php //$this->_var['vo']['system']=1; ?>
+				<tr align="center" class="mtr" onmouseover=this.bgColor='#e3ebd6'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff' isarticle="{if $vo.pagetype=='2'}1{else}0{/if}">
+					<td align="center">{php}echo $i;{/php}<input type="hidden" name="system[]" value="{$vo.system}" /></td>
+					<td><input name="tplfile[]" type="text" value="{$vo.tplfile}" class="input {if $vo.system}lockinput{/if}" style="width:100px;"{if $vo.system} readonly{/if}></td>
+					<td><input name="tplname[]" type="text" value="{$vo.tplname}" class="input {if $vo.system}lockinput{/if}" style="width:100px;"{if $vo.system} readonly{/if}></td>
+					<td align="left" class="urlrulesClass"><div class="urltag_tips" style="padding:5px 0;color:#ff6600">{if $vo.pagetype=='1'}<font color="blue">栏目首页</font>规则，必填标签：<font color="green">{id}  或 {pinyin}</font> {/if}{if $vo.pagetype=='2'}<font color="blue">内容页</font>规则，必填标签：<font color="green">{id}</font>{/if}</div><textarea onblur="check_rule(this)" ispage="0" name="urlrules[]" class="textarea" style="width:450px;height:100px;">{$vo.rules|htmlspecialchars}</textarea><div class="page_rules_area{if $vo.pagetype!='1'} none{/if}" style="margin:5px 0;color:#ff6600"><p style="padding:5px 0;"><font color="blue">栏目分页</font>规则，必填标签：( <font color="green">{id} 或 {pinyin}</font> ) + <font color="green">{page}</font></p><textarea onblur="check_rule(this)" ispage="1" name="urlrules_page[]" class="textarea" style="width:450px;height:100px;">{$vo.rules_page|htmlspecialchars}</textarea></div></td>
+					<td align="center"><select class="pagetype" {if $vo.system}disabled{else}name="pagetype[]"{/if}  onchange="pagetype(this);">
+						<option value="0" {if !$vo.pagetype}selected="selected"{/if}>其他页</option>
+						<option value="1" {if $vo.pagetype=='1'}selected="selected"{/if}>栏目页</option>
+						<option value="2" {if $vo.pagetype=='2'}selected="selected"{/if}>内容页</option>
+					</select>{if $vo.system}<input type="hidden" name="pagetype[]" value="{$vo.pagetype}" />{/if}</td>
+					<td align="center">{if $vo.system}<font color="red">系统</font>{else}<a href="javascript:" onClick="if(confirm('确定删除吗?')){  deltr(this);}"><i class="typcn typcn-trash"></i></a>{/if}</td>
+					<td align="center">&nbsp;</td>
+				</tr>
+				{php}$i++;{/php}
+				{/foreach}
+				{/if}
+			</tbody>
+			<tr class="mtr" id="addtr" onmouseover=this.bgColor='#e3ebd6'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+				<td align="center">-</td>
+				<td><input name="tplfile[]" type="text" value="" class="input" style="width:100px" placeholder="无后缀文件名"></td>
+				<td><input name="tplname[]" type="text" placeholder="文件说明" value="" class="input" style="width:100px;"></td>
+				<td><div class="urltag_tips" style="padding:5px 0;color:#ff6600"></div><textarea onblur="check_rule(this)" ispage="0" name="urlrules[]" class="textarea" style="width:450px;height:100px;"></textarea><div class="page_rules_area none" style="margin:5px 0;color:#ff6600"><p style="padding:5px 0;"><font color="blue">栏目分页</font>规则，必填标签：( <font color="green">{id} 或 {pinyin}</font> ) + <font color="green">{page}</font></p><textarea name="urlrules_page[]" onblur="check_rule(this)" ispage="1" class="textarea" style="width:450px;height:100px;"></textarea></div></td>
+				<td align="center">
+					<select name="pagetype[]" class="pagetype" onchange="pagetype(this);">
+						<option value="0">其他页</option>
+						<option value="1">栏目页</option>
+						<option value="2">内容页</option>
+					</select>
+				</td>
+				<td align="center"><button type="button" class="button" onclick="addtpl();">+ 添加一项</button></td>
+				<td align="center">&nbsp;</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="3"><button type="submit" id="dosave" class="button button_submit"><i class="typcn typcn-tick"></i>提交保存</button> <button type="button" onClick="location.href='{url('admin/arctype/index')}';" class="button button_grey">返回</button></td>
+	</tr>
+	</table>
+<script type="text/javascript">
+function open_notes(type,name){
+	top.art.dialog.open('?admin-arctype-notes-type-'+type,{ lock:true,title:'《'+name+'》说明',id:'notesifrm',width:'750px',height:'450px'});
+}
+function check_rule(_this){
+	var _thistr=$(_this).parents(".mtr");
+	var ispage=$(_this).attr("ispage")>0;
+	var pagetype=$('.pagetype',_thistr).val()>0;
+	var isarticle=$(_thistr).attr("isarticle")>0;
+	var rules=$(_this).val();
+	$(_this).removeClass('border-err');
+	if(rules==""){
+		$(_this).addClass('border-err');
+		return false;
+	}
+	var rulesArr=rules.split("\n");
+	$(rulesArr).each(function(n){
+		var rv=rulesArr[n];
+		if(isarticle && rv.indexOf('{id}')==-1){
+			showAlert('error','该URL规则为<b>内容页</b>规则，每条规则必须包含 {id} 标签','',30);
+			$(_this).addClass('border-err');
+			return false;
+		}else if(pagetype && rv.indexOf('{id}')==-1 && rv.indexOf('{pinyin}')==-1){
+			showAlert('error','该URL规则为<b>栏目页规则</b>，每条规则必须包含 {id} 或者 {pinyin}  标签','',30);
+			$(_this).addClass('border-err');
+			return false;
+		}else if(pagetype && ispage && rv.indexOf('{page}')==-1){
+			showAlert('error','该URL规则为<b>栏目分页规则</b>，每条规则必须包含 {page}  标签','',30);
+			$(_this).addClass('border-err');
+			return false;
+		}
+	});
+	$(_this).val(rulesArr.join("\n"));
+}
+var trnum=$("#tbody_urlrules tr").prevAll("tr").length;
+function deltr(elem){
+	$(elem).parents(".mtr").remove();
+}
+function pagetype(_this){
+	var _thistr=$(_this).parents(".mtr");
+	$(_thistr).attr('isarticle','0');
+	if(_this.value==1){
+		$('.page_rules_area',_thistr).show();
+		$('.urltag_tips',_thistr).html('<font color="blue">栏目首页</font>规则，必填标签：<font color="green">{id} 或 {pinyin}</font>');
+	}else if(_this.value==2){
+		$(_thistr).attr('isarticle','1');
+		$('.page_rules_area',_thistr).hide();
+		$('.urltag_tips',_thistr).html('<font color="blue">内容页</font>规则，必填标签：<font color="green">{id}</font>');
+	}else{
+		$('.page_rules_area',_thistr).hide();
+		$('.urltag_tips',_thistr).html('必填标签：{id}');
+	}
+}
+function addtpl(){
+	trnum++;
+	var id = trnum;
+	var input='<tr class="mtr" onmouseover=this.bgColor=\'#e3ebd6\'; onmouseout=this.bgColor=\'#ffffff\'; bgcolor=\'#ffffff\'>';
+	input+='<td align="center">'+id+'</td>';
+	input+='<td><input name="tplfile[]" type="text" value="" class="input" style="width:100px" placeholder="无后缀文件名"></td>';
+	input+='<td><input name="tplname[]" type="text" placeholder="文件说明" value="" class="input" style="width:100px;"></td>';
+	input+='<td><div class="urltag_tips" style="padding:5px 0;color:#ff6600"></div><textarea onblur="check_rule(this)" ispage="0" name="urlrules[]" class="textarea" style="width:450px;height:100px;"></textarea><div class="page_rules_area none" style="margin:5px 0;color:#ff6600"><p style="padding:5px 0;"><font color="blue">栏目分页</font>规则，必填标签：( <font color="green">{id} 或 {pinyin}</font> ) + {page}</p><textarea name="urlrules_page[]" onblur="check_rule(this)" ispage="1" class="textarea" style="width:450px;height:100px;"></textarea></div></td>';
+	input+='<td align="center"><select name="pagetype[]" class="pagetype" onchange="pagetype(this);"><option value="0">其他页</option><option value="1">栏目页</option><option value="2">内容页</option></select></td>';
+	input+='<td align="center"><a href="javascript:" onclick="deltr(this);"><i class="typcn typcn-trash"></i></a></td>';
+	input+='<td align="center">&nbsp;</td>';
+	input+='</tr>';
+	$("#tbody_urlrules").append(input);
+}
+$("#dosave").click(function(){
+	showDialog();
+	$.ajax({
+		type:"post",
+		url:"{url('admin/arctype/update')}",
+		data:$("form").serialize(),
+		dataType:'json',
+		timeout:28000,
+		global:false,
+		success:function(data){
+			if(data.status==1){
+				showAlert('success',data.info,'?admin-arctype-index');
+			}else{
+				showAlert('error',data.info,'',5);
+			}
+		}
+	});
+ return false;
+});
+</script>
+<div class="runtime"></div>  
+</div>
+</body>
+</html>

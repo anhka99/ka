@@ -1,0 +1,58 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="unsub"><a href="{url('admin/addons/index')}">插件列表</a></li>
+	<li class="sub"><a>插件配置</a></li>
+</ul>
+<div id="admin_right_b">
+<form method="post" action="{url('admin/addons/update_config')}">
+<input type="hidden" name="con[name]" value="{$addon_name}" />
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 插件信息</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">插件名称：</td>
+      <td><font color="blue">{$addon_info.title}</font></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">插件描述：</td>
+      <td><font>{$addon_info.description}</font></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">插件版本：</td>
+      <td>{$addon_info.version}</td>
+    </tr>
+	<tr>
+		<td align="right" class="config_td_first">选择分组：</td>
+		<td><input type="hidden" name="con[addon_group]" id="addon_group_value" value="{$addon_group}" /><font id="addon_group_items" color="#ff6600">{if !$addon_group_name}未选择{else}{$addon_group_name}{/if}</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="select_group('addon');"><i class="typcn typcn-zoom-in"></i>点击选择</a> <span class="tips" style="color:red"><i class="typcn typcn-info"></i>选择开启此插件的分组</span></td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">指定开启的域名：</td>
+      <td><font color="red">一行一条，支持泛域名格式：*.a.com ，不填则不限制域名</font>
+	 <br/><textarea name="con[addon_domains]" class="inputs" style="width:350px;height:150px">{$addon_domains}</textarea></td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td width="150" align="right"><i class="typcn typcn-cog"></i> 插件设置</td>
+		<td></td>
+	</tr>
+  {if $config_html} {$config_html} {else}
+	<tr class="tdbg">
+      <td></td>
+      <td>无</td>
+    </tr>{/if}
+	<tr>
+	  <td></td>
+      <td align="left">
+		<button type="submit" class="button button_submit"><i class="typcn typcn-tick"></i>保存设置</button>
+		<button type="button" class="button button_submit button_grey" onclick="history.go(-1);">返回列表</button>
+	  </td>
+    </tr>
+  </table>
+</form>
+</div>
+{include file="group_list.html"}
+{include file="footer.html"}
+</body>
+</html>

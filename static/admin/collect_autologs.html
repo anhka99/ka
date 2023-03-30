@@ -1,0 +1,41 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">自动采集日志</a></li>
+</ul>
+<div id="admin_right_b">
+<form method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr>
+  <td align="right" width="150">功能说明：</td>
+  <td>
+	<div style="color:red">显示最近200条自动采集日志 &nbsp;&nbsp;<button type="button" class="button button_small" onclick="del_coll_autolog();"><i class="typcn typcn-trash"></i>清除日志</button>&nbsp;&nbsp;<font id="remsg"></font></div>
+  </td>
+</tr>
+<tr class="list">
+  <td align="right">&nbsp;</td>
+  <td><textarea type="text" style="height:450px;width:80%;">{$data}</textarea></td>
+</tr>
+
+	</table>
+</form>
+</div>
+<script type="text/javascript">
+function del_coll_autolog(){
+	if(!confirm("确定清除？清除后不可恢复!")){
+		return false;
+	}
+	$('#remsg').html("<img src='static/images/load_blue.gif'>");
+	$.ajax({
+	   type: "GET",
+	   url: "{url('admin/collect/autologs_del')}",
+	   dataType: "json",
+	   success: function(a){
+		  $('#remsg').html("<font color='red'>"+a.info+"</font>");
+	   }
+	});
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

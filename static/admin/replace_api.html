@@ -1,0 +1,69 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">伪原创 · 第三方API(<font color="red">new</font>)</a></li>
+	<li class="unsub"><a href="javascript:" onclick="edit(0);"><i class="typcn typcn-plus"></i>添加伪原创API</a></li>
+</ul>
+<div id="admin_right_b">
+<div class="divtips" style="font-size:13px;margin-top:10px;">
+	<p>1. 本功能用于采集的时候，采集到的内容经过伪原创API进行伪原创（AI伪原创、中文翻译等等..）处理后再入库，设置后在采集规则中启用！</p>
+	<p>2. 本功能适用于市面上绝大多数的伪原创平台，点击测试可测试API有效性！</p>
+</div>
+<form method="post">
+  <table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" id="config0" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td align="right" width="150"><i class="typcn typcn-cog"></i> 伪原创API列表</td>
+		<td style="font-weight:500;color:red"></td>
+	</tr>
+	<tr class="tdbg">
+		<td colspan="2">
+			<table border="0" align="center" cellpadding="3" cellspacing="0" class="table_b">
+				<tr>
+				  <td width="50" align='center' class="title_bg">id</td>
+				  <td width="150" class="title_bg">API名称</td>
+				  <td width="500" align='center' class="title_bg">API地址</td>
+				  <td width="130" align='center' class="title_bg">修改时间</td>
+				  <td width="180" align='center' class="title_bg">管理</td>
+				  <td class="title_bg">&nbsp;</td>
+				</tr>
+				{foreach $list as $vo}
+				<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+				  <td align="center" height="25">{$vo.id}</td>
+				  <td>&nbsp;&nbsp;<a onclick='edit({$vo.id});' href="javascript:" title="点击修改">{$vo.api_title}</a></td>
+				  <td><a href="{$vo.api_url}" target="_blank">{$vo.api_url}</a></td>
+				  <td align="center">{$vo.addtime|now_date_color:###,'Y-m-d H:i'}</td>
+				  <td align="center">
+					<a href="javascript:" onclick="apiTest('{$vo.id}','{$vo.api_title}');" title="测试规则" class="button button_small button_inverse">测试</a>
+					<a onclick='edit({$vo.id});' href="javascript:" class="button button_small" title="修改"><i class="typcn typcn-edit"></i>修改</a>
+					<a href="?admin-replace-api_del-id-{$vo.id}" onclick='return confirm("确定删除《{$vo.api_title}》？\n-----------------\n删除后不可恢复!");' class="button button_small button_remove"><i class="typcn typcn-trash"></i></a></td>
+				  <td align="center">&nbsp;</td>
+				  </tr>
+				{foreachelse}
+					<tr><td align="center" colspan="5"><font color="blue">没有伪原创API记录，请添加！</font></td></tr>
+				{/foreach}
+			  </table>
+		</td>
+	</tr>
+	</table>
+	</form>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+function edit(id){
+	var title=id?'修改':'添加';
+	edit_dialog({
+		title:title+'伪原创API',
+		url:'?admin-replace-api_edit-id-'+id,
+		posturl:'?admin-replace-api_update-id-'+id,
+		width:780,
+		height:400
+	});
+}
+function apiTest(id,title){
+	art.dialog.open('?admin-replace-api_test-id-'+id,{
+		lock:true,opacity:0.3,title:'伪原创API测试《'+title+'》',id:'openifrm',width:'680px',height:'500px'});
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

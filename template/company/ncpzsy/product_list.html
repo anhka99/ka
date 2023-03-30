@@ -1,0 +1,92 @@
+{include file="header.html"}
+<!-- E touch-top-wrapper --><!-- ==================== E top ==================== --><!-- ==================== S header ==================== -->
+<div id="a1portalSkin_headerAreaA" class="header"><!-- Start_Module_228990 --><a name="26521" id="26521"></a>
+	<div class="module-default">
+		<div class="module-inner">
+			<div id="a1portalSkin_ctr228990228990_mainArea" class="module-content"><!-- Start_Module_228990 --><!-- S responsive-carousel -->
+				<div class="responsive-carousel carousel clearfix">
+					<div id="responsive-228990">
+						<div class="carousel-item" style="">
+							<div class="carousel-img"><a href="javascript:;" target=""><img src="{$theme_path}/staic/images/69458de38af62357dc15400bbaa9f1dd.jpg" alt="{$web_name}" /></a></div>
+						</div>
+					</div>
+					<div class="carousel-btn carousel-btn-fixed" id="carousel-page-228990"></div>
+					<script type="text/javascript">
+
+                        $(window).load(function(){
+                            $("#responsive-228990").carouFredSel({
+                                responsive : true,
+                                width       : '100%',
+                                items  : { visible : 1 },
+                                auto     : { pauseOnHover: true, timeoutDuration:5000 },
+                                swipe     : { onTouch:true, onMouse:true },
+                                pagination  : "#carousel-page-228990"
+                                //prev   : { button:"#carousel-prev-228990"},
+                                //next   : { button:"#carousel-next-228990"},
+                                //scroll : { fx : "coverfade", duration : 1200, timeoutDuration : 1500 }
+                            });
+
+                            $("#responsive-228990 .carousel-item").show();
+                        });
+					</script></div>
+				<!-- E responsive-carousel --><!-- End_Module_228990 --></div>
+		</div>
+	</div>
+</div>
+<!-- ==================== E Header ==================== --><!-- ==================== S main ==================== -->
+<section class="main">
+	<section class="full-page-title-wrap clearfix" skinobjectzone="menu_2834">
+		<h2>{$title}</h2>
+	</section>
+	<!-- S page-menu -->
+	<section class="full-page-menu" skinobjectzone="menu_2909">
+		<div class="full-page-menu-content">
+			<div class="page-width">
+				<ul class="clearfix" >
+					{loop type="catelog" tpl="product_show" ename="products" row="5" cid=$cid}
+					<li class=""><a href="{$vo.typeurl}">{$vo.typename}</a></li>
+					>{/loop}
+				</ul>
+				<!-- 没有子菜单时输出 --></div>
+		</div>
+	</section>
+	<!-- S page-menu -->
+	<div class="page-width clearfix"><!-- S full-page-content -->
+		<div class="full-page-content">
+			<div id="a1portalSkin_mainArea" class="full-page-content-wrapper"><!-- Start_Module_228989 --><a name="26509" id="26509"></a>
+				<div class="module-default">
+					<div class="module-inner">
+						<div id="a1portalSkin_ctr228989228989_mainArea" class="module-content"><!-- Start_Module_228989 --><!-- S portfolio-list -->
+							<div class="portfolio-list product-list ieCode-del">
+								<ul class="row2-svar clearfix">
+									{loop type="arclist" row='8'tpl="product_show" ename="products" }
+									<li class="col-4-1 not-animated" data-animate="fadeInUp">
+										<div class="product-item">
+											<div class="portfolio-img"><a href="{$vo.url}"><img height="300 width="300" src="{$vo.pic}" alt="{$vo.title}" /></a></div>
+											<div class="portfolio-title">
+												<h2><a href="{$vo.url}">{$vo.title}</a></h2>
+											</div>
+										</div>
+									</li>
+									{/loop}
+
+
+								</ul>
+							</div>
+							<!-- E portfolio-list --><!-- S pagination -->
+							<div class="m-page full-page-title-wrap">
+								<ul class="pagelist">
+									{loop type="page" tpl="product_list" }<li><a href="{$vo.url}">{$vo.title}</a></li>{/loop}              </ul>
+							</div>
+							<div class="m-page mobile-section">
+								<ul class="pagelist">
+									{loop type="page" tpl="product_list" }<li><a href="{$vo.url}">{$vo.title}</a></li>{/loop} </ul>
+							</div>
+							<!-- E pagination --><!-- End_Module_228989 --></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- E full-page-content --></div>
+</section>
+{include file="footer.html"}

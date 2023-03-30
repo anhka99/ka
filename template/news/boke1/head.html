@@ -1,0 +1,23 @@
+<nav id="navs-wrap">
+<div id="logos">
+	<h2><a href="{$web_path}/" title="{网站名称}">{网站名称}</a></h2>
+</div>
+<ul id="navs" class="menu">
+	<li id="nvabar-item-index"><a href="/">全站首页</a></li>
+	 {menu row="10"}
+		<li id="navbar-page-2"><a href='{$vo.url}'>{$vo.title}</a></li>
+     {/menu}
+</ul>
+</nav>
+<div id="container">
+	<div class="header">
+		<h1 class="logo"><a title="{网站名称}" href="/" style="background-image:none;text-align: center;line-height: 120px;">{网站名称}</a></h1>
+		<ul class="nav">
+			<li><a href="/"><span><img alt="返回首页" src="{$theme_path}/zb_system/style/icon/home.png"/></span>返回首页</a></li>
+			{menu row="10"}
+				<li><a href='{$vo.url}'> · {$vo.title}</a></li>
+			 {/menu}
+		</ul>
+	</div>
+</div>
+{$randtagstr}

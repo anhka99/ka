@@ -1,0 +1,87 @@
+{include file="header.html"}
+<body class="body-main">
+<form method="post">
+<input type="hidden" name="con[cid]" value="{$cid|default:0}">
+<table width="98%" border="0" align="center" cellpadding="4" cellspacing="0" id="config0"  class="tableConfig">
+	<tbody>
+		<tr class="tdbg item_title">
+			<td width="100" align="right"><i class="typcn typcn-cog"></i> 内容优化设置</td>
+			<td></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">网站分组：</td>
+		  <td class="tdbg"><font color="blue">{$classname}</font></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">标题重组方式：</td>
+		  <td>
+		  <select name="con[reform_title]">
+			<option value="0" {if !$reform_title} selected="selected"{/if}>关闭</option>
+			<option value="1" {if $reform_title=='1'} selected="selected"{/if}>打散重组</option>
+			<option value="3" {if $reform_title=='3'} selected="selected"{/if}>内容取一句话作为标题</option>
+			<option value="4" {if $reform_title=='4'} selected="selected"{/if}>内容取一句话加在标题后面</option>
+		  </select> <span>标题是否重组方式</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">打散基数：</td>
+		  <td class="tdbg"><input name="con[reform_title_base]" type="text" class="input" value="{$reform_title_base|default:'2'}" size="10"> <span>范围2-5，越小越乱</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">文章段落打乱：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[shuffle_content]" value="1" {if $shuffle_content} checked{/if}>开启</label>
+				<label><input type="radio" name="con[shuffle_content]" value="0" {if !$shuffle_content} checked{/if}>关闭</label>　<span>文章段落打乱重组，<font color="red">仅适用中文</font></span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">内容关联标题：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insert_title2content]" value="1" {if $insert_title2content || $insert_title2content==null} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insert_title2content]" value="0" {if $insert_title2content=='0'} checked{/if}>关闭</label>　<span>标题分词分布插入文章内容，提升文章内容标题相关度</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">内容库繁体转换：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[tobig5]" value="1" {if $tobig5} checked{/if}>开启</label>
+				<label><input type="radio" name="con[tobig5]" value="0" {if !$tobig5} checked{/if}>关闭</label>　<span>可将内容库的标题、内容等即时转换成繁体</span></td>
+		</tr>
+		
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">unicode转码：</td>
+		  <td class="icheck_radios">
+				<label><input type="checkbox" name="unicode[]" value="tkd" {if in_array('tkd',$unicode)} checked{/if}>TKD(标题,关键词,描述)</label>
+				<label><input type="checkbox" name="unicode[]" value="body" {if in_array('body',$unicode)} checked{/if}>内容页内容</label>
+				<label><input type="checkbox" name="unicode[]" value="loop" {if in_array('loop',$unicode)} checked{/if}>loop标签标题和info</label>
+				<span>哪些地方进行unicode转码</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">ASCII特殊码插入(<font class="red">标题</font>)：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insert_titleascii]" value="1" {if $insert_titleascii} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insert_titleascii]" value="0" {if !$insert_titleascii} checked{/if}>关闭</label>　<span>标题插入ASCII特殊码</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">ASCII特殊码插入(<font class="red">内容</font>)：</td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[insert_bodyascii]" value="1" {if $insert_bodyascii} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insert_bodyascii]" value="0" {if !$insert_bodyascii} checked{/if}>关闭</label>　<span>内容插入ASCII特殊码</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">插入模板干扰标签(<font class="red">new</font>)：</td>
+		  <td class="icheck_radios">
+				<label><input type="radio" name="con[insert_randtags]" value="1" {if $insert_randtags==1} checked{/if}>老版干扰</label>
+				<label><input type="radio" name="con[insert_randtags]" value="2" {if $insert_randtags==2} checked{/if}><font color="red">新版干扰(小旋风独创)</font></label>
+				<label><input type="radio" name="con[insert_randtags]" value="0" {if !$insert_randtags} checked{/if}>关闭</label>　<span>自动插入模板干扰标签</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first" width="120">文章发布时间：</td>
+		  <td><select name="con[addtime_type]">
+			<option value="1" {if $addtime_type=='1'} selected="selected"{/if}>内置时间</option>
+			<option value="2" {if !$addtime_type || $addtime_type=='2'} selected="selected"{/if}>当前时间</option>
+		  </select></td>
+		</tr>
+		
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">禁止搜索引擎快照<sup style="color:red">new</sup></td>
+		  <td class="icheck_radios"><label><input type="radio" name="con[no_se_webcache]" value="1" {if $no_se_webcache} checked{/if}>开启</label>
+				<label><input type="radio" name="con[no_se_webcache]" value="0" {if !$no_se_webcache} checked{/if}>关闭</label>　<span>可防止他人查看你的快照</span></td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+</body>
+</html>
